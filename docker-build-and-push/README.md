@@ -18,8 +18,8 @@ on:
         default: idevops.io       
         
 jobs:
-  update_route53:
-    name: "Update or Create Route53"
+  update_build_check_push:
+    name: "Check if exist, build and push if not."
     runs-on: ${{ matrix.os }}
 
     strategy:
