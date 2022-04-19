@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: "Create an CNAME record set"
+      - name: "Check if exist, build and push if not."
         uses: iDevOps-io/idevops-git-actions/docker-build-and-push@main
         with:
           docker_username: ${{ secrets.DOCKER_USERNAME }}
