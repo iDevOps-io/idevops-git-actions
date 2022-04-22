@@ -1,0 +1,13 @@
+name: "Build Persistent Variables From Vars File"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Set Build Persistent Variables From Vars File
+inputs:
+  vars_file_location:
+    description: Location of vars file to be used for persistent variable replacement
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
