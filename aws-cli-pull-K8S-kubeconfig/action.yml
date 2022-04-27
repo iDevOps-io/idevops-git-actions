@@ -1,0 +1,13 @@
+name: "Use AWS CLI to pull K8S Kubeconfig"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Use AWS CLI to pull K8S Kubeconfig
+inputs:
+  kubernetes_cluster_name:
+    description: Name of kubernetes cluster
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
