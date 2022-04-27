@@ -6,7 +6,7 @@ branding:
 description: Set Build Persistent Variables From Vars File
 inputs:
   vars_file_location:
-    description: Location of vars file to be used for persistent variable replacement
+    description: Location of vars file to be used for setting persistent variables
     required: true
 runs:
   using: docker

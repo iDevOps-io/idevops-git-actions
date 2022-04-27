@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       vars_file_location:
-        description: Location of vars file to be used for persistent variable replacement
+        description: Location of vars file to be used for setting persistent variables
         default: vars/
 
 jobs:
