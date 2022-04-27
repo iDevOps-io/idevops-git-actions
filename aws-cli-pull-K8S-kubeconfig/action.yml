@@ -6,7 +6,16 @@ branding:
 description: Use AWS CLI to pull K8S Kubeconfig
 inputs:
   kubernetes_cluster_name:
-    description: Name of kubernetes cluster
+    description: Name of kubernetes cluster.
+    required: true
+  AWS_ACCESS_KEY_ID:
+    description: Key used to access AWS.
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: Key used to access AWS secrets.
+    required: true
+  AWS_DEFAULT_REGION:
+    description: Region you wish to use for AWS.
     required: true
 runs:
   using: docker
