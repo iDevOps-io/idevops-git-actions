@@ -1,0 +1,37 @@
+name: "Create namespace & Docker Pull Secret"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Create namespace & Docker Pull Secret
+inputs:
+  namespace:
+    description: Namespace for kubernetes.
+    required: true
+  docker_host_url:
+    description: Host url for Docker.
+    required: true
+  docker_username:
+    description: Docker Username in Docker Hub.
+    required: true
+  docker_password:
+    description: Docker Password for Docker Hub Authentication (PAT)
+    required: true
+  docker_email:
+    description: Email used for Docker.
+    required: true
+  docker_pull_secret:
+    description: Adds a secret to grant access for pods to pull images from registry.
+    required: true
+  AWS_DEFAULT_REGION:
+    description: Region you wish to use for AWS.
+    required: true
+  AWS_ACCESS_KEY_ID:
+    description: Key used to access AWS.
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: Key used to access AWS secrets.
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
