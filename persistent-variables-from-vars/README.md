@@ -6,7 +6,7 @@ on:
     inputs:
       vars_file_location:
         description: Location of vars file to be used for setting persistent variables
-        default: vars/
+        default: vars/circleci/vars.json
 
 jobs:
   set_build_persistent_variables:
