@@ -1,6 +1,6 @@
 import os
 import json
-vars_file=open(os.environ["vars_file_location"], "r").read()
+vars_file=open(os.environ["INPUT_VARS_FILE_LOCATION"], "r").read()
 json_var_object = json.loads(vars_file)
 append_github_file = open(os.environ["GITHUB_ENV"], "a")
 for key in json_var_object:
