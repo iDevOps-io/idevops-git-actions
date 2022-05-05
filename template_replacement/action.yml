@@ -1,0 +1,16 @@
+name: "Execute template replacement on file"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Set Build Persistent Variables From Vars File
+inputs:
+  input_file:
+    description: File you want to run template replacement on.
+    required: true
+  output_file:
+    description: File you want the output to be after template replacement.
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
