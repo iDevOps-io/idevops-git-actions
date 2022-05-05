@@ -1,0 +1,16 @@
+name: "Kubernetes validate deployment"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Kubernetes validate deployment
+inputs:
+  app_name:
+    description: Name of the app you are deploying.
+    required: true
+  namespace:
+    description: Kubernetes namespace you wish to use
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
