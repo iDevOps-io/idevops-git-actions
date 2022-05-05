@@ -11,6 +11,18 @@ inputs:
   output_file:
     description: File you want the output to be after template replacement.
     required: true
+  POSTGRES_PASSWORD:
+    description: Postgres password.
+    required: true 
+  AWS_ACCESS_KEY_ID:
+    description: AWS access key ID
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: AWS secret access key.
+    required: true
+  AWS_DEFAULT_REGION:
+    description: AWS Default region.
+    required: true
 runs:
   using: docker
   image: Dockerfile

@@ -28,6 +28,10 @@ jobs:
         with:
           input_file: "${{ github.event.inputs.input_file }}"
           output_file: "${{ github.event.inputs.output_file }}"
+          POSTGRES_PASSWORD: "${{ secrets.MYSQL_ROOT_PASSWORD }}"
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
 
 
 ```
