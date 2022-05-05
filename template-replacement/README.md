@@ -12,7 +12,7 @@ on:
         default: manifests/circleci/deployment.yaml
 
 jobs:
-  set_build_persistent_variables:
+  execute_template_replacement:
     name: "Execute template replacement on file"
     runs-on: ${{ matrix.os }}
 
