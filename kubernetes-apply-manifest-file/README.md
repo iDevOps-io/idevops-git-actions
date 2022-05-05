@@ -12,7 +12,7 @@ on:
         default: circleci
 
 jobs:
-  set_build_persistent_variables:
+  apply_kubernetes_manifest_file:
     name: "Apply Kubernetes manifest file"
     runs-on: ${{ matrix.os }}
 
