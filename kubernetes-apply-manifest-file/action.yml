@@ -1,0 +1,16 @@
+name: "Apply Kubernetes manifest file"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Apply Kubernetes manifest file
+inputs:
+  manifest_file_location:
+    description: Manifest file location you wish to use.
+    required: true
+  namespace:
+    description: Kubernetes namespace you wish to use
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
