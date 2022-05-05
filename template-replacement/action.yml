@@ -3,7 +3,7 @@ author: Evan Floyd <efloyd@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
-description: Set Build Persistent Variables From Vars File
+description: Execute template replacement on file
 inputs:
   input_file:
     description: File you want to run template replacement on.
