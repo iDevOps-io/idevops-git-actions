@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Execute template replacement on file"
-        uses: iDevOps-io/idevops-git-actions/template_replacement@main
+        uses: iDevOps-io/idevops-git-actions/template-replacement@main
         with:
           input_file: "${{ github.event.inputs.input_file }}"
           output_file: "${{ github.event.inputs.output_file }}"
