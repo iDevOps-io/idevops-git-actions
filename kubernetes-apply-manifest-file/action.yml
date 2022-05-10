@@ -8,6 +8,9 @@ inputs:
   manifest_file_location:
     description: Manifest file location you wish to use.
     required: true
+  namespace:
+    description: K8S Namespace.
+    required: true
   aws_access_key_id:
     description: AWS Access Key.
     required: true
