@@ -15,6 +15,6 @@ runs:
   using: "composite"
   steps:
     - run: |
-       chmod +x change.py
+       set +x
        python3 change.py
       shell: bash
