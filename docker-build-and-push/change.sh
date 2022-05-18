@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 function build_and_push {
   echo "Docker Wasn't Able to Pull Image With Tag. Build Tag Version and Push"
   echo "Build Dockerfile at path: ${INPUT_DOCKER_FILE_LOCATION}"
