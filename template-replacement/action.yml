@@ -14,11 +14,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Template replacement
-      uses: iDevOps-io/idevops-git-actions/template-replacement@main
-      with: 
-        input_file: "${{ github.event.inputs.input_file }}"
-        output_file: "${{ github.event.inputs.output_file }}"
     - run: |
        set +x
        python3 change.py
