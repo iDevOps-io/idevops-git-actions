@@ -14,6 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: iDevOps-io/idevops-git-actions/template-replacement@main
     - run: |
        chmod +x change.py
        python3 change.py
