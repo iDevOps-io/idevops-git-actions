@@ -18,5 +18,11 @@ inputs:
     description: Region you wish to use for AWS.
     required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        function get_kubernetes_config {
+            aws eks update-kubeconfig --name ${KUBERNETES_CLUSTER_NAME} --region ${AWS_DEFAULT_REGION}
+        }
+      shell: bash
