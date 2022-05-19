@@ -11,7 +11,7 @@ inputs:
   namespace:
     description: K8S Namespace.
     required: true
-  kubernetes_cluster_name:
+  k8s_cluster_name:
     description: Name of the AWS cluster to deploy into.
     required: true
   AWS_ACCESS_KEY_ID:

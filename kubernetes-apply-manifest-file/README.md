@@ -10,7 +10,7 @@ on:
       namespace:
         description: Kubernetes namespace you wish to use.
         default: circleci
-      kubernetes_cluster_name:
+      k8s_cluster_name:
         description: Name of kubernetes cluster.
         default: idevops-vaas-cluster
 
@@ -31,7 +31,7 @@ jobs:
         with:
           manifest: "${{ github.event.inputs.manifest }}"
           namespace: "${{ github.event.inputs.namespace }}"
-          kubernetes_cluster_name: "${{ github.event.inputs.kubernetes_cluster_name }}"
+          k8s_cluster_name: "${{ github.event.inputs.k8s_cluster_name }}"
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
