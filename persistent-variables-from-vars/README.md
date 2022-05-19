@@ -19,6 +19,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
 
       - name: "Set build persistent variables from vars file"
         uses: iDevOps-io/idevops-git-actions/persistent-variables-from-vars@main
