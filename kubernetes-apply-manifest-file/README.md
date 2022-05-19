@@ -4,7 +4,7 @@ name: "Apply Kubernetes manifest file"
 on:
   workflow_dispatch:
     inputs:
-      manifest_file_location:
+      manifest:
         description: Manifest file location you wish to use.
         default: manifests/circleci/deployment.yaml
       namespace:
@@ -29,7 +29,7 @@ jobs:
       - name: "Apply Kubernetes manifest file"
         uses: iDevOps-io/idevops-git-actions/kubernetes-apply-manifest-file@main
         with:
-          manifest_file_location: "${{ github.event.inputs.manifest_file_location }}"
+          manifest: "${{ github.event.inputs.manifest }}"
           namespace: "${{ github.event.inputs.namespace }}"
           kubernetes_cluster_name: "${{ github.event.inputs.kubernetes_cluster_name }}"
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
