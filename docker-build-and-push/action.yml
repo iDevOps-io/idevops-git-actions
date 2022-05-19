@@ -24,5 +24,18 @@ inputs:
     description: Location of the docker file you are building.
     required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+
+        function build_and_push {
+          echo "Docker Wasn't Able to Pull Image With Tag. Build Tag Version and Push"
+          echo "Build Dockerfile at path: ${DOCKER_FILE_LOCATION}"
+          echo "Docker Image: ${DOCKER_ORG}/${DOCKER_IMAGE}:${DOCKER_TAG}"
+          docker build -t ${DOCKER_ORG}/${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_FILE_LOCATION}
+          docker push ${DOCKER_ORG}/${DOCKER_IMAGE}:${DOCKER_TAG}
+        }
+        docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        docker pull ${DOCKER_ORG}/${DOCKER_IMAGE}:${DOCKER_TAG} || build_and_push
+      shell: bash
