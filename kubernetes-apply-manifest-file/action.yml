@@ -24,5 +24,16 @@ inputs:
     description: Name of the AWS cluster to deploy into.
     required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        echo $MANIFEST | base64 -d > deployment.yaml
+        cat deployment.yaml
+        export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
+        export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
+        export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
+        aws eks update-kubeconfig --name ${K8S_CLUSTER_NAME} --region ${{ inputs.AWS_DEFAULT_REGION }}
+        kubectl create namespace ${NAMESPACE} || echo "Namespace Exists"
+        kubectl apply -f deployment.yaml -n ${NAMESPACE}
+      shell: bash
