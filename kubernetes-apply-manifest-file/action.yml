@@ -28,12 +28,11 @@ runs:
   steps:
     - run: |
         #!/usr/bin/env bash
-        echo  ${{ inputs.MANIFEST }} > deployment.yaml
-        cat deployment.yaml
+        cat ${{ inputs.MANIFEST }}
         export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
         export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
         export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
         aws eks update-kubeconfig --name ${{ inputs.K8S_CLUSTER_NAME }} --region ${{ inputs.AWS_DEFAULT_REGION }}
         kubectl create namespace ${{ inputs.NAMESPACE }} || echo "Namespace Exists"
-        kubectl apply -f deployment.yaml -n ${{ inputs.NAMESPACE }}
+        kubectl apply -f ${{ inputs.MANIFEST }} -n ${{ inputs.NAMESPACE }}
       shell: bash
