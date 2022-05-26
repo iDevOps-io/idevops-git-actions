@@ -1,0 +1,41 @@
+#monitor status at ticket #32
+name: "Deploy Terraform from Remote Repository"
+author: Stpehen Card <scard@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: deploy any publicly hosted terraform template in github that follows our pattern
+inputs:
+  aws_access_key_id:
+    description: AWS Access Key.
+    required: true
+  aws_secret_access_key:
+    description: AWS Secret Key.
+    required: true
+  aws_default_region:
+    description: The default region for aws cli.
+    required: true
+  dynamo_db_table_name:
+    description: Dynamo Database table name
+    required: false
+  s3_bucket:
+    description: s3 bucket 
+    required: false
+  TF_MAIN:
+    description: URL for the terraform template file (main.tf)
+    required: true
+  TF_VARS:
+    description: URL for the terraform variables file (vars.tf)
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        cat ${{ inputs.MANIFEST }}
+        export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
+        export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
+        export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
+#note: you should probably show the results of terraform plan before executing terraform apply. 
+      shell: bash
