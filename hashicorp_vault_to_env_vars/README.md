@@ -27,7 +27,7 @@ jobs:
         uses: iDevOps-io/idevops-git-actions/hashicorp_vault_to_env_vars@main
         with:
           vault_path: ${{ inputs.vault_path }}
-          vault_url:  ${{ inputs.vault_url }}
+          vault_url: ${{ inputs.vault_url }}
           vault_token: ${{ secrets.vault_token }}
           
 ```
