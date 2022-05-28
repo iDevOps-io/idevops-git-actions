@@ -24,10 +24,10 @@ runs:
         export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
         export VAULT_TOKEN=${{ inputs.vault_token }}
 
-        echo $VAULT_ADDR
-        echo $VAULT_TOKEN
-        echo $VAULT_PATH
-        echo $VAULT_URL
+        echo "VAULT ADDR: $VAULT_ADDR"
+        echo "VAULT TOKEN: $VAULT_TOKEN"
+        echo "VAULT PATH: $VAULT_PATH"
+        echo "VAULT URL: $VAULT_URL"
 
         echo "::add-mask::$VAULT_TOKEN"
         echo "::add-mask::$VAULT_ADDR"
@@ -41,7 +41,7 @@ runs:
         echo 'github_mask_file = open("tmp_mask", "w")' >> get_secrets.py
         echo 'for secret_key in secret["data"]["data"]:' >> get_secrets.py
         echo '    github_env_file.write(secret_key + "=" + secret["data"]["data"][secret_key])' >> get_secrets.py
-        echo '    github_mask_file.write(\'echo "::add-mask::${secret_key}"\'.format(secret_key=secret_key))' >> get_secrets.py
+        echo '    github_mask_file.write("echo \"::add-mask::${secret_key}\"".format(secret_key=secret_key))' >> get_secrets.py
         echo 'github_env_file.close()' >> get_secrets.py
         echo 'github_mask_file.close()' >> get_secrets.py
 
