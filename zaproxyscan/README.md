@@ -26,7 +26,7 @@ jobs:
       - name: "Create an CNAME record set"
         uses: iDevOps-io/idevops-git-actions/zaproxyscan@main
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
         docker run -t owasp/zap2docker-stable zap-full-scan.py -t https://www.example.com
 ```
