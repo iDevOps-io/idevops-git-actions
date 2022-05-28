@@ -1,0 +1,32 @@
+name: "Anchore Grype Scan"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Apply Kubernetes manifest file
+inputs:
+  manifest:
+    description: Manifest file location you wish to use.
+    required: true
+  namespace:
+    description: K8S Namespace.
+    required: true
+  aws_access_key_id:
+    description: AWS Access Key.
+    required: true
+  aws_secret_access_key:
+    description: AWS Secret Key.
+    required: true
+  aws_default_region:
+    description: The default region for aws cli.
+    required: true
+  k8s_cluster_name:
+    description: Name of the AWS cluster to deploy into.
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
+      shell: bash
