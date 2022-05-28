@@ -6,10 +6,10 @@ on:
     inputs:
       manifest:
         description: Manifest file location you wish to use.
-        default: manifests/circleci/deployment.yaml
+        default: manifests/anchore/deployment.yaml
       namespace:
         description: Kubernetes namespace you wish to use.
-        default: circleci
+        default: anchore
       k8s_cluster_name:
         description: Name of kubernetes cluster.
         default: idevops-vaas-cluster
