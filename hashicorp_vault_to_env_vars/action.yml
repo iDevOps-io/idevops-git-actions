@@ -32,6 +32,8 @@ runs:
         echo "::add-mask::$VAULT_TOKEN"
         echo "::add-mask::$VAULT_ADDR"
 
+        pip install requests
+
         echo 'import requests' > get_secrets.py
         echo 'import os' >> get_secrets.py
         echo 'headers = { "X-Vault-Token": os.environ["VAULT_TOKEN"] }' >> get_secrets.py
