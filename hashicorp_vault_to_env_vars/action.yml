@@ -33,7 +33,7 @@ runs:
         echo 'github_mask_file = open("tmp_mask", "w")' >> get_secrets.py
         echo 'for secret_key in secret["data"]["data"]:' >> get_secrets.py
         echo '    github_env_file.write(secret_key + "=" + secret["data"]["data"][secret_key] + "\n")' >> get_secrets.py
-        echo '    github_mask_file.write("echo \"::add-mask::${secret_key}\"\n".format(secret_key=secret_key))' >> get_secrets.py
+        echo '    github_mask_file.write("echo ::add-mask::${secret_key}\n".format(secret_key=secret_key))' >> get_secrets.py
         echo 'github_env_file.close()' >> get_secrets.py
         echo 'github_mask_file.close()' >> get_secrets.py
         python get_secrets.py
