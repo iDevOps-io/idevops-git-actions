@@ -1,0 +1,28 @@
+name: "Set Hashicorp Vault Path to Environment Variables Masked"
+author: Luke Baker, Tim Carden, Tanner Milton
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Set Hashicorp Vault Path to Environment Variables Masked"
+inputs:
+  vault_path:
+    description: path to vault secret
+    required: true
+  vault_token:
+    description: vault_token
+    required: true
+  vault_url:
+    description: vault_url
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        export VAULT_ADDR=${{ inputs.vault_url }}${{ inputs.vault_path }}
+        export VAULT_TOKEN=${{ inputs.vault_token }}
+        echo "::add-mask::$VAULT_TOKEN"
+        echo "::add-mask::$VAULT_ADDR"
+        python get_secrets.py
+        source tmp_mask
+      shell: bash
