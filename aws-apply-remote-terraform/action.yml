@@ -24,9 +24,11 @@ inputs:
   TF_MAIN:
     description: github RAW URL for the terraform template file (main.tf)
     required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/main.tf"
   TF_VARS:
     description: github RAW URL for the terraform variables file (vars.tf)
     required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/vars.tf"
 
 runs:
   using: "composite"
