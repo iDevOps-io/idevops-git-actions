@@ -1,9 +1,9 @@
-name: "Set Hashicorp Vault Path to Environment Variables Masked"
+name: "Create Vault Secrets From vars.json ENV"
 author: Luke Baker, Tim Carden, Tanner Milton
 branding:
   icon: cloud
   color: gray-dark
-description: "Set Hashicorp Vault Path to Environment Variables Masked"
+description: "Creating Secrets from vars.json data"
 inputs:
   vault_path:
     description: path to vault secret
