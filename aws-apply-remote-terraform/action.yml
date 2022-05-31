@@ -29,6 +29,10 @@ inputs:
     description: github RAW URL for the terraform variables file (vars.tf)
     required: true
     default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/vars.tf"
+  TF_VARS_JSON:
+    description: github RAW URL for the terraform variables file (vars.tf)
+    required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/vars.json"
 
 runs:
   using: "composite"
@@ -42,6 +46,7 @@ runs:
         echo "COLLECTING TERRAFORM INPUT FILES"
         wget -nv -O main.tf ${{ inputs.TF_MAIN }}
         wget -nv -O vars.tf ${{ inputs.TF_VARS }}
+        wget -nv -O vars.json ${{ inputs.TF_VARS_JSON }}
         echo "Terraform Variable Parsing"
         for keyval in $(grep -E '": [^\{]' vars.json | sed -e 's/: /=/' -e "s/\(\,\)$//"); do
           echo "export $keyval"
