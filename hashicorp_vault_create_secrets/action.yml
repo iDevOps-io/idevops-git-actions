@@ -1,4 +1,4 @@
-name: "Create Vault Secrets From vars.json ENV"
+name: "Create Vault Secrets From vars.json data"
 author: Luke Baker, Tim Carden, Tanner Milton
 branding:
   icon: cloud
@@ -38,4 +38,7 @@ runs:
         echo 'github_mask_file.close()' >> create_vault_secrets_kv.py
         python create_vault_secrets_kv.py
         source tmp_mask
+        kubectl -n vault exec -it vault-0 sh
+        vault kv get secret/kv/kubectl
+
       shell: bash
