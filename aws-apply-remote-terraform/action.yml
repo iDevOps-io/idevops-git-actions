@@ -22,10 +22,10 @@ inputs:
     description: s3 bucket 
     required: false
   TF_MAIN:
-    description: URL for the terraform template file (main.tf)
+    description: github RAW URL for the terraform template file (main.tf)
     required: true
   TF_VARS:
-    description: URL for the terraform variables file (vars.tf)
+    description: github RAW URL for the terraform variables file (vars.tf)
     required: true
 
 runs:
@@ -40,10 +40,14 @@ runs:
         echo "COLLECTING TERRAFORM INPUT FILES"
         wget -nv -O main.tf ${{ inputs.TF_MAIN }}
         wget -nv -O vars.tf ${{ inputs.TF_VARS }}
+        echo "Terraform Variable Parsing"
+        for keyval in $(grep -E '": [^\{]' vars.json | sed -e 's/: /=/' -e "s/\(\,\)$//"); do
+          echo "export $keyval"
+          eval export $keyval
+        done
         echo "INITIALIZE TERRAFORM"
         terraform init 
         echo "EXECUTE TERRAFORM PLAN..."
         terraform plan 
-        echo "APPLYING TERRAFORM FILE"
-        terraform apply 
+
       shell: bash
