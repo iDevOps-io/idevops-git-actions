@@ -22,7 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - run: |
+          python create_vault_secrets_kv.py
+          
       - name: "Create Secrets"
         uses: iDevOps-io/idevops-git-actions/hashicorp_vault_create_secrets@main
         with:
