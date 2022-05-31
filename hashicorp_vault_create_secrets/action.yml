@@ -37,5 +37,4 @@ runs:
         echo 'github_env_file.close()' >> create_vault_secrets_kv.py
         echo 'github_mask_file.close()' >> create_vault_secrets_kv.py
         python create_vault_secrets_kv.py
-        source tmp_mask
       shell: bash
