@@ -1,5 +1,5 @@
 ```yaml
-name: "Create Secrets in Vault Engine"
+name: "Create Secrets in Vault KV Engine"
 
 on:
   workflow_dispatch:
