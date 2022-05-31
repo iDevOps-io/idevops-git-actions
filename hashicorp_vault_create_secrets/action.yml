@@ -1,4 +1,4 @@
-name: "Create Vault Secrets From vars.json data"
+name: "Create Vault Secrets From vars.json"
 author: Luke Baker, Tim Carden, Tanner Milton
 branding:
   icon: cloud
