@@ -28,9 +28,6 @@ jobs:
 
       - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore-file@main
-```
-- name: "Anchore Grype Scan"
-        uses: iDevOps-io/idevops-git-actions/anchore-file@main
         with:
           docker_image_name: "${{ github.event.inputs.docker_image_name }}"
           fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"
