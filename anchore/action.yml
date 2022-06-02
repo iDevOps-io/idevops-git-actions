@@ -5,16 +5,28 @@ branding:
   color: gray-dark
 description: "Anchore Grype Scan"
 inputs:
-  docker_image_name:
-    description: path to docker image
-    required: true
-  fail_on_failure:
-    description: --fail-on <severity>
-    required: true
+name: Container Image CI
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the container image
+        run: docker build . --file Dockerfile --tag localbuild/testimage:latest
+      - uses: anchore/scan-action@v3
+        with:
+          image: "localbuild/testimage:latest"
+          fail-build: true
+name: Scan image
+  uses: anchore/scan-action@v3
+  with:
+    image: "localbuild/testimage:latest"
+    fail-build: true
+    severity-cutoff: critical
 runs:
   using: "composite"
   steps:
     - run: |
         #!/usr/bin/env bash
         curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
-        ANCHORE_URL=${{ inputs.anchore_url }}
+      shell: bash
