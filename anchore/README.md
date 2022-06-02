@@ -28,10 +28,6 @@ jobs:
 
       - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore-file@main
-           steps:
-      - run: |
-        #!/usr/bin/env bash
-        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
-        shell: bash
-
+        with:
+          encode_file: "${{ github.event.inputs.encode_file }}"
 ```
