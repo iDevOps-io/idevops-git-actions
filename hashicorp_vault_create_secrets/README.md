@@ -6,7 +6,7 @@ on:
     inputs:
       vault_path:
         description: path of secret
-        default: /v1/kv/data/kubectl
+        default: /v1/kv/data/swift
       vault_url:
         description: url of vault
         default: http://vault.idevops.io:8200
