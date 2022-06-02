@@ -9,7 +9,7 @@ on:
         default: /v1/kv/data/kubectl
       vault_url:
         description: url of vault
-        default: http://vault.idevops.io
+        default: http://vault.idevops.io:8200
 
 jobs:
   get_secrets:
