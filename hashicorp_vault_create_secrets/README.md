@@ -12,8 +12,8 @@ on:
         default: http://vault.idevops.io:8200
 
 jobs:
-  get_secrets:
-    name: "Get Vault Secrets"
+  create_secrets:
+    name: "Create Vault Secrets"
     runs-on: ${{ matrix.os }}
 
     strategy:
