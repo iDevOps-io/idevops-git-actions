@@ -1,4 +1,4 @@
-name: "Create Vault Secrets From vars.json ENV"
+name: "Create Vault Secrets From vars.json"
 author: Luke Baker, Tim Carden, Tanner Milton
 branding:
   icon: cloud
@@ -37,4 +37,5 @@ runs:
         echo 'github_env_file.close()' >> create_vault_secrets_kv.py
         echo 'github_mask_file.close()' >> create_vault_secrets_kv.py
         python create_vault_secrets_kv.py
+        echo please work
       shell: bash
