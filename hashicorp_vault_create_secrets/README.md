@@ -9,7 +9,7 @@ on:
         default: /v1/kv/data/kubectl
       vault_url:
         description: url of vault
-        default: http://vault.idevops.io
+        default: "http://vault.idevops.io:8200"
 
 jobs:
   get_secrets:
@@ -26,7 +26,7 @@ jobs:
           python create_vault_secrets_kv.py
           
       - name: "Create Secrets"
-        uses: iDevOps-io/idevops-git-actions/hashicorp_vault_create_secrets@main
+        uses: iDevOps-io/idevops-git-actions/hashicorp_vault_create_secrets@vault_team_test
         with:
           vault_path: ${{ inputs.vault_path }}
           vault_url: ${{ inputs.vault_url }}
