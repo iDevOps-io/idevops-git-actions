@@ -15,8 +15,8 @@ on:
         default: idevops-vaas-cluster
 
 jobs:
-  apply_kubernetes_manifest_file:
-    name: "Apply Kubernetes manifest file"
+  anchore_grype_scan:
+    name: "Anchore Grype Scan"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,8 +28,7 @@ jobs:
 
       - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore-file@main
-        with:
-          ```
+```
 - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore-file@main
         with:
