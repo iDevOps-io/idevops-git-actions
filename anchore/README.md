@@ -1,4 +1,3 @@
-```yaml
 name: "Apply Anchore"
 
 on:
@@ -6,17 +5,17 @@ on:
     inputs:
       manifest:
         description: Manifest file location you wish to use.
-        default: manifests/circleci/deployment.yaml
+        default: manifests/anchore/deployment.yaml
       namespace:
         description: Kubernetes namespace you wish to use.
-        default: circleci
+        default: anchore
       k8s_cluster_name:
         description: Name of kubernetes cluster.
         default: idevops-vaas-cluster
 
 jobs:
-  apply_kubernetes_manifest_file:
-    name: "Apply Kubernetes manifest file"
+  anchore_grype_scan:
+    name: "Anchore Grype Scan"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,6 +27,7 @@ jobs:
 
       - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore-file@main
-        with: curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
-
-```
+        with:
+          docker_image_name: "${{ github.event.inputs.docker_image_name }}"
+          fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"
+          anchore_url: "${{ github.event.inputs.anchore_url }}"
