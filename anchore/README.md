@@ -2,16 +2,6 @@ name: "Apply Anchore"
 
 on:
   workflow_dispatch:
-    inputs:
-      manifest:
-        description: Manifest file location you wish to use.
-        default: manifests/anchore/deployment.yaml
-      namespace:
-        description: Kubernetes namespace you wish to use.
-        default: anchore
-      k8s_cluster_name:
-        description: Name of kubernetes cluster.
-        default: idevops-vaas-cluster
 
 jobs:
   anchore_grype_scan:

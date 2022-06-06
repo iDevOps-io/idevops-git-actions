@@ -11,7 +11,7 @@ inputs:
   fail_on_failure:
     description: Severity level for pipeline failure.
     required: true
-  external_policy_document:
+  anchore_url:
     description: download policy.json.
     required: false
 runs:
