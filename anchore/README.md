@@ -1,18 +1,7 @@
-```yaml
 name: "Apply Anchore"
 
 on:
   workflow_dispatch:
-    inputs:
-      manifest:
-        description: Manifest file location you wish to use.
-        default: manifests/anchore/deployment.yaml
-      namespace:
-        description: Kubernetes namespace you wish to use.
-        default: anchore
-      k8s_cluster_name:
-        description: Name of kubernetes cluster.
-        default: idevops-vaas-cluster
 
 jobs:
   anchore_grype_scan:
@@ -32,4 +21,3 @@ jobs:
           docker_image_name: "${{ github.event.inputs.docker_image_name }}"
           fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"
           anchore_url: "${{ github.event.inputs.anchore_url }}"
-```

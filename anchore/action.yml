@@ -5,13 +5,13 @@ branding:
   color: gray-dark
 description: "Anchore Grype Scan"
 inputs:
-docker_image_name:
+  docker_image_name:
     description: File you want to scan.
     required: true
-fail_on_failure:
+  fail_on_failure:
     description: Severity level for pipeline failure.
     required: true
-anchore_url:
+  anchore_url:
     description: download policy.json.
     required: false
 runs:
@@ -20,4 +20,3 @@ runs:
     - run: |
         #!/usr/bin/env bash
         curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
-      shell: bash
