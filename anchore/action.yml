@@ -5,13 +5,13 @@ branding:
   color: gray-dark
 description: "Anchore Grype Scan"
 inputs:
-docker_image_name:
+  docker_image_name:
     description: File you want to scan.
     required: true
-fail_on_failure:
+  fail_on_failure:
     description: Severity level for pipeline failure.
     required: true
-external_policy_document:
+  external_policy_document:
     description: download policy.json.
     required: false
 runs:
