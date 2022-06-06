@@ -13,8 +13,6 @@ jobs:
         os: [ 'ubuntu-latest' ]
 
     steps:
-      - uses: actions/checkout@v2
-
       - name: "Anchore Grype Scan"
         uses: iDevOps-io/idevops-git-actions/anchore@main
         with:
