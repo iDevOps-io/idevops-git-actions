@@ -1,3 +1,4 @@
+```yaml
 name: "Apply Anchore"
 
 on:
@@ -21,3 +22,5 @@ jobs:
           docker_image_name: "${{ github.event.inputs.docker_image_name }}"
           fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"
           anchore_url: "${{ github.event.inputs.anchore_url }}"
+
+```
