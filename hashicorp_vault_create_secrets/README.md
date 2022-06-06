@@ -6,14 +6,14 @@ on:
     inputs:
       vault_path:
         description: path of secret
-        default: /v1/kv/data/swift
+        default: /v1/kv/data/haxe
       vault_url:
         description: url of vault
         default: http://vault.idevops.io:8200
 
 jobs:
-  get_secrets:
-    name: "Get Vault Secrets"
+  create_secrets:
+    name: "Create Vault Secrets"
     runs-on: ${{ matrix.os }}
 
     strategy:

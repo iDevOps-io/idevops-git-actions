@@ -24,6 +24,7 @@ runs:
         export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
         export VAULT_TOKEN=${{ inputs.vault_token }}
         pip install requests
+        python create_vault_secrets_kv.py
         echo 'import requests' > create_vault_secrets_kv.py
         echo 'import os' >> create_vault_secrets_kv.py
         echo 'headers = { "X-Vault-Token": os.environ["VAULT_TOKEN"] }' >> create_vault_secrets_kv.py
@@ -33,9 +34,8 @@ runs:
         echo 'github_mask_file = open("tmp_mask", "w")' >> create_vault_secrets_kv.py
         echo 'for secret_key in secret["data"]["data"]:' >> create_vault_secrets_kv.py
         echo '    github_env_file.write(secret_key + "=" + secret["data"]["data"][secret_key] + "\n")' >> create_vault_secrets_kv.py
-        echo '    github_mask_file.write("echo \"::add-mask::${secret_key}\"\n".format(secret_key=secret_key))' >> create_vault_secrets_kv.py
+        echo '    github_mask_file.write("echo ::add-mask::${secret_key}\n".format(secret_key=secret_key))' >> create_vault_secrets_kv.py
         echo 'github_env_file.close()' >> create_vault_secrets_kv.py
         echo 'github_mask_file.close()' >> create_vault_secrets_kv.py
-        python create_vault_secrets_kv.py
-        echo please work
+        source tmp_mask
       shell: bash
