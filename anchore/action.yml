@@ -16,5 +16,6 @@ runs:
   - name: "Anchore Docker Image Scan"
     run: |
         #!/usr/bin/env bash
-        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f ${{ github.event.inputs.docker_image_name }}
+        echo ${{ inputs.docker_image_name }}
+        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -p ${{ inputs.docker_image_name }}
     shell: bash
