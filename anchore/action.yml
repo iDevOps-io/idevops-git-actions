@@ -1,32 +1,21 @@
-name: "Anchore Grype Scan"
+name: "Anchore Docker Image Scan"
 author: Kathryn Keep
 branding:
   icon: cloud
   color: gray-dark
-description: "Anchore Grype Scan"
+description: "Anchore Docker Image Scan"
 inputs:
   docker_image_name:
     description: File you want to scan.
     required: true
-  fail_on_failure:
-    description: Severity level for pipeline failure.
-    required: true
-  anchore_url:
-    description: download policy.json.
-    required: false
 runs:
   using: "composite"
   steps:
   - uses: actions/checkout@v2
 
-  - name: "Anchore Grype Scan"
+  - name: "Anchore Docker Image Scan"
     uses: iDevOps-io/idevops-git-actions/anchore@main
-    with:
-      docker_image_name: "${{ github.event.inputs.docker_image_name }}"
-      fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"
-      anchore_url: "${{ github.event.inputs.anchore_url }}"
-  steps:
-    - run: |
+    run: |
         #!/usr/bin/env bash
-        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
+        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f ${{ github.event.inputs.docker_image_name }}
     shell: bash
