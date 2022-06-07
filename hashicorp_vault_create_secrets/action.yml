@@ -1,0 +1,41 @@
+name: "Create Vault Secrets From vars.json"
+author: Luke Baker, Tim Carden, Tanner Milton
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Creating Secrets from vars.json data"
+inputs:
+  vault_path:
+    description: path to vault secret
+    required: true
+  vault_token:
+    description: vault_token
+    required: true
+  vault_url:
+    description: vault_url
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        VAULT_PATH=${{ inputs.vault_path }}
+        VAULT_URL=${{ inputs.vault_url }}
+        export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
+        export VAULT_TOKEN=${{ inputs.vault_token }}
+        pip install requests
+        python create_vault_secrets_kv.py
+        echo 'import requests' > create_vault_secrets_kv.py
+        echo 'import os' >> create_vault_secrets_kv.py
+        echo 'headers = { "X-Vault-Token": os.environ["VAULT_TOKEN"] }' >> create_vault_secrets_kv.py
+        echo 'secret = requests.get(os.environ["VAULT_ADDR"],headers=headers)' >> create_vault_secrets_kv.py
+        echo 'secret = secret.json()' >> create_vault_secrets_kv.py
+        echo 'github_env_file = open(os.environ["GITHUB_ENV"], "a")' >> create_vault_secrets_kv.py
+        echo 'github_mask_file = open("tmp_mask", "w")' >> create_vault_secrets_kv.py
+        echo 'for secret_key in secret["data"]["data"]:' >> create_vault_secrets_kv.py
+        echo '    github_env_file.write(secret_key + "=" + secret["data"]["data"][secret_key] + "\n")' >> create_vault_secrets_kv.py
+        echo '    github_mask_file.write("echo ::add-mask::${secret_key}\n".format(secret_key=secret_key))' >> create_vault_secrets_kv.py
+        echo 'github_env_file.close()' >> create_vault_secrets_kv.py
+        echo 'github_mask_file.close()' >> create_vault_secrets_kv.py
+        source tmp_mask
+      shell: bash
