@@ -14,7 +14,6 @@ runs:
   - uses: actions/checkout@v2
 
   - name: "Anchore Docker Image Scan"
-    uses: iDevOps-io/idevops-git-actions/anchore@main
     run: |
         #!/usr/bin/env bash
         curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f ${{ github.event.inputs.docker_image_name }}
