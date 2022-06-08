@@ -1,17 +1,9 @@
+```yaml
 name: "Apply Remote Terraform to AWS Cluster"
 
 on:
   workflow_dispatch:
     inputs:
-      aws_access_key_id:
-        description: AWS Access Key.
-        required: true
-      aws_secret_access_key:
-        description: AWS Secret Key.
-        required: true
-      aws_default_region:
-        description: The default region for aws cli.
-        required: true
       dynamo_db_table_name:
         description: Dynamo Database table name
         required: false
@@ -54,3 +46,4 @@ jobs:
           TF_MAIN: "${{ github.event.inputs.TF_MAIN }}"
           TF_VARS: "${{ github.event.inputs.TF_VARS }}"
           TF_VARS_JSON: "${{ github.event.inputs.TF_VARS_JSON }}"
+```
