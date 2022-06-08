@@ -1,6 +1,6 @@
 #monitor status at ticket #32
 name: "Deploy Terraform from Remote Repository"
-author: Stpehen Card <scard@idevops.io>
+author: Stephen Card <scard@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
