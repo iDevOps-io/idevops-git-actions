@@ -1,0 +1,21 @@
+name: "Anchore Docker Image Scan"
+author: Kathryn Keep
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Anchore Docker Image Scan"
+inputs:
+  docker_image_name:
+    description: File you want to scan.
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v2
+
+  - name: "Anchore Docker Image Scan"
+    run: |
+        #!/usr/bin/env bash
+        echo ${{ inputs.docker_image_name }}
+        curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -p ${{ inputs.docker_image_name }}
+    shell: bash

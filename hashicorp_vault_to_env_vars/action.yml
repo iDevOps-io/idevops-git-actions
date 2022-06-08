@@ -1,0 +1,41 @@
+name: "Set Hashicorp Vault Path to Environment Variables Masked"
+author: Luke Baker, Tim Carden, Tanner Milton
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Set Hashicorp Vault Path to Environment Variables Masked"
+inputs:
+  vault_path:
+    description: path to vault secret
+    required: true
+  vault_token:
+    description: vault_token
+    required: true
+  vault_url:
+    description: vault_url
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        VAULT_PATH=${{ inputs.vault_path }}
+        VAULT_URL=${{ inputs.vault_url }}
+        export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
+        export VAULT_TOKEN=${{ inputs.vault_token }}
+        pip install requests
+        echo 'import requests' > get_secrets.py
+        echo 'import os' >> get_secrets.py
+        echo 'headers = { "X-Vault-Token": os.environ["VAULT_TOKEN"] }' >> get_secrets.py
+        echo 'secret = requests.get(os.environ["VAULT_ADDR"],headers=headers)' >> get_secrets.py
+        echo 'secret = secret.json()' >> get_secrets.py
+        echo 'github_env_file = open(os.environ["GITHUB_ENV"], "a")' >> get_secrets.py
+        echo 'github_mask_file = open("tmp_mask", "w")' >> get_secrets.py
+        echo 'for secret_key in secret["data"]["data"]:' >> get_secrets.py
+        echo '    github_env_file.write(secret_key + "=" + secret["data"]["data"][secret_key] + "\n")' >> get_secrets.py
+        echo '    github_mask_file.write("echo ::add-mask::${secret_key}\n".format(secret_key=secret_key))' >> get_secrets.py
+        echo 'github_env_file.close()' >> get_secrets.py
+        echo 'github_mask_file.close()' >> get_secrets.py
+        python get_secrets.py
+        source tmp_mask
+      shell: bash
