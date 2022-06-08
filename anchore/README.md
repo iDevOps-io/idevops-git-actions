@@ -6,7 +6,7 @@ on:
 
 jobs:
   anchore_grype_scan:
-    name: "Anchore Grype Scan"
+    name: "Anchore Docker Image Scan"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: "Anchore Grype Scan"
+      - name: "Anchore Docker Image Scan"
         uses: iDevOps-io/idevops-git-actions/anchore@main
         with:
           docker_image_name: "${{ github.event.inputs.docker_image_name }}"
