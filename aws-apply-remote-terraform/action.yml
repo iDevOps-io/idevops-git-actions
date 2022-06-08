@@ -39,14 +39,14 @@ runs:
   steps:
     - run: |
         #!/usr/bin/env bash
-        cat ${{ inputs.TF_MAIN }}
         export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
         export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
         export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
         echo "COLLECTING TERRAFORM INPUT FILES"
-        wget -nv -O main.tf ${{ inputs.TF_MAIN }}
-        wget -nv -O vars.tf ${{ inputs.TF_VARS }}
-        wget -nv -O vars.json ${{ inputs.TF_VARS_JSON }}
+        wget -nv -O ./main.tf ${{ inputs.TF_MAIN }}
+        wget -nv -O ./vars.tf ${{ inputs.TF_VARS }}
+        wget -nv -O ./vars.json ${{ inputs.TF_VARS_JSON }}
+        cat ./main.tf
         echo "Terraform Variable Parsing"
         for keyval in $(grep -E '": [^\{]' vars.json | sed -e 's/: /=/' -e "s/\(\,\)$//"); do
           echo "export $keyval"
