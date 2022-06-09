@@ -18,7 +18,6 @@ runs:
   using: "composite"
   steps:
     - run: |
-        #!/usr/bin/env bash
         VAULT_PATH=${{ inputs.vault_path }}
         VAULT_URL=${{ inputs.vault_url }}
         export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
