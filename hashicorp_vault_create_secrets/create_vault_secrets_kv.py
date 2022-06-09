@@ -2,10 +2,10 @@ import requests
 import json
 
 
-f = open('vars/haxe/vars.json')
+f = open('vars/tester/vars.json')
 contents = f.read()
 
-url_to_secret = "http://a9fea146920874acc8ed3a051441aeb6-262288570.us-west-2.elb.amazonaws.com:8200/v1/kv/data/haxe"
+url_to_secret = "http://a9fea146920874acc8ed3a051441aeb6-262288570.us-west-2.elb.amazonaws.com:8200/v1/kv/data/tester"
 headers = {
     "X-Vault-Token": "s.mRjB2NTPeZOrZaFViUamswff"
 }
