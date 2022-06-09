@@ -18,13 +18,12 @@ runs:
   using: "composite"
   steps:
     - run: |
+        #!/usr/bin/env bash
         VAULT_PATH=${{ inputs.vault_path }}
         VAULT_URL=${{ inputs.vault_url }}
         export VAULT_ADDR=${VAULT_URL}${VAULT_PATH}
         export VAULT_TOKEN=${{ inputs.vault_token }}
         pip install requests
-        pwd
-        python create_secrets.py
         echo 'import requests' > create_secrets.py
         echo 'import os' >> create_secrets.py
         echo 'headers = { "X-Vault-Token": os.environ["VAULT_TOKEN"] }' >> create_secrets.py
@@ -37,5 +36,6 @@ runs:
         echo '    github_mask_file.write("echo ::add-mask::${secret_key}\n".format(secret_key=secret_key))' >> create_secrets.py
         echo 'github_env_file.close()' >> create_secrets.py
         echo 'github_mask_file.close()' >> create_secrets.py
+        python create_secrets.py
         source tmp_mask
       shell: bash
