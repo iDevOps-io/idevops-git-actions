@@ -39,7 +39,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
+    - name: Collect Terraform Files
+      shell: bash
+      run: |
         #!/usr/bin/env bash
         export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
         export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
@@ -50,6 +52,17 @@ runs:
         wget -nv -O ./vars.json ${{ inputs.TF_VARS_JSON }}
         echo ">>> PREVIEW OF TERRAFORM MAIN FILE"
         cat ./main.tf
+        echo ">>> CHECKING VALIDITY OF MAIN TERRAFORM FILE"
+        terraform fmt -check
+        terraform validate
+        
+    - name: Run Terraform Commands
+      shell: bash
+      run: |
+        #!/usr/bin/env bash
+        export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
+        export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
+        export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
         echo ">>> PERFORMING TERRAFORM VARIABLE PROCESSING"
         for keyval in $(grep -E '": [^\{]' vars.json | sed -e 's/: /=/' -e "s/\(\,\)$//"); do
           echo "export $keyval"
@@ -58,9 +71,8 @@ runs:
         echo ">>> OUTPUT OF TRANSFORMED VARS FILE"
         cat ./vars.tf
         echo ">>> INITIALIZE TERRAFORM"
-        terraform init 
+        terraform init -input=false
         echo ">>> EXECUTE TERRAFORM PLAN"
-        terraform plan 
+        terraform plan -out=tfplan -input=false
         echo ">>> COMMITTING TERRAFORM APPLY"
-        terraform apply
-      shell: bash
+        terraform apply -input=false tfplan
