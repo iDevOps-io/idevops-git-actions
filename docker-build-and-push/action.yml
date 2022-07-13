@@ -36,6 +36,6 @@ runs:
       docker build -t ${INPUT_DOCKER_ORG}/${INPUT_DOCKER_IMAGE}:${INPUT_DOCKER_TAG} ${INPUT_DOCKER_FILE_LOCATION}
       docker push ${INPUT_DOCKER_ORG}/${INPUT_DOCKER_IMAGE}:${INPUT_DOCKER_TAG}
       }
-      echo ${INPUT_DOCKER_PASSWORD} | docker login --username ${INPUT_DOCKER_USERNAME} --password-stdin
+      echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
       docker pull ${INPUT_DOCKER_ORG}/${INPUT_DOCKER_IMAGE}:${INPUT_DOCKER_TAG} || build_and_push
      shell: bash
