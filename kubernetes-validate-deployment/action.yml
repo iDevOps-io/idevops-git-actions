@@ -1,5 +1,5 @@
 name: "Kubernetes validate deployment"
-author: Evan Floyd <efloyd@idevops.io>
+author: Evan Floyd <efloyd@idevops.io>, Stephen Card <scard@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
@@ -25,5 +25,17 @@ inputs:
     required: true
 
 runs:
-  using: docker
-  image: Dockerfile
+  using: "composite"
+  steps:
+  - run: |
+      #!/usr/bin/env bash
+      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      curl -o aws-iam-authenticator https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.2/2021-07-05/bin/darwin/amd64/aws-iam-authenticator
+      pip install awscli
+      cp kubectl /usr/bin/kubectl
+      cp aws-iam-authenticator /usr/bin/aws-iam-authenticator
+      chmod a+x /usr/bin/aws-iam-authenticator
+      chmod a+x /usr/bin/kubectl
+      aws eks update-kubeconfig --name ${INPUT_KUBERNETES_CLUSTER_NAME} --region ${INPUT_AWS_DEFAULT_REGION}
+      kubectl rollout status deployment/${INPUT_APP_NAME} --namespace ${INPUT_NAMESPACE}
+    shell: bash
