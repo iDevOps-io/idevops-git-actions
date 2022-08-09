@@ -14,7 +14,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
+    - name: "SET:ENV:VARS:FOR:TEMPLATING"
+      run: |
+        echo "INPUT_FILE=${{ inputs.input_file }}" >> ${GITHUB_ENV}
+        echo "OUTPUT_FILE=${{ inputs.output_file }}" >> ${GITHUB_ENV}
+      shell: bash
+
+    - name: "TEMPLATE:REPLACE"
+      run: |
         import os
         input_template_file_contents=open(os.environ["INPUT_FILE"], "r").read()
         output_template_file=open(os.environ["OUTPUT_FILE"], "w")
