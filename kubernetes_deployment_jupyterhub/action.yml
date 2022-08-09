@@ -60,9 +60,24 @@ inputs:
     description: The location where files live
     default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_jupyterhub"
     required: false
+  AWS_ACCESS_KEY_ID:
+    required: false
+    default: " "
+  AWS_SECRET_ACCESS_KEY:
+    required: false
+    default: " "
+  AWS_DEFAULT_REGION:
+    required: false
+    default: " "
 runs:
   using: composite
   steps:
+    - name: "SET:ENV:VARS:FOR:TEMPLATING"
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}" >> ${GITHUB_ENV}
+        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }}" >> ${GITHUB_ENV}
+        echo "AWS_DEFAULT_REGION=${{ inputs.AWS_DEFAULT_REGION }}" >> ${GITHUB_ENV}
+      shell: bash
 
     - name: "DOCKER:BUILD:CHECK:PUSH"
       uses: iDevOps-io/idevops-git-actions/docker_build_check_tag_and_push@main
