@@ -62,6 +62,8 @@ runs:
     - name: "SEARCH:FOR:FILES"
       run: |
         find / -name 'deployment.yaml'
+        find / -name 'deployment.yaml.template'
+        find / -name 'kubernetes_deployment_jupyterhub'
       shell: bash
 
     - name: "DOCKER:BUILD:CHECK:PUSH"
