@@ -49,7 +49,7 @@ inputs:
     required: true
   docker_file_location:
     description: The docker org you will be pushing your image to.
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_jupyterhub/Dockerfile"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_jupyterhub/"
     required: false
   docker_server_url:
     description: The url to push docker images to.
