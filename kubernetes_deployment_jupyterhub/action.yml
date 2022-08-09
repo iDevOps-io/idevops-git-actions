@@ -80,7 +80,7 @@ runs:
         docker_image_name: "${{ inputs.docker_org_name }}/${{ inputs.image }}:${{ inputs.image_tag }}"
 
     - name: "K8S:CREATE:NAMESPACE:AND:DOCKER:SECRET"
-      uses: iDevOps-io/idevops-git-actions/create-namespace-docker-pull-secret@main
+      uses: iDevOps-io/idevops-git-actions/kubernetes_create_docker_pull_secret_and_namespace@main
       with:
         docker_username: "${{ inputs.docker_username }}"
         docker_password: "${{ inputs.docker_password }}"
