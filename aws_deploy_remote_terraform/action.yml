@@ -1,0 +1,60 @@
+#monitor status at ticket #32
+name: "Deploy Terraform from Remote Repository"
+author: Stephen Card <scard@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: deploy any publicly hosted terraform template in github that follows our pattern
+inputs:
+  aws_access_key_id:
+    description: AWS Access Key.
+    required: true
+  aws_secret_access_key:
+    description: AWS Secret Key.
+    required: true
+  aws_default_region:
+    description: The default region for aws cli.
+    required: true
+  dynamo_db_table_name:
+    description: Dynamo Database table name
+    required: false
+  s3_bucket:
+    description: s3 bucket 
+    required: false
+  TF_MAIN:
+    description: github RAW URL for the terraform template file (main.tf)
+    required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/main.tf"
+  TF_VARS:
+    description: github RAW URL for the terraform variables file (vars.tf)
+    required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/vars.tf"
+  TF_VARS_JSON:
+    description: github RAW URL for the terraform variables file (vars.tf)
+    required: true
+    default: "https://raw.githubusercontent.com/iDevOps-io/terraform-aws-rds-aurora/main/vars.json"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        #!/usr/bin/env bash
+        export AWS_ACCESS_KEY_ID=$(echo ${{ inputs.AWS_ACCESS_KEY_ID }})
+        export AWS_SECRET_ACCESS_KEY=$(echo ${{ inputs.AWS_SECRET_ACCESS_KEY }})
+        export AWS_DEFAULT_REGION=$(echo ${{ inputs.AWS_DEFAULT_REGION }})
+        echo "COLLECTING TERRAFORM INPUT FILES"
+        wget -nv -O ./main.tf ${{ inputs.TF_MAIN }}
+        wget -nv -O ./vars.tf ${{ inputs.TF_VARS }}
+        wget -nv -O ./vars.json ${{ inputs.TF_VARS_JSON }}
+        cat ./main.tf
+        echo "Terraform Variable Parsing"
+        for keyval in $(grep -E '": [^\{]' vars.json | sed -e 's/: /=/' -e "s/\(\,\)$//"); do
+          echo "export $keyval"
+          eval export $keyval
+        done
+        echo "INITIALIZE TERRAFORM"
+        terraform init 
+        echo "EXECUTE TERRAFORM PLAN..."
+        terraform plan 
+
+      shell: bash

@@ -1,0 +1,30 @@
+name: "Execute template replacement on file"
+author: Evan Floyd <efloyd@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Execute template replacement on file
+inputs:
+  input_file:
+    description: File you want to run template replacement on.
+    required: true
+  output_file:
+    description: File you want the output to be after template replacement.
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        import os
+        input_template_file_contents=open(os.environ["INPUT_FILE"], "r").read()
+        output_template_file=open(os.environ["OUTPUT_FILE"], "w")
+        for key in os.environ.keys():
+            if str(key) in str(input_template_file_contents):
+                print("Found {key} in file {input_file} contents replacing with value".format(key=key, input_file=os.environ["INPUT_FILE"]))
+                input_template_file_contents=input_template_file_contents.replace("-={key}=-".format(key=key), os.environ[key])
+        print("Write Replaced File Contents..")
+        output_template_file.write(input_template_file_contents)
+        output_template_file.close()
+        print("Remove Input File..")
+        os.remove(os.environ["INPUT_FILE"])
+      shell: python
