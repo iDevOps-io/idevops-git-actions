@@ -44,7 +44,6 @@ jobs:
           hostname: "jupyter-hub.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
-          docker_file_location:  "./"
           docker_server_url: "https://index.docker.io/v1/"
 
 ```
