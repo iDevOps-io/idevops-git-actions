@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Kubernetes validate deployment"
-        uses: iDevOps-io/idevops-git-actions/kubernetes-validate-deployment@main
+        uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
         with:
           app_name: "${{ github.event.inputs.app_name }}"
           namespace: "${{ github.event.inputs.namespace }}"

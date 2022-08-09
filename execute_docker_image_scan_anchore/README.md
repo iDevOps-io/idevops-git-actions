@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Anchore Grype Scan"
-        uses: iDevOps-io/idevops-git-actions/anchore@main
+        uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
         with:
           docker_image_name: "${{ github.event.inputs.docker_image_name }}"
           fail_on_failure: "${{ github.event.inputs.fail_on_failure }}"

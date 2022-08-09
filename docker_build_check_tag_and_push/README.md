@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Check if exist, build and push if not."
-        uses: iDevOps-io/idevops-git-actions/docker-build-and-push@main
+        uses: iDevOps-io/idevops-git-actions/docker_build_check_tag_and_push@main
         with:
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

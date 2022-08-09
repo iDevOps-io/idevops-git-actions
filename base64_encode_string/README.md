@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Base 64 Encode"
-        uses: iDevOps-io/idevops-git-actions/base64_encode@main
+        uses: iDevOps-io/idevops-git-actions/base64_encode_string@main
         with:
           encode_file: "${{ github.event.inputs.encode_file }}"
 

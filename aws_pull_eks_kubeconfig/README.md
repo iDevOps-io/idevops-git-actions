@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Use AWS CLI to pull K8S Kubeconfig"
-        uses: iDevOps-io/idevops-git-actions/aws-cli-pull-K8S-kubeconfig@main
+        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@main
         with:
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"

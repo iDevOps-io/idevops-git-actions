@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Create an CNAME record set"
-        uses: iDevOps-io/idevops-git-actions/route53@main
+        uses: iDevOps-io/idevops-git-actions/aws_create_route53_entry@main
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

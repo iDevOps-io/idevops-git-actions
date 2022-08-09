@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Apply Kubernetes manifest file"
-        uses: iDevOps-io/idevops-git-actions/kubernetes-apply-manifest-file@main
+        uses: iDevOps-io/idevops-git-actions/kubernetes_apply_manifest_file@main
         with:
           manifest: "${{ github.event.inputs.manifest }}"
           namespace: "${{ github.event.inputs.namespace }}"

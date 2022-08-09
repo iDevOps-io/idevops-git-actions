@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Apply Remote Terraform to AWS Cluster"
-        uses: iDevOps-io/idevops-git-actions/aws-apply-remote-terraform@main
+        uses: iDevOps-io/idevops-git-actions/aws_deploy_remote_terraform@main
         with:
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
