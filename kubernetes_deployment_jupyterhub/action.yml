@@ -119,11 +119,11 @@ runs:
       with:
         manifest: "${{ inputs.composite_file_location }}/deployment.yaml"
         namespace: "${{ inputs.kubernetes_namespace }}"
-        kubec_config_location: "${{ inputs.kubernetes_config }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"
 
     - name: "K8S:CHECK:ROLLOUT:STATUS"
       uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
       with:
         app_name: "${{ inputs.app_name }}"
         namespace: "${{ inputs.kubernetes_namespace }}"
-        kubec_config_location: "${{ inputs.kubernetes_config }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"

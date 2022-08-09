@@ -13,7 +13,7 @@ inputs:
     required: true
   kube_config_location:
     description: Location of the kubeconfig you want to use.
-    default: "~/.kube/config"
+    default: "/home/runner/.kube/config"
     required: false
 runs:
   using: "composite"
