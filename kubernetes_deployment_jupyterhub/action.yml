@@ -7,7 +7,8 @@ description: Deploys Jupyter Hub into K8S in a production way.
 inputs:
   kubernetes_config:
     description: Location of the kubeconfig you want to use to deploy to kubernetes.
-    required: true
+    default: "/home/runner/.kube/config"
+    required: false
   app_name:
     description: What you want to name your jupyter deployment.
     required: true

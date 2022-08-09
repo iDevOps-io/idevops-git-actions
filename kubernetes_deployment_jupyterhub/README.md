@@ -31,7 +31,6 @@ jobs:
       - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_jupyterhub@main
         with:
-          kubernetes_config: "~/.kube/config"
           app_name: "jupyterhub"
           kubernetes_namespace: "jupyterhub"
           docker_pull_secret: "jupyterhub"
