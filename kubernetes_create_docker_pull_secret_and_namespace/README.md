@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Create namespace & Docker Pull Secret."
-        uses: iDevOps-io/idevops-git-actions/create-namespace-docker-pull-secret@main
+        uses: iDevOps-io/idevops-git-actions/kubernetes_create_docker_pull_secret_and_namespace@main
         with:
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

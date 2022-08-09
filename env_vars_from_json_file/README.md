@@ -25,7 +25,7 @@ jobs:
           architecture: 'x64'
 
       - name: "Set build persistent variables from vars file"
-        uses: iDevOps-io/idevops-git-actions/persistent-variables-from-vars@main
+        uses: iDevOps-io/idevops-git-actions/env_vars_from_json_file@main
         with:
           vars_file_location: "${{ github.event.inputs.vars_file_location }}"
 
