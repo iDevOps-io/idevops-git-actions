@@ -30,7 +30,7 @@ runs:
     - run: |
         #!/usr/bin/env bash
 
-        kubectl create namespace ${NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }} || echo "Namespace Exists"
+        kubectl create namespace ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }} || echo "Namespace Exists"
 
         kubectl create secret docker-registry ${{ inputs.docker_pull_secret }} \
         --docker-server="${{ inputs.docker_host_url }}" \
