@@ -27,13 +27,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Apply Kubernetes manifest file"
-        uses: iDevOps-io/idevops-git-actions/kubernetes-apply-manifest-file@main
+        uses: iDevOps-io/idevops-git-actions/kubernetes_apply_manifest_file@main
         with:
-          manifest: "${{ github.event.inputs.manifest }}"
-          namespace: "${{ github.event.inputs.namespace }}"
-          k8s_cluster_name: "${{ github.event.inputs.k8s_cluster_name }}"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          manifest: "deployment.yaml"
+          namespace: "namespace"
+          kubec_config_location: "~/.kube/config"
 
 ```

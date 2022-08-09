@@ -17,21 +17,13 @@ inputs:
   docker_password:
     description: Docker Password for Docker Hub Authentication (PAT)
     required: true
-  docker_email:
-    description: Email used for Docker.
-    required: true
   docker_pull_secret:
     description: Adds a secret to grant access for pods to pull images from registry.
     required: true
-  AWS_DEFAULT_REGION:
-    description: Region you wish to use for AWS.
-    required: true
-  AWS_ACCESS_KEY_ID:
-    description: Key used to access AWS.
-    required: true
-  AWS_SECRET_ACCESS_KEY:
-    description: Key used to access AWS secrets.
-    required: true
+  kube_config_location:
+    description: Location of the kubeconfig you want to use.
+    default: "~/.kube/config"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -39,7 +31,7 @@ runs:
         #!/usr/bin/env bash
         function kubernetes_create_namespace {
         NAMESPACE=$1
-        kubectl create namespace ${1} || echo "Namespace Exists"
+        kubectl create namespace ${1} --kubeconfig=${{ inputs.kube_config_location }} || echo "Namespace Exists"
         }
 
         function kubernetes_create_docker_secret {
@@ -47,7 +39,6 @@ runs:
         DOCKER_HOST_URL=$2
         DOCKER_USERNAME=$3
         DOCKER_PASSWORD=$4
-        DOCKER_EMAIL=$5
         DOCKER_PULL_SECRET=$6
         EXISTS=
 
@@ -55,17 +46,15 @@ runs:
         --docker-server="${INPUT_DOCKER_HOST_URL}" \
         --docker-username="${INPUT_DOCKER_USERNAME}" \
         --docker-password="${INPUT_DOCKER_PASSWORD}" \
-        --docker-email="${INPUT_DOCKER_EMAIL}" \
-        --namespace ${INPUT_NAMESPACE} || export EXISTS=yes
+        --namespace ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }} || export EXISTS=yes
 
         if [ ! -z ${EXISTS} ]; then
-        kubectl delete secret ${INPUT_DOCKER_PULL_SECRET} -n ${INPUT_NAMESPACE}
+        kubectl delete secret ${INPUT_DOCKER_PULL_SECRET} -n ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }}
         kubectl create secret docker-registry ${INPUT_DOCKER_PULL_SECRET} \
         --docker-server="${INPUT_DOCKER_HOST_URL}" \
         --docker-username="${INPUT_DOCKER_USERNAME}" \
         --docker-password="${INPUT_DOCKER_PASSWORD}" \
-        --docker-email="${INPUT_DOCKER_EMAIL}" \
-        --namespace ${INPUT_NAMESPACE}
+        --namespace ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }}
         fi
         }
       shell: bash

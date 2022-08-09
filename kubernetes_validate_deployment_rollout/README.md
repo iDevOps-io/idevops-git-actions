@@ -28,9 +28,6 @@ jobs:
         with:
           app_name: "${{ github.event.inputs.app_name }}"
           namespace: "${{ github.event.inputs.namespace }}"
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "${{ github.event.inputs.kubernetes_cluster_name }}"
 
 

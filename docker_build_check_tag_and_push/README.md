@@ -29,14 +29,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: "Check if exist, build and push if not."
-        uses: iDevOps-io/idevops-git-actions/docker-build-and-push@main
+      - name: "DOCKER:BUILD:CHECK:PUSH"
+        uses: iDevOps-io/idevops-git-actions/docker_build_check_tag_and_push@main
         with:
-          docker_username: ${{ secrets.DOCKER_USERNAME }}
-          docker_password: ${{ secrets.DOCKER_PASSWORD }}
-          docker_org: "${{ github.event.inputs.docker_org }}"
-          docker_image: "${{ github.event.inputs.docker_image }}"
-          docker_tag: "${{ github.event.inputs.docker_tag }}"
-          docker_file_location: "{{ github.event.inputs.docker_file_location }}"
+          docker_username: "${{ inputs.docker_username }}"
+          docker_password: "${{ inputs.docker_password }}"
+          docker_org: "${{ inputs.docker_org }}"
+          docker_image: "${{ inputs.image }}"
+          docker_tag: "${{ inputs.image_tag }}"
+          docker_file_location: "${{ inputs.docker_file_location }}"
 
 ```

@@ -36,10 +36,6 @@ jobs:
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           namespace: "${{ github.event.inputs.namespace }}"
           docker_host_url: "${{ github.event.inputs.docker_host_url }}"
-          docker_email: "${{ github.event.inputs.docker_email }}"
           docker_pull_secret: "${{ github.event.inputs.docker_pull_secret }}"
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 ```
