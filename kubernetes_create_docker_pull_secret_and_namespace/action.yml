@@ -29,32 +29,22 @@ runs:
   steps:
     - run: |
         #!/usr/bin/env bash
-        function kubernetes_create_namespace {
-        NAMESPACE=$1
-        kubectl create namespace ${1} --kubeconfig=${{ inputs.kube_config_location }} || echo "Namespace Exists"
-        }
 
-        function kubernetes_create_docker_secret {
-        NAMESPACE=$1
-        DOCKER_HOST_URL=$2
-        DOCKER_USERNAME=$3
-        DOCKER_PASSWORD=$4
-        DOCKER_PULL_SECRET=$6
-        EXISTS=
+        kubectl create namespace ${NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }} || echo "Namespace Exists"
 
-        kubectl create secret docker-registry ${INPUT_DOCKER_PULL_SECRET} \
-        --docker-server="${INPUT_DOCKER_HOST_URL}" \
-        --docker-username="${INPUT_DOCKER_USERNAME}" \
-        --docker-password="${INPUT_DOCKER_PASSWORD}" \
-        --namespace ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }} || export EXISTS=yes
+        kubectl create secret docker-registry ${{ inputs.docker_pull_secret }} \
+        --docker-server="${{ inputs.docker_host_url }}" \
+        --docker-username="${{ inputs.docker_username }}" \
+        --docker-password="${{ inputs.docker_password }}" \
+        --namespace ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }} || export EXISTS=yes
 
-        if [ ! -z ${EXISTS} ]; then
-        kubectl delete secret ${INPUT_DOCKER_PULL_SECRET} -n ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }}
-        kubectl create secret docker-registry ${INPUT_DOCKER_PULL_SECRET} \
-        --docker-server="${INPUT_DOCKER_HOST_URL}" \
-        --docker-username="${INPUT_DOCKER_USERNAME}" \
-        --docker-password="${INPUT_DOCKER_PASSWORD}" \
-        --namespace ${INPUT_NAMESPACE} --kubeconfig=${{ inputs.kube_config_location }}
+        if [ ! -z "${EXISTS}" ]; then
+          kubectl delete secret ${{ inputs.docker_pull_secret }} -n ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }}
+          kubectl create secret docker-registry ${{ inputs.docker_pull_secret }} \
+          --docker-server="${{ inputs.docker_host_url }}" \
+          --docker-username="${{ inputs.docker_username }}" \
+          --docker-password="${{ inputs.docker_password }}" \
+          --namespace ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }}
         fi
-        }
+
       shell: bash
