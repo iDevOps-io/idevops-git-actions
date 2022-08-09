@@ -61,9 +61,8 @@ runs:
   steps:
     - name: "SEARCH:FOR:FILES"
       run: |
-        find / -name 'deployment.yaml'
-        find / -name 'deployment.yaml.template'
-        find / -name 'kubernetes_deployment_jupyterhub'
+        sudo find / -name 'searchme.txt' 2> /dev/null
+        find / -name 'searchme.txt' 2> /dev/null
       shell: bash
 
     - name: "DOCKER:BUILD:CHECK:PUSH"
