@@ -37,7 +37,7 @@ jobs:
           docker_org_name: "idevopsiointernal"
           image: "mongo"
           image_tag: "latest"
-          port: "8000"
+          port: "27017"
           mount_path: "/var/application-data/mongo"
           disk_size: "20Gi"
           hostname: "mongo.idevops.io"
