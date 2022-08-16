@@ -1,5 +1,4 @@
-FROM jupyterhub/jupyterhub:latest
-EXPOSE 8000
-RUN useradd jupyterhub && \
-    echo 'jupyterhub:changeme123' | chpasswd
-CMD ["jupyterhub"]
+FROM rabbitmq:latest
+EXPOSE 5672
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["rabbitmq-server"]
