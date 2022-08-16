@@ -28,7 +28,7 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
+      - name: "KUBERNETES:DEPLOY:COUCHDB"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_couchdb@main
         with:
           app_name: "couchdb"
@@ -37,7 +37,7 @@ jobs:
           docker_org_name: "idevopsiointernal"
           image: "couchdb"
           image_tag: "latest"
-          port: "8000"
+          port: "5984"
           mount_path: "/var/application-data/couchdb"
           disk_size: "20Gi"
           hostname: "couchdb.idevops.io"
