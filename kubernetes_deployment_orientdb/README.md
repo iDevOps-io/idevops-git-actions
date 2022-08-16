@@ -37,7 +37,7 @@ jobs:
           docker_org_name: "idevopsiointernal"
           image: "orientdb"
           image_tag: "latest"
-          port: "8000"
+          port: "2480"
           mount_path: "/var/application-data/orientdb"
           disk_size: "20Gi"
           hostname: "jupyter-hub.idevops.io"
