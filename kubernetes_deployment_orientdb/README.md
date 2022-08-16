@@ -40,7 +40,7 @@ jobs:
           port: "2480"
           mount_path: "/var/application-data/orientdb"
           disk_size: "20Gi"
-          hostname: "jupyter-hub.idevops.io"
+          hostname: "orientdb-hub.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"
