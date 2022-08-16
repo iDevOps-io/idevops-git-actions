@@ -9,7 +9,7 @@ on:
         default: idevops-vaas-cluster
             
 jobs:
-  build_deploy_jupyterhub:
+  build_deploy_orientdb:
     name: "AWS:EKS:DEPLOY:ORIENTDB"
     runs-on: ${{ matrix.os }}
 
