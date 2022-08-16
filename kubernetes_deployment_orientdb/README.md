@@ -1,5 +1,5 @@
 ```yaml
-name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+name: "AWS:EKS:DEPLOY:ORIENTDB"
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
             
 jobs:
   build_deploy_jupyterhub:
-    name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+    name: "AWS:EKS:DEPLOY:ORIENTDB"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,17 +28,17 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_jupyterhub@main
+      - name: "KUBERNETES:DEPLOY:orientdb"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@main
         with:
-          app_name: "jupyterhub"
-          kubernetes_namespace: "jupyterhub"
-          docker_pull_secret: "jupyterhub"
+          app_name: "orientdb"
+          kubernetes_namespace: "orientdb"
+          docker_pull_secret: "orientdb"
           docker_org_name: "idevopsiointernal"
-          image: "jupyterhub"
+          image: "orientdb"
           image_tag: "latest"
           port: "8000"
-          mount_path: "/var/application-data/jupyterhub"
+          mount_path: "/var/application-data/orientdb"
           disk_size: "20Gi"
           hostname: "jupyter-hub.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}

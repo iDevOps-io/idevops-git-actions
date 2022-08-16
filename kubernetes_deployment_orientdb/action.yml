@@ -1,0 +1,88 @@
+name: "AWS:EKS:DEPLOY:orientdb"
+author: Jason Valest <jvalest@idevops.io>
+  docker_username:
+    description: The docker username to use for dockerhub authentication.
+    required: true
+  docker_password:
+    description: The docker password to use for dockerhub authentication.
+    required: true
+  docker_file_location:
+    description: The docker org you will be pushing your image to.
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_orientdb/"
+    required: false
+  docker_server_url:
+    description: The url to push docker images to.
+    default: "https://index.docker.io/v1/"
+    required: false
+  composite_file_location:
+    description: The location where files live
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_orientdb"
+    required: false
+  AWS_ACCESS_KEY_ID:
+    required: false
+    default: " "
+  AWS_SECRET_ACCESS_KEY:
+    required: false
+    default: " "
+  AWS_DEFAULT_REGION:
+    required: false
+    default: " "
+  kubernetes_config:
+    description: Location of the kubeconfig you want to use to deploy to kubernetes.
+    default: "/home/runner/.kube/config"
+    required: false
+  docker_pull_secret:
+    description: The name of the docker pull secret you with to use to pull your image.
+    required: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      kubernetes_cluster_name:
+        description: Name of kubernetes cluster
+        default: idevops-vaas-cluster
+            
+jobs:
+  build_deploy_orientdb:
+    name: "AWS:EKS:DEPLOY:orientdb"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "AWS:EKS:PULL:KUBECONFIG"
+        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@main
+        with:
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
+          kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
+          
+      - name: "KUBERNETES:DEPLOY:orientdb"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@main
+        with:
+          app_name: "orientdb"
+          kubernetes_namespace: "orientdb"
+          docker_pull_secret: "orientdb"
+          docker_org_name: "idevopsiointernal"
+          image: "orientdb"
+          image_tag: "latest"
+          port: "8000"
+          mount_path: "/var/application-data/orientdb"
+          disk_size: "20Gi"
+          hostname: "orientdb-hub.idevops.io"
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          docker_server_url: "https://index.docker.io/v1/"
+
+- name: "SET:ENV:VARS:FOR:ORIENTDB"
+      run: |
+        echo "kubernetes_config=${{ inputs.kubernetes_config }}" >> ${GITHUB_ENV}
+        echo "app_name=${{ inputs.app_name }}" >> ${GITHUB_ENV}
+        echo "kubernetes_namespace=${{ inputs.kubernetes_namespace }}" >> ${GITHUB_ENV}
+        echo "docker_pull_secret=${{ inputs.docker_pull_secret }}" >> ${GITHUB_ENV}
+        echo "docker_org_name=${{ inputs.docker_org_name }}" >> ${GITHUB_ENV}
