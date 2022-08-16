@@ -9,7 +9,7 @@ on:
         default: idevops-vaas-cluster
             
 jobs:
-  build_deploy_jupyterhub:
+  build_deploy_freetube:
     name: "AWS:EKS:DEPLOY:FREETUBE"
     runs-on: ${{ matrix.os }}
 
@@ -37,7 +37,7 @@ jobs:
           docker_org_name: "idevopsiointernal"
           image: "freetube"
           image_tag: "latest"
-          port: "8000"
+          port: "3000"
           mount_path: "/var/application-data/freetube"
           disk_size: "20Gi"
           hostname: "freetube.idevops.io"
