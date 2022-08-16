@@ -9,7 +9,7 @@ on:
         default: idevops-vaas-cluster
             
 jobs:
-  build_deploy_jupyterhub:
+  build_deploy_mongo:
     name: "AWS:EKS:DEPLOY:MONGO"
     runs-on: ${{ matrix.os }}
 
