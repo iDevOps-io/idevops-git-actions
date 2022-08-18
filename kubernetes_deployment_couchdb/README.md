@@ -38,7 +38,7 @@ jobs:
           image: "couchdb"
           image_tag: "latest"
           port: "5984"
-          mount_path: "/var/application-data/couchdb"
+          mount_path: "/opt/couchdb/data"
           disk_size: "20Gi"
           hostname: "couchdb.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
