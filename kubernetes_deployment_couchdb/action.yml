@@ -27,12 +27,12 @@ inputs:
   image_tag:
     description: The image tag you wish to tag the docker image as.
     required: true
-  port:
+  port: "5984"
     description: The port the container and service will be running on.
     required: true
   mount_path:
     description: The persistent volume mount path.
-    default: "/var/application-data/couchdb"
+    default: "/opt/couchdb/data"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
