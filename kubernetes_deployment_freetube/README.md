@@ -33,7 +33,7 @@ jobs:
         with:
           app_name: "freetube"
           kubernetes_namespace: "freetube"
-          docker_pull_secret: "freetube"
+          docker_pull_secret: "freetube-docker-secret"
           docker_org_name: "idevopsiointernal"
           image: "freetube"
           image_tag: "latest"
