@@ -38,7 +38,7 @@ jobs:
           image: "freetube"
           image_tag: "latest"
           port: "3000"
-          mount_path: "/var/application-data/freetube"
+          mount_path: "/var/data/freetube"
           disk_size: "20Gi"
           hostname: "freetube.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
