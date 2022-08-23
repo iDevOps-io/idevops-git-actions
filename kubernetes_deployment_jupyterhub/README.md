@@ -7,7 +7,7 @@ on:
       kubernetes_cluster_name:
         description: Name of kubernetes cluster
         default: idevops-vaas-cluster
-        
+       
 jobs:
   build_deploy_jupyterhub:
     name: "AWS:EKS:DEPLOY:JUYPTERHUB"
