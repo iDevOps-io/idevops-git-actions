@@ -38,7 +38,7 @@ jobs:
           image: "postgresql"
           image_tag: "latest"
           port: "5432"
-          mount_path: "/var/lib/postgresql/data" 
+          mount_path: "/var/data/postgresql" 
           disk_size: "5Gi"
           hostname: "postgresql.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
