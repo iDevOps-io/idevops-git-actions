@@ -40,7 +40,7 @@ jobs:
           port: "5432"
           mount_path: "/var/lib/postgresql/data" 
           disk_size: "5Gi"
-          hostname: "posgresql.idevops.io"
+          hostname: "postgresql.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"
