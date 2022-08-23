@@ -39,9 +39,6 @@ spec:
                 key: POSTGRES_PASSWORD
         ports:
           - containerPort: -=port=-
-        volumeMounts:
-          - mountPath: "/var/atlassian/application-data/confluence"
-            name: -=app_name=-
 
         volumeMounts:
         - mountPath: "/var/application-data/postgresql"
