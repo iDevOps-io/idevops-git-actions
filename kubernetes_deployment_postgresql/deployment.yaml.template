@@ -21,6 +21,10 @@ spec:
       labels:
         app: -=app_name=-
     spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-      
       imagePullSecrets:
       - name: -=docker_pull_secret=-
       containers:
