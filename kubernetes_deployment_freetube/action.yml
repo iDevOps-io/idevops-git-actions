@@ -115,7 +115,6 @@ runs:
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
         echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
-        echo "hello"
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"
