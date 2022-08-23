@@ -42,7 +42,8 @@ spec:
                 name: -=app_name=-
                 key: POSTGRES_PASSWORD
         ports:
-          - containerPort: -=port=-
+        - name: portone 
+          containerPort: -=port=-
 
         volumeMounts:
          - mountPath: "/var/data/postgresql"
