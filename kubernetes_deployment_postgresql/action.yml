@@ -32,6 +32,10 @@ inputs:
     required: true
   mount_path:
     description: The persistent volume mount path.
+    default: "/var/atlassian/application-data/confluence"
+    required: false
+  mount_path2:
+    description: The persistent volume mount path.
     default: "/var/application-data/postgresql"
     required: false
   disk_size:

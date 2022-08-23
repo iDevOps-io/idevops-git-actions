@@ -38,8 +38,8 @@ jobs:
           image: "postgresql"
           image_tag: "latest"
           port: "5432"
-          mount_path: "/var/application-data/postgresql"
           mount_path: "/var/atlassian/application-data/confluence"
+          mount_path2: "/var/application-data/postgresql" 
           disk_size: "5Gi"
           hostname: "posgresql.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
