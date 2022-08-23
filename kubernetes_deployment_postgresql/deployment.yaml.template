@@ -41,7 +41,7 @@ spec:
           - containerPort: -=port=-
 
         volumeMounts:
-        - mountPath: "/var/application-data/postgresql"
+        - mountPath: "/var/lib/postgresql/data"
           name: -=app_name=-
 
 ---
