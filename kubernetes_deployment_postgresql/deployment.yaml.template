@@ -24,7 +24,7 @@ spec:
       volumes:
       - name: -=app_name=-
         persistentVolumeClaim:
-          claimName: -=app_name=-      
+          claimName: -=app_name=-
       imagePullSecrets:
       - name: -=docker_pull_secret=-
       containers:
@@ -35,19 +35,14 @@ spec:
             port: -=port=-
           initialDelaySeconds: 90
           periodSeconds: 90
-        env:
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=-
-                key: POSTGRES_PASSWORD
+
         ports:
-        - name: portone 
-          containerPort: -=port=-
+          - name: portone
+            containerPort: -=port=-
 
         volumeMounts:
-         - mountPath: "/var/lib/postgresql/data"
-           name: -=app_name=-
+        - mountPath: "/var/lib/postgresql/data"
+          name: -=app_name=-
 
 ---
 apiVersion: v1
