@@ -90,12 +90,6 @@ runs:
         docker_tag: "${{ inputs.image_tag }}"
         docker_file_location: "${{ inputs.docker_file_location }}"
 
-    - name: "DOCKER:IMAGE:SCAN:ANCHORE"
-      uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
-      with:
-        docker_image_name: "${{ inputs.docker_org_name }}/${{ inputs.image }}:${{ inputs.image_tag }}"
-        fail_pipeline_on_fail: "false"
-
     - name: "K8S:CREATE:NAMESPACE:AND:DOCKER:SECRET"
       uses: iDevOps-io/idevops-git-actions/kubernetes_create_docker_pull_secret_and_namespace@main
       with:
