@@ -30,18 +30,37 @@ spec:
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        env:
+        - name: MYSQL_HOST
+          value: -=MYSQL_HOST=-
+        - name: MYSQL_DATABASE
+          value: -=MYSQL_DATABASE=-
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: -=app_name=-
+              key: MYSQL_PASSWORD
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: -=app_name=-
+              key: MYSQL_USER
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: -=app_name=-
+              key: MYSQL_ROOT_PASSWORD
         livenessProbe:
           tcpSocket:
             port: -=port=-
           initialDelaySeconds: 90
-          periodSeconds: 90
-
+          periodSeconds: 90          
         ports:
-          - name: portone
-            containerPort: -=port=-
+        - name: portone
+          containerPort: -=port=-
 
         volumeMounts:
-        - mountPath: "/var/lib/posgresql/data"
+        - mountPath: "/var/lib/mysql"
           name: -=app_name=-
 
 ---
@@ -75,28 +94,12 @@ spec:
   storageClassName: gp2
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: v1
+kind: Secret
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
-    kubernetes.io/tls-acme: "true"
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: -=hostname=-
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: -=app_name=-
-            port: 
-              number: -=port=-
-  tls: 
-  - hosts:
-    - -=hostname=-
-    secretName: -=app_name=--tls
+stringData:
+  MYSQL_USER: -=MYSQL_USER=-
+  MYSQL_PASSWORD: -=MYSQL_PASSWORD=-
+  MYSQL_ROOT_PASSWORD: -=MYSQL_ROOT_PASSWORD=-
