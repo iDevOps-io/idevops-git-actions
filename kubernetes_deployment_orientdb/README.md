@@ -29,7 +29,7 @@ jobs:
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
       - name: "KUBERNETES:DEPLOY:ORIENTDB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@main
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@IIO-64
         with:
           app_name: "orientdb"
           kubernetes_namespace: "orientdb"
