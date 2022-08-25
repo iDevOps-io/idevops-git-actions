@@ -129,6 +129,9 @@ runs:
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
         echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
+      env: 
+        POSTGRES_ROOT_USER: ${{ inputs.POSTGRES_ROOT_USER }}
+        POSTGRES_ROOT_PASSWORD:  ${{ inputs.POSTGRES_ROOT_PASSWORD }}
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"
