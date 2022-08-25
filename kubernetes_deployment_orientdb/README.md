@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "AWS:EKS:PULL:KUBECONFIG"
-        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@main
+        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@IIO-64
         with:
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
@@ -29,7 +29,7 @@ jobs:
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
       - name: "KUBERNETES:DEPLOY:ORIENTDB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@IIO-64
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@main
         with:
           app_name: "orientdb"
           kubernetes_namespace: "orientdb"
