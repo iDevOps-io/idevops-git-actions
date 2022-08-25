@@ -1,16 +1,16 @@
-name: "K8S:DEPLOYMENT:COUCHDB"
-author: Damon Cone <dcone@idevops.io>
+name: "K8S:DEPLOYMENT:MONGO"
+author: David Rex <drex@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
-description: Deploys CouchDB into K8S in a production way.
+description: Deploys Mongo into K8S in a production way.
 inputs:
   kubernetes_config:
     description: Location of the kubeconfig you want to use to deploy to kubernetes.
     default: "/home/runner/.kube/config"
     required: false
   app_name:
-    description: What you want to name your couchdb deployment.
+    description: What you want to name your mongo deployment.
     required: true
   kubernetes_namespace:
     description: The namespace in k8s you want to deployment
@@ -22,17 +22,17 @@ inputs:
     description: The org you will be pushing to and pulling from.
     required: true
   image:
-    description: The image name you want to build and push the docker image for couchdb hub to.
+    description: The image name you want to build and push the docker image for mongo to.
     required: true
   image_tag:
     description: The image tag you wish to tag the docker image as.
     required: true
-  port: "5984"
+  port:
     description: The port the container and service will be running on.
     required: true
   mount_path:
     description: The persistent volume mount path.
-    default: "/opt/couchdb/data"
+    default: "/var/application-data/mongo"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
@@ -40,7 +40,7 @@ inputs:
     required: false
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
-    default: "couchdb.idevops.io"
+    default: "mongo.idevops.io"
     required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
@@ -50,7 +50,7 @@ inputs:
     required: true
   docker_file_location:
     description: The docker org you will be pushing your image to.
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_jupyterhub/"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_mongo/"
     required: false
   docker_server_url:
     description: The url to push docker images to.
@@ -58,7 +58,7 @@ inputs:
     required: false
   composite_file_location:
     description: The location where files live
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_jupyterhub"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_mongo"
     required: false
   AWS_ACCESS_KEY_ID:
     required: false

@@ -1,5 +1,5 @@
 ```yaml
-name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+name: "AWS:EKS:DEPLOY:MONGO"
 
 on:
   workflow_dispatch:
@@ -7,10 +7,10 @@ on:
       kubernetes_cluster_name:
         description: Name of kubernetes cluster
         default: idevops-vaas-cluster
-        
+            
 jobs:
-  build_deploy_jupyterhub:
-    name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+  build_deploy_mongo:
+    name: "AWS:EKS:DEPLOY:MONGO"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,24 +28,21 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_jupyterhub@main
+      - name: "KUBERNETES:DEPLOY:MONGO"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_mongo@main
         with:
-          app_name: "jupyterhub"
-          kubernetes_namespace: "jupyterhub"
-          docker_pull_secret: "jupyterhub"
+          app_name: "mongo"
+          kubernetes_namespace: "mongo"
+          docker_pull_secret: "mongo"
           docker_org_name: "idevopsiointernal"
-          image: "jupyterhub"
+          image: "mongo"
           image_tag: "latest"
-          port: "8000"
-          mount_path: "/var/application-data/jupyterhub"
+          port: "27017"
+          mount_path: "/var/application-data/mongo"
           disk_size: "20Gi"
-          hostname: "jupyter-hub.idevops.io"
+          hostname: "mongo.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"
 
 ```
-
-
-

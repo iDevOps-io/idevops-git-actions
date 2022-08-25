@@ -32,20 +32,22 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         livenessProbe:
           tcpSocket:
-            port: -=port=-
+            port: -=port_two=-
           initialDelaySeconds: 90
           periodSeconds: 90
-
+        env:
+          - name: TS3SERVER_LICENSE
+            value: "accept"          
         ports:
         - name: portone
           containerPort: -=port=-
+
+        - name: porttwo
+          containerPort: -=port_two=-
         
         volumeMounts:
-        - mountPath: "-=mount_path=-"
+        - mountPath: -=mount_path=-
           name: -=app_name=-
-
-
-
 ---
 apiVersion: v1
 kind: Service
@@ -60,6 +62,9 @@ spec:
     - name: portone
       port: -=port=-
       targetPort: -=port=-
+    - name: porttwo
+      port: -=port_two=-
+      targetPort: -=port_two=-
   
       
 ---
@@ -101,6 +106,8 @@ spec:
             name: -=app_name=-
             port: 
               number: -=port=-
+              number: -=port_two=-
+              number: -=port_three=-
   tls: 
   - hosts:
     - -=hostname=-
