@@ -40,10 +40,10 @@ inputs:
     required: false
   POSTGRES_ROOT_USER:
     description: The root user for Postgresql.
-    required: false
+    required: true
   POSTGRES_ROOT_PASSWORD:
     description: The secret key for Postgresql.
-    required: false  
+    required: true  
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
     default: "postgresql.idevops.io"
