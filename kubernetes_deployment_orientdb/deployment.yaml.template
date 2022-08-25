@@ -47,7 +47,10 @@ spec:
         environment:
         - ORIENTDB_ROOT_PASSWORD=anypw
 
-        - name: ORIENTDB_ROOT_PASSWORD
+        env:
+          - name: ORIENTDB_USER
+            value: -=admin=-
+          - name: ORIENTDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=-
