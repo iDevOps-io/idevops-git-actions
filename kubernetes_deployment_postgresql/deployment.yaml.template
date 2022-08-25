@@ -37,7 +37,10 @@ spec:
           periodSeconds: 90
         env:
           - name: POSTGRES_USER 
-            value: -=POSTGRES_ROOT_USER=-
+            valueFrom: 
+              secretKeyRef:
+                name: -=POSTGRES_ROOT_USER=-
+                key: admin
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
