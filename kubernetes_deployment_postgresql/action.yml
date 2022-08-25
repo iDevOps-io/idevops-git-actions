@@ -38,6 +38,12 @@ inputs:
     description: The size of the persistent volume you wish to provision.
     default: "5Gi"
     required: false
+  POSTGRES_ROOT_USER:
+    description: The root user for Postgresql.
+    required: true
+  POSTGRES_ROOT_PASSWORD:
+    description: The secret key for Postgresql.
+    required: true  
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
     default: "postgresql.idevops.io"
@@ -123,9 +129,6 @@ runs:
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
         echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
-      env: 
-        POSTGRES_ROOT_USER: ${{ inputs.POSTGRES_ROOT_USER }}
-        POSTGRES_ROOT_PASSWORD:  ${{ inputs.POSTGRES_ROOT_PASSWORD }}
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"
