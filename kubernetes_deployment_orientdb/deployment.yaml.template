@@ -53,7 +53,7 @@ spec:
           - name: ORIENTDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: -=app_name=-
+                name: -=app_name=--secret
                 key: -=ORIENTDB_ROOT_PASSWORD=-
 
 
@@ -61,7 +61,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: -=app_name=-
+  name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
 data:
   ORIENTDB_ROOT_PASSWORD: -=ORIENTDB_ROOT_PASSWORD=-
