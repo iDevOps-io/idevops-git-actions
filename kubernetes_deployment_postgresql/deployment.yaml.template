@@ -36,7 +36,8 @@ spec:
           initialDelaySeconds: 90
           periodSeconds: 90
         env:
-          - name: POSTGRES_ROOT_PASSWORD 
+          - name: POSTGRES_USER 
+            value: -=admin=-
             valueFrom:
               secretKeyRef:
                 name: -=app_name=-
@@ -48,6 +49,7 @@ spec:
         volumeMounts:
         - mountPath: "/var/lib/postgresql/data"
           name: -=app_name=-
+
 ---
 apiVersion: v1
 kind: Secret
