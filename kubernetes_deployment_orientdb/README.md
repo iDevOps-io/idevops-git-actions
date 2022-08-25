@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "AWS:EKS:PULL:KUBECONFIG"
-        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@IIO-64
+        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@main
         with:
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
