@@ -70,9 +70,6 @@ inputs:
     required: false
     default: " "
 
-environment:
-- ORIENTDB_ROOT_PASSWORD=anypw
-
 runs:
   using: composite
   steps:
