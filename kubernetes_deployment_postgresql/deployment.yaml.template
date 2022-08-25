@@ -39,7 +39,7 @@ spec:
           - name: POSTGRES_USER 
             valueFrom: 
               secretKeyRef:
-                name: -=app_name=--user
+                name: -=app_name=-
                 key: -=POSTGRES_ROOT_USER=-
           - name: POSTGRES_PASSWORD
             valueFrom:
