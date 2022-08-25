@@ -59,6 +59,7 @@ metadata:
   namespace: -=kubernetes_namespace=-
 data:
   POSTGRES_ROOT_PASSWORD: -=POSTGRES_ROOT_PASSWORD=-
+type: Opaque
 
 ---
 apiVersion: v1
