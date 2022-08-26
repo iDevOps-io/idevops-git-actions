@@ -58,7 +58,7 @@ inputs:
     required: false
   composite_file_location:
     description: The location where files live
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_orientdb"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-64/kubernetes_deployment_orientdb"
     required: false
   AWS_ACCESS_KEY_ID:
     required: false
