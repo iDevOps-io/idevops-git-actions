@@ -56,6 +56,17 @@ spec:
 
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+type: Opaque
+data:
+  POSTGRES_ROOT_USER: -=POSTGRES_ROOT_USER=-
+  POSTGRES_ROOT_PASSWORD: -=POSTGRES_ROOT_PASSWORD=-
+  
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: -=app_name=-
