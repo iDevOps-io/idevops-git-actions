@@ -45,7 +45,7 @@ spec:
           name: -=app_name=-
 
         environment:
-        - ORIENTDB_ROOT_PASSWORD=anypw
+          - ORIENTDB_ROOT_PASSWORD=anypw
 
         env:
           - name: ORIENTDB_USER
