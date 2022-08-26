@@ -44,9 +44,6 @@ spec:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
 
-        environment:
-        - ORIENTDB_ROOT_PASSWORD=anypw
-
         env:
           - name: ORIENTDB_USER
             value: -=admin=-
@@ -126,4 +123,3 @@ spec:
   - hosts:
     - -=hostname=-
     secretName: -=app_name=--tls
-    
