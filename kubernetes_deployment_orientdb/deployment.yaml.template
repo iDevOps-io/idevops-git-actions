@@ -53,8 +53,8 @@ spec:
           - name: ORIENTDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: -=app_name=--secret
-                key: -=ORIENTDB_ROOT_PASSWORD=-
+                name: mySecretKey
+                key: mySecret
 
 
 ---
@@ -126,3 +126,4 @@ spec:
   - hosts:
     - -=hostname=-
     secretName: -=app_name=--tls
+    
