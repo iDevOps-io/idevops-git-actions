@@ -116,9 +116,6 @@ runs:
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
         echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
-        echo "composite_file_location=${{ inputs.composite_file_location }}" >> ${GITHUB_ENV}
-        echo "admin=${{ inputs.admin }}" >> ${GITHUB_ENV}
-        echo "ORIENTDB_ROOT_PASSWORD=${{ inputs.ORIENTDB_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"
