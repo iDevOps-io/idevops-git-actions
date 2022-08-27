@@ -39,7 +39,7 @@ spec:
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: -=app_name=--secret
+                name: -=app_name=-
                 key: -=POSTGRES_ROOT_PASSWORD=-
         ports:
           - name: portone
@@ -57,6 +57,7 @@ metadata:
   namespace: -=kubernetes_namespace=-
 type: Opaque
 data:
+  POSTGRES_KEY: -=POSTGRES_ROOT_PASSWORD=-
   POSTGRES_ROOT_PASSWORD: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
 
 ---
