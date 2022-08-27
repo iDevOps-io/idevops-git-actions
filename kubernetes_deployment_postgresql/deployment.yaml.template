@@ -44,7 +44,7 @@ spec:
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: -=app_name=--secret
+                name: -=app_name=-
                 key: -=POSTGRES_ROOT_PASSWORD=-
         ports:
           - name: portone
@@ -58,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: -=app_name=--secret
+  name: -=app_name=-
   namespace: -=kubernetes_namespace=-
 type: Opaque
 data:
