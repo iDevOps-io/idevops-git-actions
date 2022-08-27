@@ -60,9 +60,8 @@ kind: Secret
 metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
-type: Opaque  
 data:
-  ORIENTDB_ROOT_PASSWORD: 4CEJ57492B9Z06PFDF2I
+  ORIENTDB_ROOT_PASSWORD: -=ORIENTDB_ROOT_PASSWORD=-
 
 
 ---
