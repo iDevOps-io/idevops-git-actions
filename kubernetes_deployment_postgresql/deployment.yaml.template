@@ -40,7 +40,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: -=app_name=-
-                key: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
+                key: -=POSTGRES_ROOT_PASSWORD=-
         ports:
           - name: portone
             containerPort: -=port=-
@@ -48,16 +48,6 @@ spec:
         volumeMounts:
         - mountPath: "/var/lib/postgresql/data"
           name: -=app_name=-
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-type: Opaque
-data:
-  POSTGRES_ROOT_PASSWORD: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
 
 ---
 apiVersion: v1
