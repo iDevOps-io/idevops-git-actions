@@ -36,11 +36,6 @@ spec:
           initialDelaySeconds: 90
           periodSeconds: 90
         env:
-          - name: POSTGRES_USER 
-            valueFrom: 
-              secretKeyRef:
-                name: -=app_name=-
-                key: -=POSTGRES_ROOT_USER=-
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -62,7 +57,6 @@ metadata:
   namespace: -=kubernetes_namespace=-
 type: Opaque
 data:
-  POSTGRES_ROOT_USER: UE9TVEdSRVNfUk9PVF9VU0VS
   POSTGRES_ROOT_PASSWORD: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
 
 ---
