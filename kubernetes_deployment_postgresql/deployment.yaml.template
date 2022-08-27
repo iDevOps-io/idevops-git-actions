@@ -40,7 +40,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: -=app_name=-
-                key: -=POSTGRES_ROOT_PASSWORD=-
+                key: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
         ports:
           - name: portone
             containerPort: -=port=-
