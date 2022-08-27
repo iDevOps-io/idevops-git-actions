@@ -62,6 +62,7 @@ metadata:
   namespace: -=kubernetes_namespace=-
 type: Opaque
 data:
+  POSTGRES_ROOT_USER: UE9TVEdSRVNfUk9PVF9VU0VS
   POSTGRES_ROOT_PASSWORD: UE9TVEdSRVNfUk9PVF9QQVNTV09SRA==
 
 ---
