@@ -108,6 +108,8 @@ runs:
         docker_pull_secret: "${{ inputs.docker_pull_secret }}"
     
     - name: "SECRET"
+      with: 
+        POSTGRES_ROOT_PASSWORD: ${{ secrets.POSTGRES_ROOT_PASSWORD }}"
       env:
         POSTGRES_ROOT_PASSWORD: ${{ secrets.POSTGRES_ROOT_PASSWORD }}"   
     
