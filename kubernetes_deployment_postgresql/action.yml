@@ -119,7 +119,7 @@ runs:
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
-        echo "POSTGRES_ROOT_PASSWORD=${{ inputs.POSTGRES_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
+        echo "POSTGRES_ROOT_PASSWORD=${{ env.POSTGRES_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
