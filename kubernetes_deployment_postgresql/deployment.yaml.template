@@ -36,11 +36,21 @@ spec:
           initialDelaySeconds: 90
           periodSeconds: 90
         env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: -=app_name=-
-                key: -=POSTGRES_ROOT_PASSWORD=-
+                name: -=app_name=--secret
+                key: POSTGRES_PASSWORD
         ports:
           - name: portone
             containerPort: -=port=-
@@ -48,6 +58,18 @@ spec:
         volumeMounts:
         - mountPath: "/var/lib/postgresql/data"
           name: -=app_name=-
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+type: Opaque
+data:
+  POSTGRES_DB: VEVTVA==
+  POSTGRES_USER: VEVTVA==
+  POSTGRES_PASSWORD: VEVTVA==
 
 ---
 apiVersion: v1
