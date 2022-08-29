@@ -33,7 +33,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 90
+          initialDelaySeconds: 5
           periodSeconds: 90
         env:
           - name: POSTGRES_DB
