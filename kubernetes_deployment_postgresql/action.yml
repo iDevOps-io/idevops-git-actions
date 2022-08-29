@@ -106,13 +106,7 @@ runs:
         namespace: "${{ inputs.kubernetes_namespace }}"
         docker_host_url: "${{ inputs.docker_server_url }}"
         docker_pull_secret: "${{ inputs.docker_pull_secret }}"
-    
-    - name: "SECRET"
-      with: 
-        POSTGRES_ROOT_PASSWORD: ${{ secrets.POSTGRES_ROOT_PASSWORD }}"
-      env:
-        POSTGRES_ROOT_PASSWORD: ${{ secrets.POSTGRES_ROOT_PASSWORD }}"   
-    
+
     - name: "SET:ENV:VARS:FOR:TEMPLATING"
       run: |
         echo "kubernetes_config=${{ inputs.kubernetes_config }}" >> ${GITHUB_ENV}
