@@ -66,10 +66,10 @@ metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
 type: Opaque
-data:
-  POSTGRES_DB: VEVTVA==
-  POSTGRES_USER: VEVTVA==
-  POSTGRES_PASSWORD: VEVTVA==
+stringData: 
+  POSTGRES_DB: -=database_name=-
+  POSTGRES_USER: -=database_user=-
+  POSTGRES_PASSWORD: -=database_password=-
 
 ---
 apiVersion: v1
