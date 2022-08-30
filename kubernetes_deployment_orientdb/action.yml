@@ -69,6 +69,12 @@ inputs:
   AWS_DEFAULT_REGION:
     required: false
     default: " "
+  ORIENTDB_ROOT_PASSWORD:
+    required: false
+    default: " "
+  ORIENTDB_USERNAME:
+    required: false
+    default: " "    
 
 runs:
   using: composite
