@@ -71,10 +71,10 @@ inputs:
     default: " "
   ORIENTDB_ROOT_PASSWORD:
     required: false
-    default: " "
+    default: "changeme123"
   ORIENTDB_USERNAME:
     required: false
-    default: " "    
+    default: "admin"    
 
 runs:
   using: composite
