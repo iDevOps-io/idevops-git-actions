@@ -1,0 +1,101 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+  labels:
+    app: -=app_name=-
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+      containers:
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: 90
+          periodSeconds: 90          
+        ports:
+        - name: portone
+          containerPort: -=port=-
+
+        volumeMounts:
+        - mountPath: "/data"
+          name: -=app_name=-
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: LoadBalancer
+  selector:
+    app: -=app_name=-
+  ports:
+    - name: portone
+      port: -=port=-
+      targetPort: -=port=-     
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
+  storageClassName: gp2
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/tls-acme: "true"
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: -=hostname=-
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: -=app_name=-
+            port: 
+              number: -=port=-
+  tls: 
+  - hosts:
+    - -=hostname=-
+    secretName: -=app_name=--tls

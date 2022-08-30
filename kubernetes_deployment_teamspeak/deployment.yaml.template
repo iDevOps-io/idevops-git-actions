@@ -46,7 +46,7 @@ spec:
           containerPort: -=port_two=-
         
         volumeMounts:
-        - mountPath: "/var/application-data/teamspeak"
+        - mountPath: -=mount_path=-
           name: -=app_name=-
 ---
 apiVersion: v1

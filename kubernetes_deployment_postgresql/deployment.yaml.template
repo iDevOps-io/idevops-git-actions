@@ -33,18 +33,43 @@ spec:
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 90
+          initialDelaySeconds: 5
           periodSeconds: 90
-
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: POSTGRES_PASSWORD
         ports:
-        - name: portone
-          containerPort: -=port=-
-        
+          - name: portone
+            containerPort: -=port=-
+
         volumeMounts:
-        - mountPath: "-=mount_path=-"
+        - mountPath: "/var/lib/postgresql/data"
           name: -=app_name=-
 
-
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+type: Opaque
+stringData: 
+  POSTGRES_DB: -=database_name=-
+  POSTGRES_USER: -=database_user=-
+  POSTGRES_PASSWORD: -=database_password=-
 
 ---
 apiVersion: v1
@@ -59,9 +84,7 @@ spec:
   ports:
     - name: portone
       port: -=port=-
-      targetPort: -=port=-
-  
-      
+      targetPort: -=port=-     
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -77,7 +100,6 @@ spec:
     requests:
       storage: -=disk_size=-
   storageClassName: gp2
-
 
 ---
 apiVersion: networking.k8s.io/v1

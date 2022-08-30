@@ -1,0 +1,16 @@
+{
+    "image": "activemq",
+    "kubernetes_cluster_name": "idevops-vaas-cluster",
+    "kubernetes_namespace": "activemq",
+    "DOCKER_EMAIL": "grant@sifchain.finance",
+    "DOCKER_HOST_URL": "https://index.docker.io/v1/",
+    "docker_pull_secret": "activemq-docker-secret",
+    "app_name": "activemq",
+    "docker_org_name": "idevopsiointernal",
+    "port": "8161",
+    "port_two": "61616",
+    "disk_size": "50Gi",
+    "OUTPUT_FILE": "manifests/activemq/deployment.yaml",
+    "INPUT_FILE": "manifests/activemq/deployment.yaml.template",
+    "hostname": "activemq.idevops.io"
+}
