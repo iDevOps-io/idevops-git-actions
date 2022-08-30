@@ -128,9 +128,9 @@ runs:
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
-        echo "database_name=${{ inputs.POSTGRES_DB }}" >> ${GITHUB_ENV}
-        echo "database_user=${{ inputs.POSTGRES_USER }}" >> ${GITHUB_ENV}
-        echo "database_password=${{ inputs.POSTGRES_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
+        echo "database_name=${{ inputs.postgres }}" >> ${GITHUB_ENV}
+        echo "database_user=${{ inputs.admin }}" >> ${GITHUB_ENV}
+        echo "database_password=${{ inputs.changeme123 }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
