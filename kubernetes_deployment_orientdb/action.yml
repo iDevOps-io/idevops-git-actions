@@ -119,6 +119,7 @@ runs:
         echo "composite_file_location=${{ inputs.composite_file_location }}" >> ${GITHUB_ENV}
         echo "admin=${{ inputs.admin }}" >> ${GITHUB_ENV}
         echo "ORIENTDB_ROOT_PASSWORD=${{ inputs.ORIENTDB_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
+        echo "ORIENTDB_USERNAME=${{ inputs.ORIENTDB_USERNAME }}" >> ${GITHUB_ENV}
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"
