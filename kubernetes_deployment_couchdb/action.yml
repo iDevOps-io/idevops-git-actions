@@ -27,7 +27,7 @@ inputs:
   image_tag:
     description: The image tag you wish to tag the docker image as.
     required: true
-  port: "5984"
+  port:
     description: The port the container and service will be running on.
     required: true
   mount_path:
