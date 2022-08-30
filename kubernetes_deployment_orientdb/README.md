@@ -28,7 +28,7 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:orientdb"
+      - name: "KUBERNETES:DEPLOY:ORIENTDB"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_orientdb@main
         with:
           app_name: "orientdb"

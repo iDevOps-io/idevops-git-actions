@@ -44,6 +44,30 @@ spec:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
 
+        env:
+          - name: ORIENTDB_USER
+            value: -=admin=-
+          - name: ORIENTDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: ORIENTDB_ROOT_PASSWORD
+
+          - name: ORIENTDB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: ORIENTDB_USERNAME
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+stringData:
+  ORIENTDB_ROOT_PASSWORD: -=ORIENTDB_ROOT_PASSWORD=-
+  ORIENTDB_USERNAME: -=ORIENTDB_USERNAME=-
 
 
 ---
