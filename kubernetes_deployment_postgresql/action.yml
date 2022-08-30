@@ -40,7 +40,7 @@ inputs:
     required: false
   database_name:
     description: The name of the database.
-    default: "postgres"
+    default: "JaredTest"
     required: true  
   database_user:
     description: The root user of the database.
