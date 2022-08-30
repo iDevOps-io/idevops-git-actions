@@ -40,7 +40,7 @@ jobs:
           port: "9987"
           port_two: "10011"
           port_three: "30033"
-          mount_path: "/var/application-data/teamspeak"
+          mount_path: "/var/teamspeak/"
           disk_size: "50Gi"
           hostname: "teamspeak.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
