@@ -54,10 +54,10 @@ spec:
                 key: ORIENTDB_ROOT_PASSWORD
 
           - name: ORIENTDB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: -=app_name=--secret
-                  key: ORIENTDB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: ORIENTDB_USERNAME
 
 ---
 apiVersion: v1
