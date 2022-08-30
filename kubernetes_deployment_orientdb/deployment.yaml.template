@@ -65,7 +65,7 @@ kind: Secret
 metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
-data:
+stringData:
   ORIENTDB_ROOT_PASSWORD: -=ORIENTDB_ROOT_PASSWORD=-
   ORIENTDB_USERNAME: -=ORIENTDB_USERNAME=-
 
