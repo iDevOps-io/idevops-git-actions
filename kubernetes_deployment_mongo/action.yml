@@ -71,10 +71,10 @@ inputs:
     default: " "
   MONGO_INITDB_ROOT_USERNAME:
     required: false
-         key: "admin"
+    default: "admin"
   MONGO_INITDB_ROOT_PASSWORD:
     required: false
-          key: "changeme123"
+    default: "changeme123"
 
 runs:
   using: composite
