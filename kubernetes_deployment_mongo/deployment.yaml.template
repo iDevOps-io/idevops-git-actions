@@ -42,15 +42,15 @@ spec:
         volumeMounts:
         - mountPath: "/data"
           name: -=app_name=-
-
+        
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME
+          - name: MONGO_ROOT_USER
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: -=MONGO_INITDB_ROOT_USERNAME=-
 
-          - name: MONGO_INITDB_ROOT_PASSWORD
+          - name: MONGO_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
@@ -63,9 +63,8 @@ metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
 stringData:
-  MONGO_INITDB_ROOT_PASSWORD: -=MONGO_INITDB_ROOT_PASSWORD=-
-  MONGO_INITDB_ROOT_USERNAME: -=MONGO_INITDB_ROOT_USERNAME=-
-
+  MONGO_ROOT_USER: -=MONGO_INITDB_ROOT_USERNAME=-
+  MONGO_ROOT_PASSWORD: -=MONGO_INITDB_ROOT_PASSWORD=-
 
 ---
 apiVersion: v1
