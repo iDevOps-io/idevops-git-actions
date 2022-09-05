@@ -43,6 +43,32 @@ spec:
         - mountPath: "/data"
           name: -=app_name=-
 
+        env:
+          - name: MONGODB_USER
+            value: -=admin=-
+          - name: MONGODB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGODB_ROOT_PASSWORD
+
+          - name: MONGODB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGODB_USERNAME
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+stringData:
+  MONGODB_ROOT_PASSWORD: -=MONGODB_ROOT_PASSWORD=-
+  MONGODB_USERNAME: -=MONGODB_USERNAME=-
+
+
 ---
 apiVersion: v1
 kind: Service
