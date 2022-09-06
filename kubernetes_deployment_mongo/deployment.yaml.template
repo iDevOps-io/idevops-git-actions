@@ -44,13 +44,13 @@ spec:
           name: -=app_name=-
         
         env:
-          - name: MONGO_USERNAME
+          - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: username
 
-          - name: MONGO_PASSWORD
+          - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
