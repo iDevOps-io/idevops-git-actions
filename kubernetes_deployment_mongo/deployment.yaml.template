@@ -48,13 +48,13 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: MONGO_ROOT_USER
+                key: username
 
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: MONGO_ROOT_PASSWORD
+                key: password
 ---
 apiVersion: v1
 kind: Secret
@@ -62,8 +62,8 @@ metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
 stringData:
-  MONGO_ROOT_USER: -=MONGO_INITDB_ROOT_USERNAME=-
-  MONGO_ROOT_PASSWORD: -=MONGO_INITDB_ROOT_PASSWORD=-
+  username: -=MONGO_INITDB_ROOT_USERNAME=-
+  password: -=MONGO_INITDB_ROOT_PASSWORD=-
 
 ---
 apiVersion: v1
