@@ -69,12 +69,12 @@ inputs:
   AWS_DEFAULT_REGION:
     required: false
     default: " "
-  MONGO_INITDB_ROOT_USERNAME:
-    default: "admin"
-    required: false
-  MONGO_INITDB_ROOT_PASSWORD:
+  MONGO_ROOT_PASSWORD:
     default: "changeme123"
     required: false
+  MONGO_USERNAME:
+    required: false
+    default: "admin" 
 
 runs:
   using: composite
@@ -129,8 +129,8 @@ runs:
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
         echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
         echo "admin=${{ inputs.admin }}" >> ${GITHUB_ENV}
-        echo "MONGO_INITDB_ROOT_USERNAME=${{ inputs.MONGO_INITDB_ROOT_USERNAME }}" >> ${GITHUB_ENV}
-        echo "MONGO_INITDB_ROOT_PASSWORD=${{ inputs.MONGO_INITDB_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
+        echo "MONGO_USERNAME=${{ inputs.MONGO_USERNAME }}" >> ${GITHUB_ENV}
+        echo "MONGO_ROOT_PASSWORD=${{ inputs.MONGO_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
       shell: bash
 
     - name: "TEMPLATE:REPLACE:FILE"

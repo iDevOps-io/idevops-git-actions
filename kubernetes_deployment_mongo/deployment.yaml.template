@@ -35,26 +35,29 @@ spec:
             port: -=port=-
           initialDelaySeconds: 90
           periodSeconds: 90          
+        
         ports:
         - name: portone
           containerPort: -=port=-
 
         volumeMounts:
-        - mountPath: "/data"
+        - mountPath: "-=mount_path=-"
           name: -=app_name=-
         
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME
+          - name: MONGO_USER
+            value: -=admin=-
+          - name: MONGO_USERNAME
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: username
+                key: MONGO_USERNAME
 
-          - name: MONGO_INITDB_ROOT_PASSWORD
+          - name: MONGO_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: password
+                key: MONGO_ROOT_PASSWORD
 ---
 apiVersion: v1
 kind: Secret
@@ -62,8 +65,8 @@ metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
 stringData:
-  username: -=MONGO_INITDB_ROOT_USERNAME=-
-  password: -=MONGO_INITDB_ROOT_PASSWORD=-
+  MONGO_USERNAME: -=MONGO_USERNAME=-
+  MONGO_ROOT_PASSWORD: -=MONGO_ROOT_PASSWORD=-
 
 ---
 apiVersion: v1
