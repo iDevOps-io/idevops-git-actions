@@ -62,7 +62,7 @@ kind: Secret
 metadata:
   name: -=app_name=--secret
   namespace: -=kubernetes_namespace=-
-stringData:
+Data:
   MONGO_ROOT_USER: -=MONGO_INITDB_ROOT_USERNAME=-
   MONGO_ROOT_PASSWORD: -=MONGO_INITDB_ROOT_PASSWORD=-
 
