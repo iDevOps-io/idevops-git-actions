@@ -44,18 +44,17 @@ spec:
           name: -=app_name=-
         
         env:
-          - name: MONGO_ROOT_USER
+          - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: -=MONGO_INITDB_ROOT_USERNAME=-
+                key: MONGO_ROOT_USER
 
-          - name: MONGO_ROOT_PASSWORD
+          - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: -=app_name=--secret
-                key: -=MONGO_INITDB_ROOT_PASSWORD=-
-
+                key: MONGO_ROOT_PASSWORD
 ---
 apiVersion: v1
 kind: Secret
