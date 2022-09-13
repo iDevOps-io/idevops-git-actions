@@ -51,7 +51,7 @@ spec:
         ports:
           - name: portone
             containerPort: -=port=-
-        volumes:
+        volumesMounts:
           - "./postgres-data:/var/lib/postgresql/data/"
 
 ---
