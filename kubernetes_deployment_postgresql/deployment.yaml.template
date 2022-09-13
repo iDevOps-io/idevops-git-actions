@@ -36,6 +36,8 @@ spec:
           initialDelaySeconds: 60
           periodSeconds: 90
         env:
+          - name: PGDATA
+            value: "/var/lib/postgresql/data/pgdata"
           - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
@@ -51,7 +53,7 @@ spec:
             containerPort: -=port=-
 
         volumeMounts:
-        - mountPath: "/var/lib/postgresql/data"
+        - mountPath: "/var/lib/postgresql/data/pgdata"
           name: -=app_name=-
 
 ---
