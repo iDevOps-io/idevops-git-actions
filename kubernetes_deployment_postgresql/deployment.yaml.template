@@ -41,11 +41,6 @@ spec:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: POSTGRES_DB
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -68,7 +63,6 @@ metadata:
 type: Opaque
 stringData: 
   POSTGRES_DB: -=database_name=-
-  POSTGRES_USER: -=database_user=-
   POSTGRES_PASSWORD: -=database_password=-
 
 ---
