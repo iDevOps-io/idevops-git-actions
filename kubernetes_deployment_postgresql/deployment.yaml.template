@@ -37,7 +37,7 @@ spec:
           periodSeconds: 90
         env:
           - name: PGDATA
-            value: "/var/lib/postgresql/data/db-files/"
+            value: "/var/lib/postgresql/data/pgdata"
           - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
@@ -51,10 +51,8 @@ spec:
         ports:
           - name: portone
             containerPort: -=port=-
-
-        volumeMounts:
-        - mountPath: "/var/lib/postgresql/data/db-files/"
-          name: -=app_name=-
+        volumes:
+          - "./postgres-data:/var/lib/postgresql/data/"
 
 ---
 apiVersion: v1
