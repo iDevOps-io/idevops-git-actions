@@ -42,10 +42,6 @@ inputs:
     description: The name of the database.
     default: "JaredTest"
     required: true  
-  database_user:
-    description: The root user of the database.
-    default: "admin"
-    required: true
   database_password:
     description: The root password for the database.
     default: "changeme123"
@@ -129,7 +125,6 @@ runs:
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "database_name=${{ inputs.database_name }}" >> ${GITHUB_ENV}
-        echo "database_user=${{ inputs.database_user }}" >> ${GITHUB_ENV}
         echo "database_password=${{ inputs.database_password }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
