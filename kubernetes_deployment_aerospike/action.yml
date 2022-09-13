@@ -29,15 +29,6 @@ inputs:
     required: true
   port:
     description: The port the container and service will be running on.
-    default: "3000"
-    required: true
-  port_two:
-    description: The port2 the container and service will be running on.
-    default: "3001"
-    required: true
-  port_three:
-    description: The port3 the container and service will be running on.
-    default: "3002"
     required: true
   mount_path:
     description: The persistent volume mount path.
