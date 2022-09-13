@@ -32,7 +32,7 @@ inputs:
     required: true
   mount_path:
     description: The persistent volume mount path.
-    default: " "
+    default: "/var/lib/postgresql/data/"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
