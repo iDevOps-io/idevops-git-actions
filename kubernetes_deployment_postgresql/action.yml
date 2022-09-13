@@ -143,6 +143,10 @@ runs:
       with:
         input_file: "${{ inputs.composite_file_location }}/deployment.yaml.template"
         output_file: "${{ inputs.composite_file_location }}/deployment.yaml"
+    - name: "SET:ENV:VARS:FOR:TEMPLATING"
+      run: |
+        cat ${{ inputs.composite_file_location }}/deployment.yaml
+      shell: bash
 
     - name: "K8S:APPLY:MANIFEST"
       uses: iDevOps-io/idevops-git-actions/kubernetes_apply_manifest_file@main
