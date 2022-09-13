@@ -52,8 +52,9 @@ spec:
           - name: portone
             containerPort: -=port=-
         volumesMounts:
-          - mountPath "./postgres-data:/var/lib/postgresql/data/"
+          - mountPath "/var/lib/postgresql/data/"
             name: -=app_name=-
+
 ---
 apiVersion: v1
 kind: Secret
