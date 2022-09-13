@@ -30,11 +30,11 @@ spec:
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
-#        livenessProbe:
-#          tcpSocket:
-#            port: -=port=-
-#         initialDelaySeconds: 60
-#         periodSeconds: 90
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+         initialDelaySeconds: 60
+         periodSeconds: 90
         env:
           - name: POSTGRES_DB
             valueFrom:
@@ -51,11 +51,6 @@ spec:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: POSTGRES_PASSWORD
-#          - name: POSTGRES_HOST_AUTH_METHOD
-#            valueFrom: 
-#              secretKeyRef:
-#               name: -=app_name=-
-#                key: POSTGRES_HOST_AUTH_METHOD
         ports:
           - name: portone
             containerPort: -=port=-
