@@ -33,8 +33,8 @@ spec:
         readinessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 30
-          periodSeconds: 60         
+          initialDelaySeconds: 60
+          periodSeconds: 90         
         livenessProbe:
           tcpSocket:
             port: -=port=-
