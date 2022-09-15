@@ -32,7 +32,7 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         readinessProbe:
           tcpSocket:
-            port: 8080
+            port: -=port=-
           initialDelaySeconds: 30
           periodSeconds: 60         
         livenessProbe:
