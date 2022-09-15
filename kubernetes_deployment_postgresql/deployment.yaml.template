@@ -50,8 +50,10 @@ spec:
           - name: portone
             containerPort: -=port=-
         volumeMounts:
-          - mountPath: "-=mount_path=-"
-            name: -=app_name=-
+          - name: -=app_name=-
+            mountPath: "/var/lib/postgresql/data"
+            subPath: pgdata
+            
 
 ---
 apiVersion: v1
