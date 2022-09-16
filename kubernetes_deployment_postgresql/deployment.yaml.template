@@ -33,13 +33,13 @@ spec:
         readinessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 60
-          periodSeconds: 90         
+          initialDelaySeconds: 100
+          periodSeconds: 130         
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 60
-          periodSeconds: 90
+          initialDelaySeconds: 100
+          periodSeconds: 130
         env:
           - name: POSTGRES_DB
             valueFrom:
