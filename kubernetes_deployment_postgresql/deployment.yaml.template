@@ -48,11 +48,6 @@ spec:
                 key: POSTGRES_DB
           - name: POSTGRES_USER
             value: admin
-          - name: POSTGRES_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: POSTGRES_USERNAME                 
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -66,7 +61,6 @@ spec:
             mountPath: "/var/lib/postgresql/data"
             subPath: pgdata
 
-
 ---
 apiVersion: v1
 kind: Secret
@@ -76,7 +70,6 @@ metadata:
 type: Opaque
 stringData: 
   POSTGRES_DB: -=database_name=-
-  POSTGRES_USERNAME: -=database_username=-
   POSTGRES_PASSWORD: -=database_password=-
 
 ---
