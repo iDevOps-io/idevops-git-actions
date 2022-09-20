@@ -55,8 +55,3 @@ jobs:
 |docker_file_location   | /home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_postgresql/  |The docker org you will be pushing your image to.   |
 |docker_server_url   |https://index.docker.io/v1/   |The url to push docker images to.   |
 |composite_file_location   |/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_postgresql   |The location where files live.   |
-
-
-
-
-
