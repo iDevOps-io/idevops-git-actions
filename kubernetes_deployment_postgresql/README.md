@@ -1,4 +1,3 @@
-```yaml
 name: "AWS:EKS:DEPLOY:POSTGRESQL"
 
 on:
@@ -31,7 +30,7 @@ jobs:
       - name: "KUBERNETES:DEPLOY:POSTGRESQL"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_postgresql@main
         with:
-        
+
 |Input   | Default Value  | Description  |
 | --- | :--: | --- |
 |kubernetes_config   | /home/runner/.kube/config  |Location of the kubeconfig you want to use to deploy to kubernetes.   |
@@ -56,7 +55,3 @@ jobs:
 |docker_file_location   | /home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_postgresql/  |The docker org you will be pushing your image to.   |
 |docker_server_url   |https://index.docker.io/v1/   |The url to push docker images to.   |
 |composite_file_location   |/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_postgresql   |The location where files live.   |
-```
-
-
-
