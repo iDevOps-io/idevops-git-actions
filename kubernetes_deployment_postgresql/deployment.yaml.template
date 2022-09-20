@@ -33,13 +33,17 @@ spec:
         readinessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 30
-          periodSeconds: 60
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 60
-          periodSeconds: 90
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
         env:
           - name: POSTGRES_DB
             valueFrom:
@@ -58,8 +62,8 @@ spec:
             containerPort: -=port=-
         volumeMounts:
           - name: -=app_name=-
-            mountPath: "/var/lib/postgresql/data"
-            subPath: pgdata
+            mountPath: "-=mount_path=-"
+            subPath: "-=sub_path=-"
 
 ---
 apiVersion: v1
@@ -85,7 +89,7 @@ spec:
   ports:
     - name: portone
       port: -=port=-
-      targetPort: -=port=-     
+      targetPort: -=port=-
 
 ---
 apiVersion: v1
@@ -101,31 +105,4 @@ spec:
   resources:
     requests:
       storage: -=disk_size=-
-  storageClassName: gp2
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
-    kubernetes.io/tls-acme: "true"
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: -=hostname=-
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: -=app_name=-
-            port: 
-              number: -=port=-
-  tls: 
-  - hosts:
-    - -=hostname=-
-    secretName: -=app_name=--tls
+  storageClassName: -=storage_class=-
