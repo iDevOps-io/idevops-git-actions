@@ -1,3 +1,4 @@
+```yaml
 name: "AWS:EKS:DEPLOY:POSTGRESQL"
 
 on:
@@ -30,7 +31,7 @@ jobs:
       - name: "KUBERNETES:DEPLOY:POSTGRESQL"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_postgresql@main
         with:
-
+```
 |Input   | Default Value  | Description  |
 | --- | :--: | --- |
 |kubernetes_config   | /home/runner/.kube/config  |Location of the kubeconfig you want to use to deploy to kubernetes.   |
