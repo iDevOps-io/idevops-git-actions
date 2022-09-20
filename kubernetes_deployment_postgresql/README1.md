@@ -1,35 +1,3 @@
-name: "AWS:EKS:DEPLOY:POSTGRESQL"
-
-on:
-  workflow_dispatch:
-    inputs:
-      kubernetes_cluster_name:
-        description: Name of kubernetes cluster
-        default: idevops-vaas-cluster
-            
-jobs:
-  build_deploy_postgresql:
-    name: "AWS:EKS:DEPLOY:POSTGRESQL"
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ 'ubuntu-latest' ]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: "AWS:EKS:PULL:KUBECONFIG"
-        uses: iDevOps-io/idevops-git-actions/aws_pull_eks_kubeconfig@main
-        with:
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
-          kubernetes_cluster_name: "${{ github.event.inputs.kubernetes_cluster_name }}"
-          
-      - name: "KUBERNETES:DEPLOY:POSTGRESQL"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_postgresql@main
-        with:
 |Input   | Default Value  | Description  |
 | --- | :-: | --- |
 |kubernetes_config   | /home/runner/.kube/config  |Location of the kubeconfig you want to use to deploy to kubernetes.   |
