@@ -1,0 +1,144 @@
+name: "K8S:DEPLOYMENT:MYSQL"
+author: Brandon Nicoletta <bnicoletta@idevops.io>
+branding:
+  icon: cloud
+  color: gray-dark
+description: Deploys MYSQL into K8S in a production way.
+inputs:
+  kubernetes_config:
+    description: Location of the kubeconfig you want to use to deploy to kubernetes.
+    default: "/home/runner/.kube/config"
+    required: false
+  app_name:
+    description: What you want to name your MYSQL deployment.
+    required: true
+  kubernetes_namespace:
+    description: The namespace in k8s you want to deployment
+    required: true
+  docker_pull_secret:
+    description: The name of the docker pull secret you with to use to pull your image.
+    required: true
+  docker_org_name:
+    description: The org you will be pushing to and pulling from.
+    required: true
+  image:
+    description: The image name you want to build and push the docker image for MYSQL to.
+    required: true
+  image_tag:
+    description: The image tag you wish to tag the docker image as.
+    required: true
+  port:
+    description: The port the container and service will be running on.
+    required: true
+  mount_path:
+    description: The persistent volume mount path.
+    default: "/var/application-data/MYSQL"
+    required: false
+  disk_size:
+    description: The size of the persistent volume you wish to provision.
+    default: "20Gi"
+    required: false
+  hostname:
+    description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
+    default: "MYSQL-hub.idevops.io"
+    required: true
+  docker_username:
+    description: The docker username to use for dockerhub authentication.
+    required: true
+  docker_password:
+    description: The docker password to use for dockerhub authentication.
+    required: true
+  docker_file_location:
+    description: The docker org you will be pushing your image to.
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_MYSQL/"
+    required: false
+  docker_server_url:
+    description: The url to push docker images to.
+    default: "https://index.docker.io/v1/"
+    required: false
+  composite_file_location:
+    description: The location where files live
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_MYSQL"
+    required: false
+  AWS_ACCESS_KEY_ID:
+    required: false
+    default: " "
+  AWS_SECRET_ACCESS_KEY:
+    required: false
+    default: " "
+  AWS_DEFAULT_REGION:
+    required: false
+    default: " "
+runs:
+  using: composite
+  steps:
+    - name: "SET:ENV:VARS:FOR:TEMPLATING"
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}" >> ${GITHUB_ENV}
+        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }}" >> ${GITHUB_ENV}
+        echo "AWS_DEFAULT_REGION=${{ inputs.AWS_DEFAULT_REGION }}" >> ${GITHUB_ENV}
+      shell: bash
+
+    - name: "DOCKER:BUILD:CHECK:PUSH"
+      uses: iDevOps-io/idevops-git-actions/docker_build_check_tag_and_push@main
+      with:
+        docker_username: "${{ inputs.docker_username }}"
+        docker_password: "${{ inputs.docker_password }}"
+        docker_org: "${{ inputs.docker_org_name }}"
+        docker_image: "${{ inputs.image }}"
+        docker_tag: "${{ inputs.image_tag }}"
+        docker_file_location: "${{ inputs.docker_file_location }}"
+
+    - name: "DOCKER:IMAGE:SCAN:ANCHORE"
+      uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
+      with:
+        docker_image_name: "${{ inputs.docker_org_name }}/${{ inputs.image }}:${{ inputs.image_tag }}"
+        fail_pipeline_on_fail: "false"
+
+    - name: "K8S:CREATE:NAMESPACE:AND:DOCKER:SECRET"
+      uses: iDevOps-io/idevops-git-actions/kubernetes_create_docker_pull_secret_and_namespace@main
+      with:
+        docker_username: "${{ inputs.docker_username }}"
+        docker_password: "${{ inputs.docker_password }}"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        docker_host_url: "${{ inputs.docker_server_url }}"
+        docker_pull_secret: "${{ inputs.docker_pull_secret }}"
+
+    - name: "SET:ENV:VARS:FOR:TEMPLATING"
+      run: |
+        echo "kubernetes_config=${{ inputs.kubernetes_config }}" >> ${GITHUB_ENV}
+        echo "app_name=${{ inputs.app_name }}" >> ${GITHUB_ENV}
+        echo "kubernetes_namespace=${{ inputs.kubernetes_namespace }}" >> ${GITHUB_ENV}
+        echo "docker_pull_secret=${{ inputs.docker_pull_secret }}" >> ${GITHUB_ENV}
+        echo "docker_org_name=${{ inputs.docker_org_name }}" >> ${GITHUB_ENV}
+        echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
+        echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
+        echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
+        echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
+        echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
+        echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
+        echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
+        echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
+        echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
+        echo "docker_server_url=${{ inputs.docker_server_url }}" >> ${GITHUB_ENV}
+      shell: bash
+
+    - name: "TEMPLATE:REPLACE:FILE"
+      uses: iDevOps-io/idevops-git-actions/template_replace_file@main
+      with:
+        input_file: "${{ inputs.composite_file_location }}/deployment.yaml.template"
+        output_file: "${{ inputs.composite_file_location }}/deployment.yaml"
+
+    - name: "K8S:APPLY:MANIFEST"
+      uses: iDevOps-io/idevops-git-actions/kubernetes_apply_manifest_file@main
+      with:
+        manifest: "${{ inputs.composite_file_location }}/deployment.yaml"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"
+
+    - name: "K8S:CHECK:ROLLOUT:STATUS"
+      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
+      with:
+        app_name: "${{ inputs.app_name }}"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"

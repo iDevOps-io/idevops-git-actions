@@ -35,13 +35,15 @@ spec:
             port: -=port=-
           initialDelaySeconds: 90
           periodSeconds: 90
-
         ports:
         - name: portone
           containerPort: -=port=-
+
+        - name: porttwo
+          containerPort: -=port_two=-
         
         volumeMounts:
-        - mountPath: "-=mount_path=-"
+        - mountPath: -=mount_path=-
           name: -=app_name=-
 
 
@@ -60,6 +62,9 @@ spec:
     - name: portone
       port: -=port=-
       targetPort: -=port=-
+    - name: porttwo
+      port: -=port_two=-
+      targetPort: -=port_two=-
   
       
 ---
@@ -105,3 +110,6 @@ spec:
   - hosts:
     - -=hostname=-
     secretName: -=app_name=--tls
+
+
+# tech is production ready
