@@ -51,7 +51,6 @@ spec:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
         env:
-            value: -=admin=-
           - name: MONGO_USERNAME
             valueFrom:
               secretKeyRef:
