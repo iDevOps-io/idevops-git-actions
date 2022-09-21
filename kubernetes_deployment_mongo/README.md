@@ -52,6 +52,7 @@ jobs:
 ```
 
 | Input Name   |      Default Value      |  Description |
+|--------------|-------------------------|--------------|
 |kubernetes_config| /home/runner/.kube/config |Location of the kubeconfig you want to use to deploy to kubernetes. |
 |app_name | mongo | What you want to name your mongo deployment. |
 |kubernetes_namespace | mongo | The namespace in k8s you want to deployment. |
