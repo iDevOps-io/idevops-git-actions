@@ -30,18 +30,30 @@ inputs:
   port:
     description: The port the container and service will be running on.
     required: true
+  initial_delay:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "60"
+    required: false
+  period_time:
+    description: How often (in seconds) to perform the probe.
+    default: "90"
+    required: false
+  success_threshold:
+    description:  Minimum consecutive successes for the probe to be considered successful after having failed.
+    default: "1"
+    required: false
+  failure_threshold:
+    description: Number of probes if the preceding probe fails.  
+    default: "10"
+    required: false
   mount_path:
     description: The persistent volume mount path.
-    default: "/var/application-data/mongo"
+    default: "/data/db"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
     default: "20Gi"
     required: false
-  hostname:
-    description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
-    default: "mongo.idevops.io"
-    required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
     required: true
@@ -121,9 +133,13 @@ runs:
         echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
+        echo "initial_delay=${{ inputs.initial_delay }}" >> ${GITHUB_ENV}
+        echo "period_time=${{ inputs.period_time }}" >> ${GITHUB_ENV}
+        echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
+        echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
-        echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
+        echo "storage_class=${{ inputs.storage_class }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
