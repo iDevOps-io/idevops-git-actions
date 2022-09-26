@@ -88,7 +88,7 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: -=port_name=-
+  name: -=app_name=-
   namespace: -=kubernetes_namespace=-
 spec:
   selector:
