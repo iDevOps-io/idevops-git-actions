@@ -38,6 +38,7 @@ jobs:
           image: "mongo"
           image_tag: "latest"
           port: "27017"
+          port_name: "portone"
           intitial_delay: "60"
           period_time: "90"
           success_threshold: "1"
@@ -61,6 +62,10 @@ jobs:
 |image | mongo | The image name you want to build and push the docker image for mongo to. |
 |image_tag | latest | The image tag you wish to tag the docker image as. |
 |port | 27017 | The port the container and service will be running on. |
+|port_name | portone | The port the container and service will be running on. |
+|replicas | 1 | The desired number of replicas. |
+|max_surge| 1 | The amount of pods above the desired number of pods during an update. |
+|max_unavailable | 1 | The number of pods that can be unavailable during the update process. |
 |initial_delay | 60 | Time delay before liveness and readiness probes are activated. |
 |period_time | 90 | Time to intiate the probe. |
 |success_threshold | 1 | Minimum number of successful probes to be a success after having failed initially. |
@@ -73,8 +78,8 @@ jobs:
 |docker_file_location | /home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_mongo/ | The docker org you will be pushing your image to. |
 |docker_server_url | https://index.docker.io/v1/ | The url to push docker images to. |
 |composite_file_location | /home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_mongo: | The location where files lives. |
-|AWS_ACCESS_KEY_ID |  |AWS access key identification. |
-|AWS_SECRET_ACCESS_KEY |  |AWS access key. |
-|AWS_DEFAULT_REGION |  |AWS access region. |
+|AWS_ACCESS_KEY_ID |  | AWS access key identification. |
+|AWS_SECRET_ACCESS_KEY |  | AWS access key. |
+|AWS_DEFAULT_REGION |  | AWS access region. |
 |MONGO_ROOT_PASSWORD | changeme123 | The default password for accessing root directory. |
 |MONGO_USERNAME | admin | The default username for accessing root directory. |

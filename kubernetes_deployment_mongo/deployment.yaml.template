@@ -7,12 +7,12 @@ metadata:
   labels:
     app: -=app_name=-
 spec:
-  replicas: 1
+  replicas: -=replicas=-
   strategy:
     type: RollingUpdate
     rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
+        maxSurge: -=max_surge=-
+        maxUnavailable: -=max_unavailable=-
   selector:
     matchLabels:
       app: -=app_name=-
@@ -81,9 +81,46 @@ spec:
   selector:
     app: -=app_name=-
   ports:
-    - name: portone
+    - name: -=port_name=-
       port: -=port=-
       targetPort: -=port=-     
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: -=port_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  serviceName: -=app_name=-
+  replicas: -=replicas=-
+  minReadySeconds: -=period_time=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      terminationGracePeriodSeconds: -=initial_delay=-
+      containers:
+      - name: -=app_name=-
+        image: -=image=-
+        ports:
+        - containerPort: -=port=-
+          name: portone
+        volumeMounts:
+        - name: -=app_name=-
+          mountPath: -=mount_path=-
+  volumeClaimTemplates:
+  - metadata:
+      name: -=app_name=-
+    spec:
+      accessModes: [ "ReadOnlyMany" ]
+      storageClassName: -=storage_class=-
+      resources:
+        requests:
+          storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
