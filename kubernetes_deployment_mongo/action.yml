@@ -69,6 +69,9 @@ inputs:
     description: The size of the persistent volume you wish to provision.
     default: "20Gi"
     required: false
+  storage_class:
+    description: Name of storage class
+    required: false
   docker_username:
     description: The docker username to use for dockerhub authentication.
     required: true
