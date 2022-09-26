@@ -96,19 +96,19 @@ spec:
       app: -=app_name=-
   serviceName: -=app_name=-
   replicas: -=replicas=-
-  minReadySeconds: -=period_time=-
+  minReadySeconds: -=initial_delay=-
   template:
     metadata:
       labels:
         app: -=app_name=-
     spec:
-      terminationGracePeriodSeconds: -=initial_delay=-
+      terminationGracePeriodSeconds: -=period_time=-
       containers:
       - name: -=app_name=-
         image: -=image=-
         ports:
         - containerPort: -=port=-
-          name: portone
+          name: -=port_name=-
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
@@ -120,7 +120,7 @@ spec:
       storageClassName: -=storage_class=-
       resources:
         requests:
-          storage: 1Gi
+          storage: -=disk_size=-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
