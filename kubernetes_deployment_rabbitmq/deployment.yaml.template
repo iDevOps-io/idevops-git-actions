@@ -39,7 +39,7 @@ spec:
         ports:
         - name: port
           containerPort: -=port=-
-        - name: port_two
+        - name: porttwo
           containerPort: -=port_two=-
 
 
@@ -57,7 +57,7 @@ spec:
     - name: port
       port: -=port=-
       targetPort: -=port=-
-    - name: port_two
+    - name: porttwo
       port: -=port_two=-
       targetPort: -=port_two=-
 ---
