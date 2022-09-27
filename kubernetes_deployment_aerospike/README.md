@@ -1,5 +1,5 @@
 ```yaml
-name: "AWS:EKS:DEPLOY:aerospike"
+name: "AWS:EKS:DEPLOY:AEROSPIKE"
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
         
 jobs:
   build_deploy_aerospike:
-    name: "AWS:EKS:DEPLOY:aerospike"
+    name: "AWS:EKS:DEPLOY:AEROSPIKE"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -31,21 +31,22 @@ jobs:
       - name: "KUBERNETES:DEPLOY:aerospike"
         uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_aerospike@main
         with:
-          "image": "aerospike",
-          "kubernetes_cluster_name": "idevops-vaas-cluster",
-          "kubernetes_namespace": "aerospike",
-          "DOCKER_EMAIL": "grant@sifchain.finance",
-          "DOCKER_HOST_URL": "https://index.docker.io/v1/",
-          "docker_pull_secret": "aerospike-docker-secret",
-          "app_name": "aerospike",
-          "docker_org_name": "idevopsiointernal",
-          "port": "8161",
-          "port_two": "61616",
-          "disk_size": "50Gi",
-          "OUTPUT_FILE": "manifests/aerospike/deployment.yaml",
-          "INPUT_FILE": "manifests/aerospike/deployment.yaml.template",
-          "hostname": "aerospike.idevops.io"
-          
+          app_name: "aerospike"
+          kubernetes_namespace: "aerospike"
+          docker_pull_secret: "aerospike"
+          docker_org_name: "idevopsiointernal"
+          image: "aerospike"
+          image_tag: "latest"
+          port: "3000"
+          port_two: "3001"
+          port_three: "3002"
+          mount_path: "/var/application-data/aerospike"
+          disk_size: "20Gi"
+          hostname: "aerospike.idevops.io"
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          docker_server_url: "https://index.docker.io/v1/"
+
 ```
 
 
