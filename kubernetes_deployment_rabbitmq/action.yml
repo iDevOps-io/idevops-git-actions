@@ -114,6 +114,7 @@ runs:
         echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
+        echo "port_two=${{ inputs.port_two }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}

@@ -37,7 +37,10 @@ spec:
           periodSeconds: 3
         
         ports:
-        - containerPort: -=port=-
+        - name: port
+          containerPort: -=port=-
+        - name: port_two
+          containerPort: -=port_two=-
 
 
 ---
@@ -51,8 +54,12 @@ spec:
   selector:
     app: -=app_name=-
   ports:
-    - port: -=port=-
+    - name: port
+      port: -=port=-
       targetPort: -=port=-
+    - name: port_two
+      port: -=port_two=-
+      targetPort: -=port_two=-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
