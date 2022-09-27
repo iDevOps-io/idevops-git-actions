@@ -61,12 +61,15 @@ spec:
   selector:
     app: -=app_name=-
   ports:
-    - name: portone
+    - name: port
       port: -=port=-
       targetPort: -=port=-
-    - name: porttwo
+    - name: port_two
       port: -=port_two=-
       targetPort: -=port_two=-
+    - name: port_three
+      port: -=port_two=-
+      targetPort: -=port_three=-
   
       
 ---
