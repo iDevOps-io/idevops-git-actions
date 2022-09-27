@@ -36,12 +36,14 @@ spec:
           initialDelaySeconds: 90
           periodSeconds: 90
         ports:
-        - name: portone
+        - name: port
           containerPort: -=port=-
 
-        - name: porttwo
+        - name: port_two
           containerPort: -=port_two=-
         
+        - name: port_three
+          containerPort: -=port_three=-
         volumeMounts:
         - mountPath: -=mount_path=-
           name: -=app_name=-
