@@ -30,6 +30,9 @@ inputs:
   port:
     description: The port the container and service will be running on.
     required: true
+  port_two:
+    description: The port the container and service will be running on.
+    required: true
   mount_path:
     description: The persistent volume mount path.
     default: "/var/application-data/rabbitmq"
