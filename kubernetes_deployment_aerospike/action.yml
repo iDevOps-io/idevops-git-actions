@@ -56,7 +56,7 @@ inputs:
     required: true
   docker_file_location:
     description: The docker org you will be pushing your image to.
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_aerospike/"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-65/kubernetes_deployment_aerospike/"
     required: false
   docker_server_url:
     description: The url to push docker images to.
@@ -64,7 +64,7 @@ inputs:
     required: false
   composite_file_location:
     description: The location where files live
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_aerospike"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-65/kubernetes_deployment_aerospike"
     required: false
   AWS_ACCESS_KEY_ID:
     required: false
