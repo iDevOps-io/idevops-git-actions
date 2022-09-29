@@ -96,6 +96,20 @@ spec:
       app: -=app_name=-
   serviceName: -=app_name=-
   replicas: -=replicas=-
+  livenessProbe:
+    tcpSocket:
+      port: -=port=-
+    initialDelaySeconds: -=initial_delay=-
+    periodSeconds: -=period_time=-
+    successThreshold: -=success_threshold=-
+    failureThreshold: -=failure_threshold=-
+  readinessProbe:
+    tcpSocket:
+      port: -=port=-
+    initialDelaySeconds: -=initial_delay=-
+    periodSeconds: -=period_time=-
+    successThreshold: -=success_threshold=-
+    failureThreshold: -=failure_threshold=-
   minReadySeconds: -=initial_delay=-
   template:
     metadata:
