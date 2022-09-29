@@ -63,7 +63,7 @@ jobs:
 |image_tag | latest | The image tag you wish to tag the docker image as. |
 |port | 27017 | The port the container and service will be running on. |
 |port_name | portone | The port the container and service will be running on. |
-|replicas | 1 | The desired number of replicas. |
+|replicas | 3 | The desired number of replicas. |
 |max_surge| 1 | The amount of pods above the desired number of pods during an update. |
 |max_unavailable | 1 | The number of pods that can be unavailable during the update process. |
 |initial_delay | 60 | Time delay before liveness and readiness probes are activated. |
