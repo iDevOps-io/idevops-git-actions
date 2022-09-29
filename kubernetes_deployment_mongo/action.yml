@@ -35,7 +35,7 @@ inputs:
     required: true
   replicas: 
     description: Number of replicas desired.
-    default: "1"
+    default: "3"
     required: true
   max_surge:
     description: The amount of pods above the desired number of pods during an update.
@@ -70,7 +70,8 @@ inputs:
     default: "20Gi"
     required: false
   storage_class:
-    description: Name of storage class
+    description: The default storage class for mongo deployment.
+    default: "gp2"
     required: false
   docker_username:
     description: The docker username to use for dockerhub authentication.
