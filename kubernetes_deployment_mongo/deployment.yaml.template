@@ -83,7 +83,7 @@ spec:
   ports:
     - name: -=port_name=-
       port: -=port=-
-      targetPort: -=port=-     
+      targetPort: -=port=-
 ---
 apiVersion: apps/v1
 kind: StatefulSet
