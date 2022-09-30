@@ -1,0 +1,135 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+stringData:
+  PGPOOL_PASSWORD: -=admin_password=-
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=--svc
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+    - name: portone
+      port: -=port=-
+      targetPort: -=port=-
+      protocol: TCP
+      nodePort: null
+  selector:
+    app: -=app_name=-
+    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=--svc-nodeport
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: portone
+      port: -=port=-
+      nodePort: -=node_port=-
+      targetPort: -=port=-
+      protocol: TCP
+  selector:
+    app: -=app_name=-
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: -=app_name=-
+  template:
+    metadata:
+      labels: 
+        app: -=app_name=-
+    spec:          
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: -=app_name=-
+          image: -=docker_org_name=-/-=image=-:-=image_tag=-
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsUser: 1001
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: PGPOOL_BACKEND_NODES
+              value: 0:postgres-sts-0.postgres-headless-svc:5432,1:postgres-sts-1.postgres-headless-svc:5432,2:postgres-sts-2.postgres-headless-svc:5432
+            - name: PGPOOL_SR_CHECK_USER
+              value: "repmgr"
+            - name: PGPOOL_SR_CHECK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: REPMGR_PASSWORD
+            - name: PGPOOL_SR_CHECK_DATABASE
+              value: "testdb"
+            - name: PGPOOL_ENABLE_LDAP
+              value: "no"
+            - name: PGPOOL_POSTGRES_USERNAME
+              value: "postgres"
+            - name: PGPOOL_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: PGPOOL_ADMIN_USERNAME
+              value: "admin"
+            - name: PGPOOL_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: -=app_name=--secret
+                  key: PGPOOL_PASSWORD
+            - name: PGPOOL_ENABLE_LOAD_BALANCING
+              value: "yes"
+            - name: PGPOOL_ENABLE_LOG_CONNECTIONS
+              value: "no"
+            - name: PGPOOL_ENABLE_LOG_HOSTNAME
+              value: "yes"
+            - name: PGPOOL_ENABLE_LOG_PER_NODE_STATEMENT
+              value: "no"
+            - name: PGPOOL_CHILD_LIFE_TIME
+              value: ""
+            - name: PGPOOL_ENABLE_TLS
+              value: "no"
+          ports:
+            - name: portone
+              containerPort: -=port=-
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+                - /opt/bitnami/scripts/pgpool/healthcheck.sh
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -ec
+                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "testdb" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
