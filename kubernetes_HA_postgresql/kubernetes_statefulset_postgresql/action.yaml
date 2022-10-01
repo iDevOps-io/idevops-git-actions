@@ -154,6 +154,7 @@ runs:
         echo "period_time=${{ inputs.period_time }}" >> ${GITHUB_ENV}
         echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
         echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
+        echo "timeout_period=${{ inputs.timeout_period }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "database_name=${{ inputs.database_name }}" >> ${GITHUB_ENV}
         echo "database_password=${{ inputs.database_password }}" >> ${GITHUB_ENV}
