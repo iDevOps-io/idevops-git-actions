@@ -167,17 +167,17 @@ runs:
     - name: "TEMPLATE:REPLACE:FILE"
       uses: iDevOps-io/idevops-git-actions/template_replace_file@main
       with:
-        input_file: "${{ inputs.composite_file_location }}/statefulset.yaml.template"
-        output_file: "${{ inputs.composite_file_location }}/statefulset.yaml"
+        input_file: "${{ inputs.composite_file_location }}/deployment.yaml.template"
+        output_file: "${{ inputs.composite_file_location }}/deployment.yaml"
     - name: "SET:ENV:VARS:FOR:TEMPLATING"
       run: |
-        cat ${{ inputs.composite_file_location }}/statefulset.yaml
+        cat ${{ inputs.composite_file_location }}/deployment.yaml
       shell: bash
 
     - name: "K8S:APPLY:MANIFEST"
       uses: iDevOps-io/idevops-git-actions/kubernetes_apply_manifest_file@main
       with:
-        manifest: "${{ inputs.composite_file_location }}/statefulset.yaml"
+        manifest: "${{ inputs.composite_file_location }}/deployment.yaml"
         namespace: "${{ inputs.kubernetes_namespace }}"
         kube_config_location: "${{ inputs.kubernetes_config }}"
 
