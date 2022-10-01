@@ -39,7 +39,8 @@ jobs:
 |kubernetes_namespace   | postgresql  |The namespace in kubernetes you want to deploy to.   |
 |docker_pull_secret   |   |The name of the docker pull secret you with to use to pull your image.   |
 | docker_org_name  |   |  The org you will be pushing to and pulling from. |
-| image  |   |The image tag you wish to tag the docker image as.   |
+| image  |   |  The image name you want to build and push the docker image for postgresql to.   |
+| image_tag  |  |  The image tag you wish to tag the docker image as.  |
 |port   | 5432  |The port the container and service will be running on.   |
 |initial_delay   | 60|Number of seconds after the container has started before liveness or readiness probes are initiated.  |
 |period_time   | 90  |How often (in seconds) to perform the probe.   |
