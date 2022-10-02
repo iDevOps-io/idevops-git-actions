@@ -122,7 +122,7 @@ runs:
     - name: "SET:ENV:VARS:FOR:TEMPLATING"
       run: |
         echo "kubernetes_config=${{ inputs.kubernetes_config }}" >> ${GITHUB_ENV}
-        echo "app_name=${{ inputs.app2_name }}" >> ${GITHUB_ENV}
+        echo "app_name=${{ inputs.app_name }}" >> ${GITHUB_ENV}
         echo "kubernetes_namespace=${{ inputs.kubernetes_namespace }}" >> ${GITHUB_ENV}
         echo "docker_pull_secret=${{ inputs.docker_pull_secret }}" >> ${GITHUB_ENV}
         echo "docker_org_name=${{ inputs.docker_org_name }}" >> ${GITHUB_ENV}
