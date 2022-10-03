@@ -115,7 +115,7 @@ runs:
       with:
         docker_username: "${{ inputs.docker_username }}"
         docker_password: "${{ inputs.docker_password }}"
-        namespace: "${{ inputs.kubernetes_namespace }}"
+#        namespace: "${{ inputs.kubernetes_namespace }}"
         docker_host_url: "${{ inputs.docker_server_url }}"
         docker_pull_secret: "${{ inputs.docker_pull_secret }}"
 
@@ -158,9 +158,9 @@ runs:
         namespace: "${{ inputs.kubernetes_namespace }}"
         kube_config_location: "${{ inputs.kubernetes_config }}"
 
-    - name: "K8S:CHECK:ROLLOUT:STATUS"
-      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
-      with:
-        app_name: "${{ inputs.app_name }}"
-        namespace: "${{ inputs.kubernetes_namespace }}"
-        kube_config_location: "${{ inputs.kubernetes_config }}"
+#    - name: "K8S:CHECK:ROLLOUT:STATUS"
+#      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
+#      with:
+#        app_name: "${{ inputs.app_name }}"
+#        namespace: "${{ inputs.kubernetes_namespace }}"
+#        kube_config_location: "${{ inputs.kubernetes_config }}"
