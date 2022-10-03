@@ -158,6 +158,7 @@ runs:
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "database_name=${{ inputs.database_name }}" >> ${GITHUB_ENV}
         echo "database_password=${{ inputs.database_password }}" >> ${GITHUB_ENV}
+        echo "repmgr_password=${{ inputs.repmgr_password }}" >> ${GITHUB_ENV} 
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
@@ -181,9 +182,9 @@ runs:
         namespace: "${{ inputs.kubernetes_namespace }}"
         kube_config_location: "${{ inputs.kubernetes_config }}"
 
-#    - name: "K8S:CHECK:ROLLOUT:STATUS"
-#      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
-#      with:
-#        app_name: "${{ inputs.app_name }}"
-#        namespace: "${{ inputs.kubernetes_namespace }}"
-#        kube_config_location: "${{ inputs.kubernetes_config }}"
+    - name: "K8S:CHECK:ROLLOUT:STATUS"
+      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
+      with:
+        app_name: "${{ inputs.app_name }}"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"
