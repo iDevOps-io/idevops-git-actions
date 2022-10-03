@@ -71,7 +71,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: -=app_name=--svc
+  name: -=app_name=--headless-svc
   namespace: -=kubernetes_namespace=-
 spec:
   type: ClusterIP
