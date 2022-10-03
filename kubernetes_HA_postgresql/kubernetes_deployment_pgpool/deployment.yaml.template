@@ -80,7 +80,7 @@ spec:
                   name: postgres-secret
                   key: REPMGR_PASSWORD
             - name: PGPOOL_SR_CHECK_DATABASE
-              value: "testdb"
+              value: "postgres"
             - name: PGPOOL_ENABLE_LDAP
               value: "no"
             - name: PGPOOL_POSTGRES_USERNAME
@@ -127,7 +127,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "testdb" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
+                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
