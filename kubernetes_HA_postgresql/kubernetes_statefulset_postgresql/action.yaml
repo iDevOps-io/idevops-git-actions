@@ -66,10 +66,10 @@ inputs:
 #    description: The default storage class for the postgresql deployment.
 #    default: "gp2"
 #    required: false
-  database_name:
-    description: The name of the database.
-    default: "testdb"
-    required: true
+#  database_name:
+#    description: The name of the database.
+#    default: "testdb"
+#    required: true
   database_password:
     description: The root password for the database.
     default: "changeme123"
@@ -156,7 +156,6 @@ runs:
         echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
         echo "timeout_period=${{ inputs.timeout_period }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
-        echo "database_name=${{ inputs.database_name }}" >> ${GITHUB_ENV}
         echo "database_password=${{ inputs.database_password }}" >> ${GITHUB_ENV}
         echo "repmgr_password=${{ inputs.repmgr_password }}" >> ${GITHUB_ENV} 
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
