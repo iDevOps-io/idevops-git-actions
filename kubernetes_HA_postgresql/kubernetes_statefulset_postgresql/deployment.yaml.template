@@ -186,11 +186,11 @@ spec:
             - name: REPMGR_LOG_LEVEL
               value: "NOTICE"
             - name: REPMGR_CONNECT_TIMEOUT
-              value: "5"
+              value: "30"
             - name: REPMGR_RECONNECT_ATTEMPTS
-              value: "3"
+              value: "10"
             - name: REPMGR_RECONNECT_INTERVAL
-              value: "5"
+              value: "30"
             - name: REPMGR_USERNAME
               value: "repmgr"
             - name: REPMGR_PASSWORD
