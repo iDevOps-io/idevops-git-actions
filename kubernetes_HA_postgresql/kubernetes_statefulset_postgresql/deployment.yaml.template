@@ -205,22 +205,22 @@ spec:
               containerPort: -=port=-
               protocol: TCP
           livenessProbe:
-            exec:
-              command:
-                - bash
-                - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "admin" -d "testdb"  -h 127.0.0.1 -c "SELECT 1"'
+#            exec:
+#              command:
+#                - bash
+#                - -ec
+#                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "admin" -d "testdb"  -h 127.0.0.1 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
             successThreshold: -=success_threshold=-
             failureThreshold: -=failure_threshold=-
           readinessProbe:
-            exec:
-              command:
-                - bash
-                - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "admin" -d "testdb"  -h 127.0.0.1 -c "SELECT 1"'
+#            exec:
+#              command:
+#                - bash
+#                - -ec
+#                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "admin" -d "testdb"  -h 127.0.0.1 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
