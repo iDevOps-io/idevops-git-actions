@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: -=app_name=--configmap
+  name: postgres-configmap
 data:
   pre-stop.sh: |-
     #!/bin/bash
@@ -68,7 +68,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: -=app_name=--headless-svc
+  name: postgres-headless-svc
 spec:
   type: ClusterIP
   clusterIP: None
@@ -78,13 +78,13 @@ spec:
     targetPort: postgresql
     protocol: TCP 
   selector:
-    app: -=app_name=-
+    app: postgres
     
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: -=app_name=--secrets
+  name: postgres-secrets
 data:
   postgresql-password: "V2JyVHBOM2c3cQ=="
   repmgr-password: "c1ZwYm90R2d4Nw=="
@@ -93,17 +93,17 @@ data:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: -=app_name=--sts
+  name: postgres-sts
 spec:
   serviceName: postgres-headless-svc
   replicas: 3
   selector:
     matchLabels:
-      app: -=app_name=-
+      app: postgres
   template:
     metadata:
       labels:
-        app: -=app_name=-
+        app: postgres
     spec:
       securityContext:
         fsGroup: 1001
@@ -132,7 +132,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: -=app_name=--secrets
+                  name: postgres-secrets
                   key: postgresql-password
             - name: POSTGRES_DB
               value: "postgres"
@@ -166,13 +166,13 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: -=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: postgres-sts-0.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-1.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-2.-postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
-              value: "-=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "postgres-sts-0.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME
-              value: "$(MY_POD_NAME).-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "$(MY_POD_NAME).postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_LOG_LEVEL
               value: "NOTICE"
             - name: REPMGR_CONNECT_TIMEOUT
@@ -186,7 +186,7 @@ spec:
             - name: REPMGR_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: -=app_name=--secrets
+                  name: postgres-secrets
                   key: repmgr-password
             - name: REPMGR_DATABASE
               value: "repmgr"
@@ -225,7 +225,7 @@ spec:
       volumes:
         - name: hooks-scripts
           configMap:
-            name: -=app_name=--configmap
+            name: postgres-configmap
             defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
