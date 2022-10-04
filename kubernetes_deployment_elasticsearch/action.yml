@@ -1,16 +1,16 @@
-name: "K8S:DEPLOYMENT:aerospike"
+name: "K8S:DEPLOYMENT:elasticsearch"
 author: Billy Yang <byang@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
-description: Deploys aerospike into K8S in a production way.
+description: Deploys elasticsearch into K8S in a production way.
 inputs:
   kubernetes_config:
     description: Location of the kubeconfig you want to use to deploy to kubernetes.
     default: "/home/runner/.kube/config"
     required: false
   app_name:
-    description: What you want to name your aerospike deployment.
+    description: What you want to name your elasticsearch deployment.
     required: true
   kubernetes_namespace:
     description: The namespace in k8s you want to deployment
@@ -22,7 +22,7 @@ inputs:
     description: The org you will be pushing to and pulling from.
     required: true
   image:
-    description: The image name you want to build and push the docker image for aerospike to.
+    description: The image name you want to build and push the docker image for elasticsearch to.
     required: true
   image_tag:
     description: The image tag you wish to tag the docker image as.
@@ -33,12 +33,9 @@ inputs:
   port_two:
     description: The port the container and service will be running on.
     required: true
-  port_three:
-    description: The port the container and service will be running on.
-    required: true
   mount_path:
     description: The persistent volume mount path.
-    default: "/var/application-data/aerospike"
+    default: "/var/application-data/elasticsearch"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
@@ -46,7 +43,7 @@ inputs:
     required: false
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
-    default: "aerospike.idevops.io"
+    default: "elasticsearch.idevops.io"
     required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
@@ -56,7 +53,7 @@ inputs:
     required: true
   docker_file_location:
     description: The docker org you will be pushing your image to.
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-65/kubernetes_deployment_aerospike/"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-57/kubernetes_deployment_elasticsearch/"
     required: false
   docker_server_url:
     description: The url to push docker images to.
@@ -64,7 +61,7 @@ inputs:
     required: false
   composite_file_location:
     description: The location where files live
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-65/kubernetes_deployment_aerospike"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/IIO-57/kubernetes_deployment_elasticsearch"
     required: false
   AWS_ACCESS_KEY_ID:
     required: false
@@ -121,7 +118,6 @@ runs:
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "port_two=${{ inputs.port_two }}" >> ${GITHUB_ENV}
-        echo "port_three=${{ inputs.port_three }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
