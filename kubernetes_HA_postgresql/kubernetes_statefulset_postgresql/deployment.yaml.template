@@ -2,10 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: -=app_name=--configmap
-  namespace: -=kubernetes_namespace=-
-  labels:
-    app: -=app_name=-
+  name: postgres-configmap
 data:
   pre-stop.sh: |-
     #!/bin/bash
@@ -71,57 +68,54 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: -=app_name=--headless-svc
-  namespace: -=kubernetes_namespace=-
+  name: postgres-headless-svc
 spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - name: portone
-    port: -=port=-
-    targetPort: -=port=-
+  - name: postgresql
+    port: 5432
+    targetPort: postgresql
     protocol: TCP 
   selector:
-    app: -=app_name=-
+    app: postgres
     
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: -=app_name=--secret
-  namespace: -=kubernetes_namespace=-
-type: Opaque
-stringData:
-  POSTGRES_PASSWORD: -=database_password=-
-  REPMGR_PASSWORD: -=repmgr_password=-
+  name: postgres-secrets
+data:
+  postgresql-password: "V2JyVHBOM2c3cQ=="
+  repmgr-password: "c1ZwYm90R2d4Nw=="
   
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: -=app_name=--sts
-  namespace: -=kubernetes_namespace=-
+  name: postgres-sts
 spec:
-  serviceName: -=app_name=--svc
+  serviceName: postgres-headless-svc
   replicas: 3
   selector:
     matchLabels:
-      app: -=app_name=-
+      app: postgres
   template:
     metadata:
       labels:
-        app: -=app_name=-
+        app: postgres
     spec:
       securityContext:
         fsGroup: 1001
       containers:
-        - name: -=app_name=-
+        - name: postgresql
           lifecycle:
             preStop:
               exec:
                 command:
                   - /pre-stop.sh
-          image: -=docker_org_name=-/-=image=-:-=image_tag=-
+          image: docker.io/bitnami/postgresql-repmgr:11.12.0-debian-10-r44
+          imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
           # Auxiliary vars to populate environment variables
@@ -133,15 +127,15 @@ spec:
               value: "/bitnami/postgresql"
             - name: PGDATA
               value: "/bitnami/postgresql/data"
-            - name: POSTGRES_DB
-              value: "postgres"
             - name: POSTGRES_USER
               value: "postgres"
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: -=app_name=--secret
-                  key: POSTGRES_PASSWORD
+                  name: postgres-secrets
+                  key: postgresql-password
+            - name: POSTGRES_DB
+              value: "postgres"
             - name: POSTGRESQL_LOG_HOSTNAME
               value: "true"
             - name: POSTGRESQL_LOG_CONNECTIONS
@@ -172,33 +166,33 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: -=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: postgres-sts-0.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-1.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-2.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
-              value: "-=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "postgres-sts-0.postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME
-              value: "$(MY_POD_NAME).-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "$(MY_POD_NAME).postgres-headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_LOG_LEVEL
               value: "NOTICE"
             - name: REPMGR_CONNECT_TIMEOUT
-              value: "30"
+              value: "5"
             - name: REPMGR_RECONNECT_ATTEMPTS
-              value: "10"
+              value: "3"
             - name: REPMGR_RECONNECT_INTERVAL
-              value: "30"
+              value: "5"
             - name: REPMGR_USERNAME
               value: "repmgr"
             - name: REPMGR_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: -=app_name=--secret
-                  key: REPMGR_PASSWORD
+                  name: postgres-secrets
+                  key: repmgr-password
             - name: REPMGR_DATABASE
               value: "repmgr"
           ports:
-            - name: portone
-              containerPort: -=port=-
+            - name: postgresql
+              containerPort: 5432
               protocol: TCP
           livenessProbe:
             exec:
@@ -206,22 +200,22 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -c "SELECT 1"'
-            initialDelaySeconds: -=initial_delay=-
-            periodSeconds: -=period_time=-
-            timeoutSeconds: -=timeout_period=-
-            successThreshold: -=success_threshold=-
-            failureThreshold: -=failure_threshold=-
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
           readinessProbe:
             exec:
               command:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -c "SELECT 1"'
-            initialDelaySeconds: -=initial_delay=-
-            periodSeconds: -=period_time=-
-            timeoutSeconds: -=timeout_period=-
-            successThreshold: -=success_threshold=-
-            failureThreshold: -=failure_threshold=-
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
@@ -231,7 +225,7 @@ spec:
       volumes:
         - name: hooks-scripts
           configMap:
-            name: -=app_name=--configmap
+            name: postgres-configmap
             defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
@@ -241,5 +235,5 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: -=disk_size=-
+            storage: "1Gi"
 
