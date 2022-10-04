@@ -1,4 +1,4 @@
-FROM bitnami/pgpool:4.2.3-debian-10-r38
+FROM bitnami/pgpool:4.3.3-debian-11-r14
 EXPOSE 5432
 USER 1001
 ENTRYPOINT [ "/opt/bitnami/scripts/pgpool/entrypoint.sh" ]

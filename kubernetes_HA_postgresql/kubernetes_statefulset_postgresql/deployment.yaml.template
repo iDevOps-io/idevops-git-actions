@@ -114,7 +114,7 @@ spec:
               exec:
                 command:
                   - /pre-stop.sh
-          image: docker.io/bitnami/postgresql-repmgr:11.12.0-debian-10-r44
+          image: docker.io/bitnami/postgresql-repmgr:14.5.0-debian-11-r21
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
@@ -236,4 +236,3 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-
