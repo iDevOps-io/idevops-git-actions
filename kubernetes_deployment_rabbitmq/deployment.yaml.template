@@ -35,7 +35,9 @@ spec:
             port: -=port=-
           initialDelaySeconds: 90
           periodSeconds: 3
-        
+        volumeMounts:
+        - mountPath: "-=mount_path=-"
+          name: -=app_name=-
         ports:
         - name: port
           containerPort: -=port=-
