@@ -1,4 +1,4 @@
-FROM bitnami/postgresql-repmgr:11.12.0-debian-10-r44
+FROM bitnami/postgresql-repmgr:14.5.0-debian-11-r21
 EXPOSE 5432
 USER 1001
 ENTRYPOINT [ "/opt/bitnami/scripts/postgresql-repmgr/entrypoint.sh" ]
