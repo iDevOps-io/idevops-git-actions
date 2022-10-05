@@ -46,10 +46,8 @@ spec:
   ports:
     - port: -=port=-
       targetPort: -=port=-
-    
     - port_two: -=port=-
       targetPort: -=port=-
-    
     - port_three: -=port=-
       targetPort: -=port=-  
 ---
