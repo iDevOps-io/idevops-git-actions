@@ -38,6 +38,8 @@ jobs:
           image: "couchdb"
           image_tag: "latest"
           port: "5984"
+          port_two: "4369"
+          port_three: "9100"
           mount_path: "/opt/couchdb/data"
           disk_size: "20Gi"
           hostname: "couchdb.idevops.io"
