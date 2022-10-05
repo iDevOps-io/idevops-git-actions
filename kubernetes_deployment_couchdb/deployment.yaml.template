@@ -28,7 +28,7 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         livenessProbe:
           tcpSocket:
-            port: -=port=-
+            port: -=port_two=-
           initialDelaySeconds: 15
           periodSeconds: 3
         ports:
@@ -44,12 +44,14 @@ spec:
   selector:
     app: -=app_name=-
   ports:
-    - port: -=port=-
+    - name: portone
       targetPort: -=port=-
-    - port_two: -=port=-
-      targetPort: -=port=-
-    - port_three: -=port=-
-      targetPort: -=port=-  
+    
+    - name: porttwo
+      targetPort: -=port_two=-
+    
+    - name: portthree
+      targetPort: -=port_three=-  
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
