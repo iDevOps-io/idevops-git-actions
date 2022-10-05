@@ -45,13 +45,14 @@ spec:
     app: -=app_name=-
   ports:
     - name: portone
+      port: -=port=-
       targetPort: -=port=-
-    
     - name: porttwo
+      port: -=port_two=-
       targetPort: -=port_two=-
-    
-    - name: portthree
-      targetPort: -=port_three=-  
+    - name:portthree
+      port: -=port_three=-
+      targetPort: -=port_three=- 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
