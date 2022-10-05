@@ -46,3 +46,48 @@ spec:
   ports:
     - port: -=port=-
       targetPort: -=port=-
+    
+    - port_two: -=port=-
+      targetPort: -=port=-
+    
+    - port_three: -=port=-
+      targetPort: -=port=-  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
+  storageClassName: gp2
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/tls-acme: "true"
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: -=hostname=-
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: -=app_name=-
+            port: 
+              number: -=port=-
+              number: -=port_two=-
+              number: -=port_three=-  
