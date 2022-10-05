@@ -9,7 +9,7 @@ on:
         default: idevops-vaas-cluster
             
 jobs:
-  build_deploy_jupyterhub:
+  build_deploy_couchdb:
     name: "AWS:EKS:DEPLOY:COUCHDB"
     runs-on: ${{ matrix.os }}
 
