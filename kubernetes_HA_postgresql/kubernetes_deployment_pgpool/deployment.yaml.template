@@ -68,6 +68,7 @@ spec:
           securityContext:
             runAsUser: 1001
           env:
+            - name: 
             - name: BITNAMI_DEBUG
               value: "false"
             - name: PGPOOL_BACKEND_NODES
@@ -97,6 +98,10 @@ spec:
                 secretKeyRef:
                   name: -=app_name=--secrets
                   key: admin-password
+            - name: PGPOOL_AUTHENTICATION_METHOD
+              value: "scram-sha-256"
+            - name: PGPOOL_ENABLE_POOL_HBA
+              value: "yes"
             - name: PGPOOL_ENABLE_LOAD_BALANCING
               value: "yes"
             - name: PGPOOL_ENABLE_LOG_CONNECTIONS
@@ -119,7 +124,7 @@ spec:
             exec:
               command:
                 - /opt/bitnami/scripts/pgpool/healthcheck.sh
-            initialDelaySeconds: 600
+            initialDelaySeconds: 240
             periodSeconds: 45
             timeoutSeconds: 15
             successThreshold: 1
@@ -130,7 +135,7 @@ spec:
                 - bash
                 - -ec
                 - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-            initialDelaySeconds: 600
+            initialDelaySeconds: 240
             periodSeconds: 45
             timeoutSeconds: 15
             successThreshold: 1
