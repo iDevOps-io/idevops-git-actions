@@ -68,7 +68,6 @@ spec:
           securityContext:
             runAsUser: 1001
           env:
-            - name: 
             - name: BITNAMI_DEBUG
               value: "false"
             - name: PGPOOL_BACKEND_NODES
