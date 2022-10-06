@@ -110,7 +110,7 @@ spec:
         app: -=app_name=-
     spec:
       securityContext:
-        fsGroup: 1001
+        fsGroup: runAsUser
       containers:
         - name: postgresql
           lifecycle:
@@ -204,7 +204,7 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 600
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
@@ -215,7 +215,7 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 600
+            initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
