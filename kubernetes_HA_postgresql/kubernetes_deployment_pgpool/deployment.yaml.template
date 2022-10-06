@@ -105,6 +105,8 @@ spec:
               value: "yes"
             - name: PGPOOL_ENABLE_LOG_PER_NODE_STATEMENT
               value: "no"
+            - name: PGPOOL_CHILD_MAX_CONNECTIONS
+              value: ""
             - name: PGPOOL_CHILD_LIFE_TIME
               value: "0"
             - name: PGPOOL_ENABLE_TLS
@@ -117,7 +119,7 @@ spec:
             exec:
               command:
                 - /opt/bitnami/scripts/pgpool/healthcheck.sh
-            initialDelaySeconds: 10
+            initialDelaySeconds: 600
             periodSeconds: 45
             timeoutSeconds: 15
             successThreshold: 1
@@ -128,7 +130,7 @@ spec:
                 - bash
                 - -ec
                 - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-            initialDelaySeconds: 30
+            initialDelaySeconds: 600
             periodSeconds: 45
             timeoutSeconds: 15
             successThreshold: 1
