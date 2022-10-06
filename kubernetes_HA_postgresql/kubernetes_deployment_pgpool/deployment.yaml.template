@@ -97,6 +97,8 @@ spec:
                 secretKeyRef:
                   name: -=app_name=--secrets
                   key: admin-password
+            - name: PGPOOL_CHILD_LIFE_TIME
+              value: 0
             - name: PGPOOL_ENABLE_LOAD_BALANCING
               value: "yes"
             - name: PGPOOL_ENABLE_LOG_CONNECTIONS
