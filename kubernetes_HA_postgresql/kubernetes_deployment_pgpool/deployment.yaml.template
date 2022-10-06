@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: -=app_name=--secrets
+  namespace: -=kubernetes_namespace=-
 data:
   admin-password: "SFRzaVZxYjdSZQ=="
   
@@ -11,6 +12,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: -=app_name=--svc
+  namespace: -=kubernetes_namespace=-
 spec:
   type: ClusterIP
   sessionAffinity: None
@@ -28,6 +30,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: -=app_name=--svc-nodeport
+  namespace: -=kubernetes_namespace=-
 spec:
   type: NodePort
   sessionAffinity: None
@@ -45,6 +48,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: -=app_name=--deployment
+  namespace: -=kubernetes_namespace=-
 spec:
   replicas: 1
   selector:
