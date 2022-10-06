@@ -162,7 +162,7 @@ spec:
             - name: REPMGR_UPGRADE_EXTENSION
               value: "no"
             - name: REPMGR_PGHBA_TRUST_ALL
-              value: "true"
+              value: "yes"
             - name: REPMGR_MOUNTED_CONF_DIR
               value: "/bitnami/repmgr/conf"
             - name: REPMGR_NAMESPACE
