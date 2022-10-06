@@ -114,7 +114,7 @@ spec:
               exec:
                 command:
                   - /pre-stop.sh
-          image: docker.io/bitnami/postgresql-repmgr:14.5.0-debian-11-r21
+          image: docker.io/bitnami/postgresql-repmgr:latest
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
@@ -199,23 +199,23 @@ spec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
-            failureThreshold: 6
+            failureThreshold: 10
           readinessProbe:
             exec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
-            failureThreshold: 6
+            failureThreshold: 10
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
