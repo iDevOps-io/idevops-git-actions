@@ -59,7 +59,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: pgpool
-          image: docker.io/bitnami/pgpool:4.3.3-debian-11-r14
+          image: docker.io/bitnami/pgpool:latest
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
@@ -113,7 +113,7 @@ spec:
             exec:
               command:
                 - /opt/bitnami/scripts/pgpool/healthcheck.sh
-            initialDelaySeconds: 75
+            initialDelaySeconds: 10
             periodSeconds: 45
             timeoutSeconds: 5
             successThreshold: 1
@@ -124,7 +124,7 @@ spec:
                 - bash
                 - -ec
                 - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-            initialDelaySeconds: 75
+            initialDelaySeconds: 30
             periodSeconds: 45
             timeoutSeconds: 5
             successThreshold: 1
