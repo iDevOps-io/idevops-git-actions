@@ -6,18 +6,10 @@ on:
       kubernetes_cluster_name:
         description: Name of kubernetes cluster
         default: idevops-vaas-cluster
+        docker_tag:
+        description: docker tag
+        default: 1
 
-name: "AWS:EKS:DEPLOY:HA:POSTGRESQL"
-on:
-   workflow_dispatch:
-     inputs:
-      kubernetes_cluster_name:
-         description: Name of kubernetes cluster
-         default: idevops-vaas-cluster
-         docker_tag:
-         description: docker tag
-         default: 1
-           
 jobs:
   build_deploy_couchdb:
     name: "AWS:EKS:DEPLOY:COUCHDB"

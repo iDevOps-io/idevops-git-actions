@@ -7,6 +7,10 @@ on:
       kubernetes_cluster_name:
         description: Name of kubernetes cluster
         default: idevops-vaas-cluster
+        docker_tag:
+        description: docker tag
+        default: 1
+
             
 jobs:
   build_deploy_couchdb:
