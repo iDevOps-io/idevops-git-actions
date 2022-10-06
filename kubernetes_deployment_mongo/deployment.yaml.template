@@ -115,7 +115,7 @@ spec:
   - metadata:
       name: -=app_name=-
     spec:
-      accessModes: [ "ReadWriteMany" ]
+      accessModes: [ "ReadWriteOnce" ]
       storageClassName: -=storage_class=-
       resources:
         requests:
