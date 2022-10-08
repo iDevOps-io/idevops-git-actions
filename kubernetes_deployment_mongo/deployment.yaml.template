@@ -1,5 +1,91 @@
 ---
 apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+  labels:
+    app: -=app_name=-
+spec:
+  replicas: -=replicas=-
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: -=max_surge=-
+        maxUnavailable: -=max_unavailable=-
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+      containers:
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+        readinessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+        ports:
+        - name: portone
+          containerPort: -=port=-
+        volumeMounts:
+        - mountPath: "-=mount_path=-"
+          name: -=app_name=-
+        env:
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGO_USERNAME
+          - name: MONGO_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGO_ROOT_PASSWORD
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+stringData:
+  MONGO_USERNAME: -=MONGO_USERNAME=-
+  MONGO_ROOT_PASSWORD: -=MONGO_ROOT_PASSWORD=-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: LoadBalancer
+  selector:
+    app: -=app_name=-
+  ports:
+    - name: -=port_name=-
+      port: -=port=-
+      targetPort: -=port=-
+---
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
@@ -56,6 +142,15 @@ spec:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: MONGO_ROOT_PASSWORD
+      containers:
+      - name: -=app_name=-
+        image: -=image=-
+        ports:
+        - containerPort: -=port=-
+          name: -=port_name=-
+        volumeMounts:
+        - name: -=app_name=-
+          mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
       name: -=app_name=-
@@ -65,29 +160,6 @@ spec:
       resources:
         requests:
           storage: -=disk_size=-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: -=app_name=--secret
-  namespace: -=kubernetes_namespace=-
-stringData:
-  MONGO_USERNAME: -=MONGO_USERNAME=-
-  MONGO_ROOT_PASSWORD: -=MONGO_ROOT_PASSWORD=-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  type: LoadBalancer
-  selector:
-    app: -=app_name=-
-  ports:
-    - name: -=port_name=-
-      port: -=port=-
-      targetPort: -=port=-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

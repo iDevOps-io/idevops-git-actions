@@ -37,6 +37,14 @@ inputs:
     description: Number of replicas desired.
     default: "3"
     required: true
+  max_surge:
+    description: The amount of pods above the desired number of pods during an update.
+    default: "1"
+    required: true
+  max_unavailable: 
+    desription: The number of pods that can be unavailable during the update process.
+    default: "1"
+    required: true
   initial_delay:
     description: Number of seconds after the container has started before liveness or readiness probes are initiated.
     default: "60"
@@ -146,6 +154,8 @@ runs:
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "port_name=${{ inputs.port_name }}" >> ${GITHUB_ENV}
         echo "replicas=${{ inputs.replicas }}" >> ${GITHUB_ENV}
+        echo "max_surge=${{ inputs.max_surge }}" >> ${GITHUB_ENV}
+        echo "max_unavailable=${{ inputs.max_unavailable }}" >> ${GITHUB_ENV}
         echo "initial_delay=${{ inputs.initial_delay }}" >> ${GITHUB_ENV}
         echo "period_time=${{ inputs.period_time }}" >> ${GITHUB_ENV}
         echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
