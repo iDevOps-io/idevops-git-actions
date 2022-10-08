@@ -1,30 +1,28 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
   labels:
     app: -=app_name=-
 spec:
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  serviceName: -=app_name=-
   replicas: -=replicas=-
   strategy:
     type: RollingUpdate
     rollingUpdate:
         maxSurge: -=max_surge=-
         maxUnavailable: -=max_unavailable=-
-  selector:
-    matchLabels:
-      app: -=app_name=-
   template:
     metadata:
       labels:
         app: -=app_name=-
     spec:
-      volumes:
-      - name: -=app_name=-
-        persistentVolumeClaim:
-          claimName: -=app_name=-
+      terminationGracePeriodSeconds: -=period_time=-
       imagePullSecrets:
       - name: -=docker_pull_secret=-
       containers:
@@ -61,6 +59,15 @@ spec:
               secretKeyRef:
                 name: -=app_name=--secret
                 key: MONGO_ROOT_PASSWORD
+  volumeClaimTemplates:
+  - metadata:
+      name: -=app_name=-
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: -=storage_class=-
+      resources:
+        requests:
+          storage: -=disk_size=-
 ---
 apiVersion: v1
 kind: Secret
@@ -84,42 +91,6 @@ spec:
     - name: -=port_name=-
       port: -=port=-
       targetPort: -=port=-
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  selector:
-    matchLabels:
-      app: -=app_name=-
-  serviceName: -=app_name=-
-  replicas: -=replicas=-
-  template:
-    metadata:
-      labels:
-        app: -=app_name=-
-    spec:
-      terminationGracePeriodSeconds: -=period_time=-
-      containers:
-      - name: -=app_name=-
-        image: -=image=-
-        ports:
-        - containerPort: -=port=-
-          name: -=port_name=-
-        volumeMounts:
-        - name: -=app_name=-
-          mountPath: -=mount_path=-
-  volumeClaimTemplates:
-  - metadata:
-      name: -=app_name=-
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: -=storage_class=-
-      resources:
-        requests:
-          storage: -=disk_size=-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
