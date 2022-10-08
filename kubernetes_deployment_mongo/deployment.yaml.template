@@ -12,7 +12,7 @@ spec:
       app: -=app_name=-
   serviceName: -=app_name=-
   replicas: -=replicas=-
-  strategy:
+  updateStrategy:
     type: RollingUpdate
     rollingUpdate:
         maxSurge: -=max_surge=-
