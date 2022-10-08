@@ -14,9 +14,6 @@ spec:
   replicas: -=replicas=-
   updateStrategy:
     type: RollingUpdate
-    rollingUpdate:
-        maxSurge: -=max_surge=-
-        maxUnavailable: -=max_unavailable=-
   template:
     metadata:
       labels:
