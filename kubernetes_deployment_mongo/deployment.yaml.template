@@ -97,8 +97,6 @@ spec:
       app: -=app_name=-
   serviceName: -=app_name=-
   replicas: -=replicas=-
-  updateStrategy:
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -110,46 +108,16 @@ spec:
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        livenessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
-          successThreshold: -=success_threshold=-
-          failureThreshold: -=failure_threshold=-
-        readinessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
-          successThreshold: -=success_threshold=-
-          failureThreshold: -=failure_threshold=-
+        command:
+          - mongod
+          - "--replSet"
+          - rs0
         ports:
         - name: portone
           containerPort: -=port=-
         volumeMounts:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
-        env:
-          - name: MONGO_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: MONGO_USERNAME
-          - name: MONGO_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: MONGO_ROOT_PASSWORD
-      containers:
-      - name: -=app_name=-
-        image: -=image=-
-        ports:
-        - containerPort: -=port=-
-          name: -=port_name=-
-        volumeMounts:
-        - name: -=app_name=-
-          mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
       name: -=app_name=-
