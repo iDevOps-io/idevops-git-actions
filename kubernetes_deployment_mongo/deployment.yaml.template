@@ -7,7 +7,6 @@ metadata:
   labels:
     app: -=app_name=-
 spec:
-  replicas: -=replicas=-
   strategy:
     type: RollingUpdate
     rollingUpdate:
