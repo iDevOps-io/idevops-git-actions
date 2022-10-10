@@ -30,10 +30,17 @@ spec:
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        readinessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: -=initial delay=-
+          initialDelaySeconds: -=initial_delay=-
           periodSeconds: -=period_time=-
           successThreshold: -=success_threshold=-
           failureThreshold: -=failure_threshold=-
