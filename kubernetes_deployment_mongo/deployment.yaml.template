@@ -85,7 +85,6 @@ spec:
     - name: -=port_name=-
       port: -=port=-
       targetPort: -=port=-
-  clusterIP: None    
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -113,12 +112,10 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
           - mongod
-          - "--bind_ip"
-          - "0.0.0.0"
           - "--replSet"
           - "rs0"
         ports:
-        - name: portone
+        - name: -=port_name=-
           containerPort: -=port=-
         volumeMounts:
         - mountPath: "-=mount_path=-"
