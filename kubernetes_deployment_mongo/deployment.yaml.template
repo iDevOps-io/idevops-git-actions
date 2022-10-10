@@ -75,6 +75,8 @@ kind: Service
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
+  labels:
+    name: -=app_name=-
 spec:
   type: LoadBalancer
   selector:
@@ -112,6 +114,8 @@ spec:
           - mongod
           - "--replSet"
           - rs0
+          - "--smallfiles"
+          - "--noprealloc"
         ports:
         - name: portone
           containerPort: -=port=-
