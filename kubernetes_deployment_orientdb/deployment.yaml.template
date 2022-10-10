@@ -33,8 +33,11 @@ spec:
         livenessProbe:
           tcpSocket:
             port: -=port=-
-          initialDelaySeconds: 90
-          periodSeconds: 90
+          initialDelaySeconds: -=initial delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+
 
         ports:
         - name: portone
@@ -43,6 +46,7 @@ spec:
         volumeMounts:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
+          subPath: "-=sub_path=-"
 
         env:
           - name: ORIENTDB_USER
@@ -129,3 +133,4 @@ spec:
   - hosts:
     - -=hostname=-
     secretName: -=app_name=--tls
+
