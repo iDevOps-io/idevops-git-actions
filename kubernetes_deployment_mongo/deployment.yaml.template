@@ -114,8 +114,6 @@ spec:
           - mongod
           - "--replSet"
           - rs0
-          - "--smallfiles"
-          - "--noprealloc"
         ports:
         - name: portone
           containerPort: -=port=-
