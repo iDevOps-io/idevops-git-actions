@@ -45,6 +45,9 @@ jobs:
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"
 
+      - name: "KUBERNETES:DEPLOY:POSTGRESQL"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_postgresql@main
+        with:
 ```
 |Input   | Default Value  | Description  |
 | --- | :--: | --- |
