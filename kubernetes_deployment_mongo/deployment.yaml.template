@@ -112,6 +112,8 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
           - mongod
+          - "--bind_ip"
+          - "0.0.0.0"
           - "--replSet"
           - "rs0"
         ports:
