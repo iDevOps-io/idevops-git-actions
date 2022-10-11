@@ -56,6 +56,7 @@ jobs:
 |--------------|-------------------------|--------------|
 |kubernetes_config| /home/runner/.kube/config |Location of the kubeconfig you want to use to deploy to kubernetes. |
 |app_name | mongo | What you want to name your mongo deployment. |
+|service_name | mongo-headless | Name of the clusterIP used in the statefulSet. |
 |kubernetes_namespace | mongo | The namespace in k8s you want to deployment. |
 |docker_pull_secret | mongo | The name of the docker pull secret you with to use to pull your image. |
 |docker_org_name | idevopsiointernal | The org you will be pushing to and pulling from. |
