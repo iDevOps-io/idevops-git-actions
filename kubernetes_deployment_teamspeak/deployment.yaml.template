@@ -44,6 +44,9 @@ spec:
 
         - name: porttwo
           containerPort: -=port_two=-
+          
+        - name: portthree
+          containerPort: -=port_three=-
         
         volumeMounts:
         - mountPath: -=mount_path=-
@@ -65,6 +68,9 @@ spec:
     - name: porttwo
       port: -=port_two=-
       targetPort: -=port_two=-
+     - name: portthree
+      port: -=port_three=-
+      targetPort: -=port_three=-
   
       
 ---
