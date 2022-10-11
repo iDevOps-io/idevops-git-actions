@@ -101,6 +101,7 @@ spec:
   replicas: -=replicas=-
   template:
     metadata:
+      name: -=app_name=-
       labels:
         app: -=app_name=-
     spec:
@@ -110,12 +111,12 @@ spec:
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        command:
-          - mongod
-          - "--bind_ip"
-          - "0.0.0.0"
-          - "--replSet"
-          - "rs0"
+        command: # <- mongo "init" command>
+        - mongod
+        - "--bind_ip"
+        - "0.0.0.0"
+        - "--replSet"
+        - "rs0"
         ports:
         - name: -=port_name=-
           containerPort: -=port=-
