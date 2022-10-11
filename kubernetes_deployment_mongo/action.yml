@@ -12,6 +12,9 @@ inputs:
   app_name:
     description: What you want to name your mongo deployment.
     required: true
+  service_name:
+    description: Name of the clusterIP used in the statefulSet.
+    required: true
   kubernetes_namespace:
     description: The namespace in k8s you want to deployment
     required: true
@@ -146,6 +149,7 @@ runs:
       run: |
         echo "kubernetes_config=${{ inputs.kubernetes_config }}" >> ${GITHUB_ENV}
         echo "app_name=${{ inputs.app_name }}" >> ${GITHUB_ENV}
+        echo "service_name=${{ inputs.service_name }}" >> ${GITHUB_ENV}
         echo "kubernetes_namespace=${{ inputs.kubernetes_namespace }}" >> ${GITHUB_ENV}
         echo "docker_pull_secret=${{ inputs.docker_pull_secret }}" >> ${GITHUB_ENV}
         echo "docker_org_name=${{ inputs.docker_org_name }}" >> ${GITHUB_ENV}

@@ -97,7 +97,7 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
-  serviceName: -=app_name=-
+  serviceName: -=service_name=-
   replicas: -=replicas=-
   template:
     metadata:
