@@ -53,15 +53,15 @@ spec:
       port: -=port_three=-
       targetPort: -=port_three=-
     volumeMounts:
-      - name: couch-pvc
+      - name: "couch-pvc"
         mountPath: -=mount_path=-  
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: couch-vol-0
+  name: "couch-vol-0"
   labels:
-    volume: couch-volume
+    volume: "couch-volume"
 spec:
   capacity:
     storage: 10Gi
@@ -74,9 +74,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: couch-vol-1
+  name: "couch-vol-1"
   labels:
-    volume: couch-volume
+    volume: "couch-volume"
 spec:
   capacity:
     storage: 10Gi
@@ -89,9 +89,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: couch-vol-2
+  name: "couch-vol-2"
   labels:
-    volume: couch-volume
+    volume: "couch-volume"
 spec:
   capacity:
     storage: 10Gi
@@ -111,7 +111,7 @@ spec:
   template:
   volumeClaimTemplates:
   - metadata:
-      name: -=couch-pvc=-
+      name: -=mount_path=-
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
@@ -119,4 +119,4 @@ spec:
           storage: 10Gi
       selector:
         matchLabels:
-          volume: couch-volume
+          volume: "couch-volume"
