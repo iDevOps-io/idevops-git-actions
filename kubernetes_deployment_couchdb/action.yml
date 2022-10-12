@@ -38,14 +38,26 @@ inputs:
   port_three:
     description: The third port the container and service will be running on.
     default: "9100"
-    required: true  
-  mount_path:
-    description: The persistent volume mount path.
+    required: true   
+  couch_pvc_mount:
+    description: persistent volume mount path
     default: "/opt/couchdb/data"
+    required: false   
+  nfs_mount_path_one:
+    description: The persistent nfs volume mount path for first pod.
+    default: "/couchnfs/nfs_share/couchdb-0"
     required: false
+  nfs_mount_path_two:
+    description: The persistent nfs volume mount path for second pod.
+    default: "/couchnfs/nfs_share/couchdb-1"
+    required: false 
+  nfs_mount_path_three:
+    description: The persistent nfs volume mount path for third pod.
+    default: "/couchnfs/nfs_share/couchdb-2"
+    required: false 
   disk_size:
     description: The size of the persistent volume you wish to provision.
-    default: "20Gi"
+    default: "10Gi"
     required: false
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
@@ -125,7 +137,10 @@ runs:
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "port_two=${{ inputs.port_two }}" >> ${GITHUB_ENV}
         echo "port_three=${{ inputs.port_three }}" >> ${GITHUB_ENV}
-        echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
+        echo "couch_pvc_mount=${{ inputs.couch_pvc_mount }}" >> ${GITHUB_ENV}
+        echo "nfs_mount_path_one=${{ inputs.nfs_mount_path_one }}" >> ${GITHUB_ENV}
+        echo "nfs_mount_path_two=${{ inputs.nfs_mount_path_two }}" >> ${GITHUB_ENV}
+        echo "nfs_mount_path_three=${{ inputs.nfs_mount_path_three }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
