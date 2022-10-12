@@ -106,7 +106,7 @@ spec:
       terminationGracePeriodSeconds: -=period_time=-
       containers:
       - name:  -=app_name=-
-        image: -=image=-
+        image: -=image=-:-=image_tag=-
         command:
         - mongod
         - "--replSet"
