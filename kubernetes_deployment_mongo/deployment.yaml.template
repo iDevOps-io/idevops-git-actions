@@ -103,8 +103,6 @@ spec:
       name: -=app_name=-
       labels:
         app: -=app_name=-
-        role: -=app_name=-
-        environment: test
     spec:
       terminationGracePeriodSeconds: -=period_time=-
       containers:
@@ -112,19 +110,16 @@ spec:
         image: -=image=-:-=image_tag=-
         command:
         - mongod
+        - "--bind_ip"
+        - "0.0.0.0"
         - "--replSet"
         - "rs0"
         volumeMounts:
-        - mountPath: "-=mount_path=-"
-          name: -=app_name=-
-      - name: mongo-sidecar
-        image: cvallance/mongo-k8s-sidecar
-        env:
-          - name: MONGO_SIDECAR_POD_LABELS
-            value: "role=mongo,environment=test"
+        - name: -=app_name=--data-volume
+          mountPath: /var/lib/mongo
   volumeClaimTemplates:
   - metadata:
-      name: -=app_name=-
+      name: -=app_name=--data-volume
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: -=storage_class=-
