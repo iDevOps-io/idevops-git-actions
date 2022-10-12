@@ -81,6 +81,7 @@ spec:
   type: LoadBalancer
   selector:
     app: -=app_name=-
+    statefulset.kubernetes.io/pod-name: mongo-0
   ports:
     - name: -=port_name=-
       port: -=port=-
@@ -91,8 +92,6 @@ kind: StatefulSet
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
-  labels:
-    app: -=app_name=-
 spec:
   selector:
     matchLabels:
@@ -106,20 +105,15 @@ spec:
         app: -=app_name=-
     spec:
       terminationGracePeriodSeconds: -=period_time=-
-      imagePullSecrets:
-      - name: -=docker_pull_secret=-
       containers:
       - name:  -=app_name=-
-        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        image: -=image=-
         command: # <- mongo "init" command>
         - mongod
+        - "--replSet"
+        - "rs0"        
         - "--bind_ip"
         - "0.0.0.0"
-        - "--replSet"
-        - "rs0"
-        ports:
-        - name: -=port_name=-
-          containerPort: -=port=-
         volumeMounts:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
