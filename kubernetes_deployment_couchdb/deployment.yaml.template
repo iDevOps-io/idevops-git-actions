@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       labels:
-        app: -=app_name=-
+        app: -=app_name=-     
     spec:
       imagePullSecrets:
       - name: -=docker_pull_secret=-
@@ -44,27 +44,79 @@ spec:
   selector:
     app: -=app_name=-
   ports:
-    - name: portone
+    - name: couchdb
       port: -=port=-
       targetPort: -=port=-
-    - name: porttwo
+    - name: epmd
       port: -=port_two=-
       targetPort: -=port_two=-
-    - name: portthree
       port: -=port_three=-
-      targetPort: -=port_three=- 
+      targetPort: -=port_three=-
+   volumeMounts:
+          - name: couch-pvc
+            mountPath: -=couch_pvc_mount=-  
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
+  name: couch-vol-0
   labels:
-    app: -=app_name=-
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
+    volume: couch-volume
 spec:
+  capacity:
+    storage: 10Gi
   accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: -=disk_size=-
-  storageClassName: gp2
+    - ReadWriteOnce
+  nfs:
+    server: x.x.x.x
+    path: -=nfs_mount_path_one=-
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: couch-vol-1
+  labels:
+    volume: couch-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: x.x.x.x
+    path: -=nfs_mount_path_two=-
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: couch-vol-2
+  labels:
+    volume: couch-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: x.x.x.x
+    path: -=nfs_mount_path_three=-
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: -=app_name=-
+spec:
+  serviceName: "couch-service"
+  replicas: 3
+  template:
+  volumeClaimTemplates:
+  - metadata:
+      name: -=couch-pvc=-
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+      selector:
+        matchLabels:
+          volume: couch-volume
