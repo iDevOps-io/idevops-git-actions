@@ -81,7 +81,6 @@ spec:
   type: LoadBalancer
   selector:
     app: -=app_name=-
-    statefulset.kubernetes.io/pod-name: mongo-0
   ports:
     - name: -=port_name=-
       port: -=port=-
@@ -96,7 +95,7 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
-  serviceName: -=service_name=-
+  serviceName: -=app_name=-
   replicas: -=replicas=-
   template:
     metadata:
@@ -107,19 +106,17 @@ spec:
       terminationGracePeriodSeconds: -=period_time=-
       containers:
       - name:  -=app_name=-
-        image: -=image=-:-=image_tag=-
+        image: -=image=-
         command:
         - mongod
-        - "--bind_ip"
-        - "0.0.0.0"
         - "--replSet"
         - "rs0"
         volumeMounts:
-        - name: -=app_name=--data-volume
-          mountPath: /var/lib/mongo
+        - name: -=app_name=-
+          mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
-      name: -=app_name=--data-volume
+      name: -=app_name=-
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: -=storage_class=-
