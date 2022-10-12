@@ -137,11 +137,11 @@ spec:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
           ports:
-          - port: -=port=-
+          - port: 5984
             name: couchdb
-          - port: -=port_two=-
+          - port: 4369
             name: epmd
-          - port: -=port_three=-
+          - port: 9100
             name: epmd2   
         volumeMounts:
         - name: -=app_name=-
