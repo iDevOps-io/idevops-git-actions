@@ -116,14 +116,14 @@ spec:
     ports:
     terminationGracePeriodSeconds: 10
       containers:
-      - name: -=app_name=-
-        containerPort: -=port=-
+      - name: couchdb
+        containerPort: 5984
       - name: epmd
-        containerPort: -=port_two=-
-      - containerPort: -=port_three=-
+        containerPort: 4369
+      - containerPort: 9100
         volumeMounts:
           - name: couch-pvc
-            mountPath: -=mount_path=-
+            mountPath: /opt/couchdb/data
   volumeClaimTemplates:
   - metadata:
       name: couch-pvc
