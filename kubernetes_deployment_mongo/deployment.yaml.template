@@ -107,8 +107,8 @@ spec:
       terminationGracePeriodSeconds: -=period_time=-
       containers:
       - name:  -=app_name=-
-        image: -=image=-
-        command: # <- mongo "init" command>
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        command:
         - mongod
         - "--replSet"
         - "rs0"        
