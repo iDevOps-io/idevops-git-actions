@@ -98,7 +98,7 @@ spec:
     server: x.x.x.x
     path: -=nfs_mount_path_three=-
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
@@ -113,6 +113,15 @@ spec:
       containers:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
+    ports:
+      - name: couchdb
+        containerPort: 5984
+      - name: epmd
+        containerPort: 4369
+      - containerPort: 9100
+        volumeMounts:
+          - name: couch-pvc
+            mountPath: /opt/couchdb/data
   volumeClaimTemplates:
   - metadata:
       name: couch-pvc
