@@ -98,7 +98,7 @@ spec:
     server: x.x.x.x
     path: -=nfs_mount_path_three=-
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
