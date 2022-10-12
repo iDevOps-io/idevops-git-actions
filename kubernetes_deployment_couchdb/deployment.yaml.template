@@ -98,38 +98,60 @@ spec:
     server: x.x.x.x
     path: -=nfs_mount_path_three=-
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  labels:
+    app: -=app_name=-
+spec:
+  ports:
+  - port: -=port=-
+    name: couchdb
+  - port: -=port_two=-
+    name: epmd
+  - port: -=port_three=-
+    name: epmd    
+  clusterIP: None
+  selector:
+    app: -=app_name=-
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
 spec:
   selector:
-  serviceName: "couch-service"
-  replicas: 3
+    matchLabels:
+      app: -=app_name=- # has to match .spec.template.metadata.labels
+  serviceName: "couchdb"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
-        app: -=app_name=-
+        app: -=app_name=- # has to match .spec.selector.matchLabels
     spec:
-      selector:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: couchdb
-        port: -=port=-
-      - name: epmd
-        port: -=port_two=-   
-        port: -=port_three=-
+      - name: -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+          ports:
+          - port: -=port=-
+            name: couchdb
+          - port: -=port_two=-
+            name: epmd
+          - port: -=port_three=-
+            name: epmd   
         volumeMounts:
-          - name: couch-pvc
-            mountPath: /opt/couchdb/data
+        - name: -=app_name=-
+          mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
-      name: couch-pvc
+      name: -=app_name=-
     spec:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "couchdb class name"
       resources:
         requests:
           storage: 10Gi
-      selector:
-        matchLabels:
-          volume: couch-volume
