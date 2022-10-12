@@ -103,6 +103,7 @@ kind: StatefulSet
 metadata:
   name: -=app_name=-
 spec:
+  selector:
   serviceName: "couch-service"
   replicas: 3
   template:
@@ -115,8 +116,8 @@ spec:
       - name: couchdb
         port: -=port=-
       - name: epmd
-        port: -=port_two=-
-      - port: -=port_three=-
+        port: -=port_two=-   
+        port: -=port_three=-
         volumeMounts:
           - name: couch-pvc
             mountPath: /opt/couchdb/data
