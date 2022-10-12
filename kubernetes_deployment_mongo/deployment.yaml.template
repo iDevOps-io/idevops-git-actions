@@ -113,9 +113,7 @@ spec:
         command:
         - mongod
         - "--replSet"
-        - "rs0"        
-        - "--smallfiles"
-        - "--noprealloc"
+        - "rs0"
         volumeMounts:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
