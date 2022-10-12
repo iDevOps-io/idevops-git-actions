@@ -98,19 +98,29 @@ spec:
     server: x.x.x.x
     path: -=nfs_mount_path_three=-
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
 spec:
-  serviceName: couch-service
+  serviceName: "couch-service"
   replicas: 3
   template:
+    metadata:
+      labels:
+        app: couch # pod label
+    spec:
+      containers:
+      - name: -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
   volumeClaimTemplates:
   - metadata:
-      name: -=mount_path=-
+      name: couch-pvc
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
           storage: 10Gi
+      selector:
+        matchLabels:
+          volume: couch-volume
