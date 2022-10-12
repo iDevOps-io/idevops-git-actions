@@ -109,6 +109,8 @@ spec:
         image: -=image=-:-=image_tag=-
         command:
         - mongod
+        - "--bind_ip"
+        - "0.0.0.0"
         - "--replSet"
         - "rs0"
         volumeMounts:
