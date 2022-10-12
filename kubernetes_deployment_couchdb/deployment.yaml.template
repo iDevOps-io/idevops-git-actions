@@ -111,6 +111,7 @@ spec:
       labels:
         app: -=app_name=-
     spec:
+      selector:
       terminationGracePeriodSeconds: 10
       containers:
       - name: couchdb
