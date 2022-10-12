@@ -52,16 +52,13 @@ spec:
       targetPort: -=port_two=-
       port: -=port_three=-
       targetPort: -=port_three=-
-    volumeMounts:
-      - name: "couch-pvc"
-        mountPath: -=mount_path=-  
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "couch-vol-0"
+  name: couch-vol-0
   labels:
-    volume: "couch-volume"
+    volume: couch-volume
 spec:
   capacity:
     storage: 10Gi
@@ -74,9 +71,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "couch-vol-1"
+  name: couch-vol-1
   labels:
-    volume: "couch-volume"
+    volume: couch-volume
 spec:
   capacity:
     storage: 10Gi
@@ -89,9 +86,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "couch-vol-2"
+  name: couch-vol-2
   labels:
-    volume: "couch-volume"
+    volume: couch-volume
 spec:
   capacity:
     storage: 10Gi
@@ -106,7 +103,7 @@ kind: StatefulSet
 metadata:
   name: -=app_name=-
 spec:
-  serviceName: "couch-service"
+  serviceName: couch-service
   replicas: 3
   template:
   volumeClaimTemplates:
@@ -119,4 +116,4 @@ spec:
           storage: 10Gi
       selector:
         matchLabels:
-          volume: "couch-volume"
+          volume: couch-volume
