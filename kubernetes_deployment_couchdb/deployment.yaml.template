@@ -111,8 +111,8 @@ spec:
   - port: -=port_two=-
     name: epmd
   - port: -=port_three=-
-    name: epmd    
-  clusterIP: None
+    name: epmd2    
+  clusterIP:
   selector:
     app: -=app_name=-
 ---
@@ -124,7 +124,7 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=- # has to match .spec.template.metadata.labels
-  serviceName: "couchdb"
+  serviceName: -=app_name=-
   replicas: 3 # by default is 1
   minReadySeconds: 10 # by default is 0
   template:
@@ -142,7 +142,7 @@ spec:
           - port: -=port_two=-
             name: epmd
           - port: -=port_three=-
-            name: epmd   
+            name: epmd2   
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
@@ -151,7 +151,7 @@ spec:
       name: -=app_name=-
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "couchdb class name"
+      storageClassName: "couchdb class"
       resources:
         requests:
           storage: 10Gi
