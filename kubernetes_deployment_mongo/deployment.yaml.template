@@ -105,6 +105,8 @@ spec:
         app: -=app_name=-
     spec:
       terminationGracePeriodSeconds: -=period_time=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
