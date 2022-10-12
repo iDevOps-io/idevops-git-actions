@@ -126,7 +126,6 @@ spec:
       app: -=app_name=- # has to match .spec.template.metadata.labels
   serviceName: -=app_name=-
   replicas: 3 # by default is 1
-  minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
