@@ -114,14 +114,16 @@ spec:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
     ports:
-      - name: couchdb
-        containerPort: 5984
+    terminationGracePeriodSeconds: 10
+      containers:
+      - name: -=app_name=-
+        containerPort: -=port=-
       - name: epmd
-        containerPort: 4369
-      - containerPort: 9100
+        containerPort: -=port_two=-
+      - containerPort: -=port_three=-
         volumeMounts:
           - name: couch-pvc
-            mountPath: /opt/couchdb/data
+            mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
       name: couch-pvc
