@@ -53,8 +53,8 @@ spec:
       port: -=port_three=-
       targetPort: -=port_three=-
     volumeMounts:
-          - name: couch-pvc
-            mountPath: -=mount_path=-  
+      - name: couch-pvc
+        mountPath: -=mount_path=-  
 ---
 apiVersion: v1
 kind: PersistentVolume
