@@ -114,7 +114,6 @@ spec:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
     ports:
-    terminationGracePeriodSeconds: 10
       containers:
       - name: couchdb
         containerPort: 5984
