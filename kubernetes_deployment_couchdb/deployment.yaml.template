@@ -29,7 +29,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: -=port_two=-
-          initialDelaySeconds: 15
+          initialDelaySeconds: 20
           periodSeconds: 3
         ports:
         - containerPort: -=port=-
@@ -125,7 +125,6 @@ spec:
     matchLabels:
       app: -=app_name=- # has to match .spec.template.metadata.labels
   serviceName: -=app_name=-
-  replicas: 3 # by default is 1
   template:
     metadata:
       labels:
