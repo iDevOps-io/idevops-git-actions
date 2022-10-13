@@ -128,8 +128,8 @@ spec:
               command:
                 - "/bin/sh"
                 - "-c"
+                - "mongo"
                 - >
-                  mongo --eval
                   rs.initiate({ 
                   _id: "rs0",
                   members: [
