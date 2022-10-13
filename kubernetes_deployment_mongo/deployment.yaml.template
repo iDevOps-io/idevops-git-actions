@@ -1,92 +1,5 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-  labels:
-    app: -=app_name=-
-spec:
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-        maxSurge: -=max_surge=-
-        maxUnavailable: -=max_unavailable=-
-  selector:
-    matchLabels:
-      app: -=app_name=-
-  template:
-    metadata:
-      labels:
-        app: -=app_name=-
-    spec:
-      volumes:
-      - name: -=app_name=-
-        persistentVolumeClaim:
-          claimName: -=app_name=-
-      imagePullSecrets:
-      - name: -=docker_pull_secret=-
-      containers:
-      - name:  -=app_name=-
-        image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        livenessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
-          successThreshold: -=success_threshold=-
-          failureThreshold: -=failure_threshold=-
-        readinessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
-          successThreshold: -=success_threshold=-
-          failureThreshold: -=failure_threshold=-
-        ports:
-        - name: portone
-          containerPort: -=port=-
-        volumeMounts:
-        - mountPath: "-=mount_path=-"
-          name: -=app_name=-
-        env:
-          - name: MONGO_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: MONGO_USERNAME
-          - name: MONGO_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: -=app_name=--secret
-                key: MONGO_ROOT_PASSWORD
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: -=app_name=--secret
-  namespace: -=kubernetes_namespace=-
-stringData:
-  MONGO_USERNAME: -=MONGO_USERNAME=-
-  MONGO_ROOT_PASSWORD: -=MONGO_ROOT_PASSWORD=-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-  labels:
-    name: -=app_name=-
-spec:
-  type: LoadBalancer
-  selector:
-    app: -=app_name=-
-  ports:
-    - name: -=port_name=-
-      port: -=port=-
-      targetPort: -=port=-
----
-apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
@@ -123,9 +36,9 @@ spec:
         - "--replSet"
         - "rs0"
         lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", {{mongo --eval "rs.initiate({ _id: rs0 members: [{ _id: 0, host: -=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}, { _id: 1, host: -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}, { _id: 2, host: -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}] })"}}]
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", {{mongo --eval "rs.initiate({ _id: rs0 members: [{ _id: 0, host: -=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}, { _id: 1, host: -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}, { _id: 2, host: -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-}] })"}}]
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
