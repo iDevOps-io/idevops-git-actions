@@ -103,10 +103,20 @@ spec:
       labels:
         app: -=app_name=-
     spec:
-      terminationGracePeriodSeconds: -=period_time=-
       containers:
       - name:  -=app_name=-
         image: -=image=-:-=image_tag=-
+        command:
+        - mongod
+        - "--bind_ip"
+        - "0.0.0.0"
+        - "--replSet"
+        - "rs0"
+        - /bin/bash
+        - "-c"
+        - "echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local
+                -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
+                -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts"
         livenessProbe:
           exec:
             command:
@@ -121,29 +131,6 @@ spec:
             - "/etc/hosts"
           initialDelaySeconds: -=initial_delay=-
           periodSeconds: -=period_time=-
-        command:
-        - mongod
-        - "--bind_ip"
-        - "0.0.0.0"
-        - "--replSet"
-        - "rs0"
-        - /bin/bash
-        - "-c"
-        - "echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts"
-        - >
-          mongo --eval
-          'rs.initiate({ 
-                  _id: "rs0",
-                  members: [
-                      { _id: 0, host: "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      },
-                      { _id: 1, host: "-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      },
-                      { _id: 2, host: "-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      }]
-                  })'
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
