@@ -112,25 +112,11 @@ spec:
         - "0.0.0.0"
         - "--replSet"
         - "rs0"
-        - /bin/bash
+        - "/bin/sh"
         - "-c"
         - "echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts"
-        livenessProbe:
-          exec:
-            command:
-            - cat
-            - "/etc/hosts"
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
-        readinessProbe:
-          exec:
-            command:
-            - cat
-            - "/etc/hosts"
-          initialDelaySeconds: -=initial_delay=-
-          periodSeconds: -=period_time=-
+            -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
+            -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts"
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
