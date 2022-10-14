@@ -102,6 +102,8 @@ spec:
       name: -=app_name=-
       labels:
         app: -=app_name=-
+        role: -=app_name=-
+        environment: test
     spec:
       containers:
       - name:  -=app_name=-
@@ -109,9 +111,9 @@ spec:
         command:
         - mongod
         - "--bind_ip"
-        - "0.0.0.0"
+        - 0.0.0.0
         - "--replSet"
-        - "rs0"
+        - rs0
         lifecycle:
           postStart:
             exec:
@@ -119,11 +121,17 @@ spec:
                 - "sh"
                 - "-c"
                 - >
-                  echo -e "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts && 
-                  mongo --version
+                  echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts  
+        ports:
+          - containerPort: -=port=-
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
+      - name: mongo-sidecar
+        image: cvallance/mongo-k8s-sidecar
+        env:
+          - name: MONGO_SIDECAR_POD_LABELS
+            value: "role=mongo,environment=test"       
   volumeClaimTemplates:
   - metadata:
       name: -=app_name=-
