@@ -110,11 +110,11 @@ spec:
         livenessProbe:
           exec:
             command:
-            - cat
-            - -=mount_path=-/WiredTiger
+            - mongo
+            - "--version"
           initialDelaySeconds: -=initial_delay=-
           periodSeconds: -=period_time=-
-        starupProbe:
+        readinessProbe:
           exec:
             command:
             - mongo
