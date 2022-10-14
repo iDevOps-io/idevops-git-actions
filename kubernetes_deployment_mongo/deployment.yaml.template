@@ -121,7 +121,7 @@ spec:
                 - "sh"
                 - "-c"
                 - >
-                  echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts  
+                  echo -e "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local\n-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts  
         ports:
           - containerPort: -=port=-
         volumeMounts:
@@ -132,20 +132,23 @@ spec:
         env:
           - name: MONGO_SIDECAR_POD_LABELS
             value: "role=mongo,environment=test"  
-        command:
-        - /bin/sh
-        - "-c"
-        - >
-          mongo --eval 'rs.initiate({ 
-          _id: "rs0",
-          members: [
-              { _id: 0, host: "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-              },
-              { _id: 1, host: "-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-              },
-              { _id: 2, host: "-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-              }]
-          })'  
+        lifecycle:
+           postStart:
+             exec:
+               command:
+                - /bin/sh
+                - "-c"
+                - >
+                  "mongo --eval 'rs.initiate({ 
+                  _id: "rs0",
+                  members: [
+                      { _id: 0, host: "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
+                      },
+                      { _id: 1, host: "-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
+                      },
+                      { _id: 2, host: "-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
+                      }]
+                  })'"  
   volumeClaimTemplates:
   - metadata:
       name: -=app_name=-
