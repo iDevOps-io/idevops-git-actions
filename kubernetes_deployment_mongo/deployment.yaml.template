@@ -122,15 +122,16 @@ spec:
           initialDelaySeconds: -=initial_delay=-
           periodSeconds: -=period_time=-
         command:
-        - /bin/bash
-        - "echo -=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
-                -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local >> /etc/hosts"
         - mongod
         - "--bind_ip"
         - "0.0.0.0"
         - "--replSet"
         - "rs0"
+        - /bin/bash
+        - "-c"
+        - "echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local
+                -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local
+                -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local" >> /etc/hosts"
         - >
           mongo --eval
           'rs.initiate({ 
