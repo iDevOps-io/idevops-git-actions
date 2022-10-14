@@ -127,13 +127,6 @@ spec:
               { _id: 2, host: "-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
               }]
           })'" >> -=mount_path=-/rs.initiate.sh"
-        lifecycle:
-           postStart:
-             exec:
-               command:
-                - sh
-                - >
-                  -=mount_path=-/rs.initiate.sh 
         ports:
           - containerPort: -=port=-
         volumeMounts:
