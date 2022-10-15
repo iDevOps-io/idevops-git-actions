@@ -107,9 +107,11 @@ spec:
       - name:  -=app_name=-
         image: -=image=-:-=image_tag=-
         command:
-        - echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
-        -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
-        -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-" >> /etc/hosts;
+        - "-c"
+        - >
+          echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
+          -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
+          -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-" >> /etc/hosts;
         - mongod
         - "--bind_ip" 
         - "0.0.0.0" 
