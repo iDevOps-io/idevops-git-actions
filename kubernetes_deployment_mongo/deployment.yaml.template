@@ -116,7 +116,7 @@ spec:
         image: cvallance/mongo-k8s-sidecar
         env:
           - name: MONGO_SIDECAR_POD_LABELS
-            value: "role=-=app_name=-,environment=test"
+            value: "role="-=app_name=-",environment=test"
           - name: KUBERNETES_MONGO_SERVICE_NAME
             value: "-=app_name=-"
         volumeMounts:
