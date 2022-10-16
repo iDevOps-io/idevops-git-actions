@@ -103,6 +103,7 @@ spec:
     metadata:
       name: -=app_name=-
       labels:
+        name: -=app_name=-
         role: -=app_name=-
         environment: test
     spec:
