@@ -96,13 +96,14 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
-      role: -=app_name=-
-      environment: test
   serviceName: -=app_name=-
   replicas: -=replicas=-
   template:
     metadata:
       name: -=app_name=-
+      labels:
+        role: -=app_name=-
+        environment: test
     spec:
       containers:
       - name: -=app_name=-
