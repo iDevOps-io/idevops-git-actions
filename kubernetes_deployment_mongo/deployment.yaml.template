@@ -95,6 +95,8 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
+      role: -=app_name=-
+      environment: test
   serviceName: -=app_name=-
   replicas: -=replicas=-
   template:
@@ -104,20 +106,21 @@ spec:
         app: -=app_name=-
     spec:
       containers:
-      - name:  -=app_name=-
+      - name: -=app_name=-
         image: -=image=-:-=image_tag=-
         command:
         - mongod
         - "--bind_ip" 
-        - "0.0.0.0" 
+        - 0.0.0.0 
         - "--replSet" 
-        - "rs0";
-        - "sh"
-        - "-c"
-        - >
-          echo "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
-          -=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-
-          -=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-" >> /etc/hosts
+        - rs0
+      - name: mongo-sidecar
+        image: cvallance/mongo-k8s-sidecar
+        env:
+          - name: MONGO_SIDECAR_POD_LABELS
+            value: "role=-=app_name=-,environment=test"
+          - name: KUBERNETES_MONGO_SERVICE_NAME
+            value: "-=app_name=-"
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
