@@ -116,8 +116,6 @@ spec:
         - 0.0.0.0 
         - "--replSet" 
         - rs0
-        - "--smallfiles"
-        - "--noprealloc"
         ports:
           - containerPort: -=port=-
       - name: mongo-sidecar
