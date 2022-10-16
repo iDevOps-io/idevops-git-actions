@@ -125,23 +125,6 @@ spec:
             value: "role=-=app_name=-,environment=test"
           - name: KUBERNETES_MONGO_SERVICE_NAME
             value: "name=-=app_name=-"
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - "sh"
-                - "-c"
-                - >
-                  mongo --eval 'rs.initiate({ 
-                  _id: "rs0",
-                  members: [
-                      { _id: 0, host: "-=app_name=--0.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      },
-                      { _id: 1, host: "-=app_name=--1.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      },
-                      { _id: 2, host: "-=app_name=--2.-=app_name=-.-=app_name=-.svc.cluster.local:-=port=-"
-                      }]
-                  })'
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
