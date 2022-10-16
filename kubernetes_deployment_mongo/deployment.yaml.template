@@ -125,6 +125,8 @@ spec:
             value: "role=-=app_name=-,environment=test"
           - name: KUBERNETES_MONGO_SERVICE_NAME
             value: "name=-=app_name=-"
+          - name: KUBE_NAMESPACE
+            value: "name=-=app_name=-"
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
