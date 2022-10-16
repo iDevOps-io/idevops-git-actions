@@ -81,7 +81,6 @@ spec:
   type: LoadBalancer
   selector:
     app: -=app_name=-
-    role: -=app_name=-
   ports:
     - name: -=port_name=-
       port: -=port=-
@@ -96,6 +95,8 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
+      role: -=app_name=-
+      environment: test
   serviceName: -=app_name=-
   replicas: -=replicas=-
   template:
