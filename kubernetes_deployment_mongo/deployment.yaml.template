@@ -118,15 +118,17 @@ spec:
         - rs0
         ports:
           - containerPort: -=port=-
-      - name: mongo-sidecar
-        image: cvallance/mongo-k8s-sidecar
         env:
-          - name: MONGO_SIDECAR_POD_LABELS
-            value: "role=-=app_name=-,environment=test"
-          - name: KUBERNETES_MONGO_SERVICE_NAME
-            value: "name=-=app_name=-"
-          - name: KUBE_NAMESPACE
-            value: "name=-=app_name=-"
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGO_USERNAME
+          - name: MONGO_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: MONGO_ROOT_PASSWORD
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
