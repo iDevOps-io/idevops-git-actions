@@ -95,8 +95,6 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
-      role: -=app_name=-
-      environment: test
   serviceName: -=app_name=-
   replicas: -=replicas=-
   template:
@@ -104,20 +102,16 @@ spec:
       name: -=app_name=-
       labels:
         app: -=app_name=-
-        role: -=app_name=-
-        environment: test
     spec:
       containers:
       - name: -=app_name=-
-        image: -=image=-:-=image_tag=-
+        image: -=image=-
         command:
         - mongod
         - "--bind_ip" 
         - 0.0.0.0 
         - "--replSet" 
         - rs0
-        ports:
-          - containerPort: -=port=-
         env:
           - name: MONGO_USERNAME
             valueFrom:
