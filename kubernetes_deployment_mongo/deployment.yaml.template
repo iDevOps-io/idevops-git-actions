@@ -105,7 +105,7 @@ spec:
     spec:
       containers:
       - name: -=app_name=-
-        image: -=image=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
         - mongod
         - "--bind_ip" 
