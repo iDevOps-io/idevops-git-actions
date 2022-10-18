@@ -1,9 +1,9 @@
 name: "K8S:DEPLOYMENT:PERCONA"
-author: Grant Zukel <admin@idevops.io>
+author: Joshua Rodriguez <jrodriguez@idevops.io>
 branding:
   icon: cloud
   color: gray-dark
-description: Deploys percona Hub into K8S in a production way.
+description: Deploys percona into K8S in a production way.
 inputs:
   kubernetes_config:
     description: Location of the kubeconfig you want to use to deploy to kubernetes.
@@ -22,7 +22,7 @@ inputs:
     description: The org you will be pushing to and pulling from.
     required: true
   image:
-    description: The image name you want to build and push the docker image for percona hub to.
+    description: The image name you want to build and push the docker image for percona to.
     required: true
   image_tag:
     description: The image tag you wish to tag the docker image as.
@@ -32,7 +32,7 @@ inputs:
     required: true
   mount_path:
     description: The persistent volume mount path.
-    default: "/var/application-data/perconahub"
+    default: "/var/application-data/percona"
     required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
@@ -50,7 +50,7 @@ inputs:
     required: true
   docker_file_location:
     description: The docker org you will be pushing your image to.
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_perconahub/"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_percona/"
     required: false
   docker_server_url:
     description: The url to push docker images to.
@@ -58,7 +58,7 @@ inputs:
     required: false
   composite_file_location:
     description: The location where files live
-    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_perconahub"
+    default: "/home/runner/work/_actions/iDevOps-io/idevops-git-actions/main/kubernetes_deployment_percona"
     required: false
   AWS_ACCESS_KEY_ID:
     required: false
