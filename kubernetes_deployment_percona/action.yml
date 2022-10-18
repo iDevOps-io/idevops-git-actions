@@ -40,7 +40,7 @@ inputs:
     required: false
   hostname:
     description: The hostname to be set in the ingress controller. This has to have cert-manager cluster issuer setup.
-    default: "percona-hub.idevops.io"
+    default: "percona.idevops.io"
     required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
