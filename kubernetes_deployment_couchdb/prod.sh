@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-sleep 60
+sleep 240
 
 curl -X PUT http://localhost:5984/_user
 curl -X PUT http://localhost:5984/_replicator
