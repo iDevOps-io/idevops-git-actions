@@ -46,8 +46,6 @@ spec:
         ports:
         - name: portone
           containerPort: -=port=-
-        - name: porttwo
-          containerPort: -=port_two=-
         volumeMounts:
         - mountPath: "/var/application-data/mariadb"
           name: -=app_name=-
@@ -75,10 +73,7 @@ spec:
     - name: portone
       port: -=port=-
       targetPort: -=port=-
-    - name: porttwo
-      port: -=port_two=-
-      targetPort: -=port_two=-
-
+   
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
