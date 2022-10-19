@@ -35,17 +35,32 @@ spec:
             port: -=port=-
           initialDelaySeconds: 90
           periodSeconds: 90
-
+        env:
+          - name: PERCONA_USER
+            value: "admin"
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=-
+                key: MYSQL_ROOT_PASSWORD
         ports:
         - name: portone
           containerPort: -=port=-
-        
+        - name: porttwo
+          containerPort: -=port_two=-
         volumeMounts:
-        - mountPath: "-=mount_path=-"
+        - mountPath: "/var/application-data/mariadb"
           name: -=app_name=-
 
-
-
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+data:
+  MYSQL_ROOT_PASSWORD: -=MYSQL_ROOT_PASSWORD=-
+  
 ---
 apiVersion: v1
 kind: Service
@@ -60,8 +75,10 @@ spec:
     - name: portone
       port: -=port=-
       targetPort: -=port=-
-  
-      
+    - name: porttwo
+      port: -=port_two=-
+      targetPort: -=port_two=-
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -77,31 +94,3 @@ spec:
     requests:
       storage: -=disk_size=-
   storageClassName: gp2
-
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
-    kubernetes.io/tls-acme: "true"
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: -=hostname=-
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: -=app_name=-
-            port: 
-              number: -=port=-
-  tls: 
-  - hosts:
-    - -=hostname=-
-    secretName: -=app_name=--tls
