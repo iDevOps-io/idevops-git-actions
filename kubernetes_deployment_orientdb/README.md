@@ -36,7 +36,7 @@ jobs:
           docker_pull_secret: "orientdb"
           docker_org_name: "idevopsiointernal"
           image: "orientdb"
-          image_tag: "latest"
+          image_tag: "3.1.20"
           port: "2480"
           mount_path: "/var/application-data/orientdb"
           disk_size: "20Gi"
