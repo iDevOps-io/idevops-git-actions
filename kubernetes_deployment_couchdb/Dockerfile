@@ -1,5 +1,9 @@
 FROM couchdb:2.3.1
 ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
+RUN mkdir couchnfs
+RUN mount nfs_server_ip:/shared_folder/ couchnfs/
+RUN cd couchnfs
+RUN mkdir couchdb-0 couchdb-1 couchdb-2
 COPY ./prod.ini /opt/couchdb/etc/local.d/
 COPY ./prod.sh /usr/local/bin/
 EXPOSE 5984 4369 9100
