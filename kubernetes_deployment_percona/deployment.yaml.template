@@ -56,7 +56,7 @@ kind: Secret
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
-data:
+stringData:
   MYSQL_ROOT_PASSWORD: -=MYSQL_ROOT_PASSWORD=-
   
 ---
