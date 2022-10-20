@@ -1,4 +1,5 @@
 FROM couchdb:3.2.2
+RUN --name my-mycouchdb -v /home/couchdb/etc:/opt/couchdb/local.d -d couchdb
 COPY local.ini /opt/chouch/etc
 COPY ./prod.sh /usr/local/bin/ 
 EXPOSE 5984 4369 9100
