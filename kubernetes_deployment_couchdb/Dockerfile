@@ -1,11 +1,6 @@
 FROM couchdb:3.2.2
 
-RUN mkdir couchnfs
-RUN mount nfs_server_ip:/shared_folder/ couchnfs/
-RUN cd couchnfs
-
-RUN mkdir couchdb-0 couchdb-1 couchdb-2
-RUN --name my-mycouchdb -v /home/couchdb/etc:/opt/couchdb/local.d -d couchdb
+RUN ["./filedirectories.sh"]
 
 COPY local.ini /opt/chouch/etc
 COPY ./prod.sh /usr/local/bin/ 
