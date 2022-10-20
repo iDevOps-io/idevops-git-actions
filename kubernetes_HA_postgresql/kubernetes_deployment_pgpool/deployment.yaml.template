@@ -2,8 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: -=app_name=--secrets
-  namespace: -=kubernetes_namespace=-
+  name: pgpool-secrets
 data:
   admin-password: "SFRzaVZxYjdSZQ=="
   
@@ -11,26 +10,24 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: -=app_name=--svc
-  namespace: -=kubernetes_namespace=-
+  name: pgpool-svc
 spec:
   type: ClusterIP
   sessionAffinity: None
   ports:
     - name: postgresql
       port: 5432
-      targetPort: postgresql
+      targetPort: 5432
       protocol: TCP
       nodePort: null
   selector:
-    app: -=app_name=-
+    app: pgpool
     
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: -=app_name=--svc-nodeport
-  namespace: -=kubernetes_namespace=-
+  name: pgpool-svc-nodeport
 spec:
   type: NodePort
   sessionAffinity: None
@@ -38,38 +35,37 @@ spec:
     - name: postgresql
       port: 5432
       nodePort: 32000
-      targetPort: postgresql
+      targetPort: 5432
       protocol: TCP
   selector:
-    app: -=app_name=-
+    app: pgpool
     
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: -=app_name=--deployment
-  namespace: -=kubernetes_namespace=-
+  name: pgpool-deployment
 spec:
   replicas: 1
   selector:
     matchLabels: 
-      app: -=app_name=-
+      app: pgpool
   template:
     metadata:
       labels: 
-        app: -=app_name=-
+        app: pgpool
     spec:          
       securityContext:
         fsGroup: 1001
       containers:
         - name: pgpool
-          image: docker.io/bitnami/pgpool:latest
+          image: docker.io/bitnami/pgpool:4.3.3-debian-11-r14
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
           env:
             - name: BITNAMI_DEBUG
-              value: "false"
+              value: "true"
             - name: PGPOOL_BACKEND_NODES
               value: 0:postgres-sts-0.postgres-headless-svc:5432,1:postgres-sts-1.postgres-headless-svc:5432,2:postgres-sts-2.postgres-headless-svc:5432
             - name: PGPOOL_SR_CHECK_USER
@@ -95,12 +91,8 @@ spec:
             - name: PGPOOL_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: -=app_name=--secrets
+                  name: pgpool-secrets
                   key: admin-password
-            - name: PGPOOL_AUTHENTICATION_METHOD
-              value: "scram-sha-256"
-            - name: PGPOOL_ENABLE_POOL_HBA
-              value: "yes"
             - name: PGPOOL_ENABLE_LOAD_BALANCING
               value: "yes"
             - name: PGPOOL_ENABLE_LOG_CONNECTIONS
@@ -109,8 +101,6 @@ spec:
               value: "yes"
             - name: PGPOOL_ENABLE_LOG_PER_NODE_STATEMENT
               value: "no"
-            - name: PGPOOL_CHILD_MAX_CONNECTIONS
-              value: ""
             - name: PGPOOL_CHILD_LIFE_TIME
               value: "0"
             - name: PGPOOL_ENABLE_TLS
@@ -119,23 +109,23 @@ spec:
             - name: postgresql
               containerPort: 5432
               protocol: TCP
-#          livenessProbe:
-#            exec:
-#              command:
-#                - /opt/bitnami/scripts/pgpool/healthcheck.sh
-#            initialDelaySeconds: 240
-#            periodSeconds: 45
-#            timeoutSeconds: 15
-#            successThreshold: 1
-#            failureThreshold: 10
-#          readinessProbe:
-#            exec:
-#              command:
-#                - bash
-#                - -ec
-#                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-#            initialDelaySeconds: 240
-#            periodSeconds: 45
-#            timeoutSeconds: 15
-#            successThreshold: 1
-#            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - /opt/bitnami/scripts/pgpool/healthcheck.sh
+            initialDelaySeconds: 
+            periodSeconds: 120
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 10
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -ec
+                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
+            initialDelaySeconds: 120
+            periodSeconds: 45
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 10
