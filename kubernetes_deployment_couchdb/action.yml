@@ -41,7 +41,7 @@ inputs:
     required: true   
   mount_path:
     description: persistent volume mount path
-    default: "/opt/couchdb/data"
+    default: "/opt/couchdb"
     required: false   
   nfs_mount_path_one:
     description: The persistent nfs volume mount path for first pod.
