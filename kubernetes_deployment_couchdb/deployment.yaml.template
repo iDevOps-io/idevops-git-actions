@@ -149,9 +149,9 @@ spec:
 ---
 apiVersion: apps/v1
 kind: StatefulSet
-selector:
 metadata:
   name: couchdb
+selector:  
 spec:
   selector:
   serviceName: -=app_name=-
