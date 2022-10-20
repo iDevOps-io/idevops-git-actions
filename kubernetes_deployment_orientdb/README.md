@@ -55,9 +55,9 @@ jobs:
 | app_name | orientdb | What you want to name your orientdb deployment. |
 | kubernetes_namespace | orientdb | The namespace in k8s you want to deployment | 
 | docker_pull_secret | | The name of the docker pull secret you with to use to pull your image. | 
-| docker_org_name | | The org you will be pushing to and pulling from. | 
-| image | | The image name you want to build and push the docker image for orientDB to. |
-| image_tag | The image tag you wish to tag the docker image as. | 
+| docker_org_name | idevopsiointernal | The org you will be pushing to and pulling from. | 
+| image | orientdb | The image name you want to build and push the docker image for orientDB to. |
+| image_tag | latest |The image tag you wish to tag the docker image as. | 
 | port | 2480 | The port the container and service will be running on. | 
 | initial_delay | 60 | Number of seconds after the container has started before liveness or readiness probes are initiated. | 
 | period_time | 90 | How often (in seconds) to perform the probe. | 
