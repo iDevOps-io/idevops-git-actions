@@ -154,7 +154,6 @@ metadata:
 spec:
   selector:
     serviceName: "couch-service"
-    replicas: 3
     template:
       metadata:
         labels:
