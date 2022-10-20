@@ -1,5 +1,6 @@
 FROM couchdb:3.2.2
 
+COPY ./filedirectories.sh /usr/local/bin
 RUN ["./filedirectories.sh"]
 
 COPY local.ini /opt/chouch/etc
