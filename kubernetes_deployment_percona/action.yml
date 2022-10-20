@@ -69,6 +69,9 @@ inputs:
   AWS_DEFAULT_REGION:
     required: false
     default: " "
+  MYSQL_ROOT_PASSWORD:
+    required: false
+    default: " "
 runs:
   using: composite
   steps:
@@ -76,6 +79,7 @@ runs:
       run: |
         echo "AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}" >> ${GITHUB_ENV}
         echo "AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }}" >> ${GITHUB_ENV}
+        echo "MYSQL_ROOT_PASSWORD=${{ inputs.MYSQL_ROOT_PASSWORD }}" >> ${GITHUB_ENV}
         echo "AWS_DEFAULT_REGION=${{ inputs.AWS_DEFAULT_REGION }}" >> ${GITHUB_ENV}
       shell: bash
 
