@@ -151,25 +151,25 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: couchdb  
-  spec:
-    selector:
-    serviceName: -=app_name=-
-    template:
-      env:
-        selector:
-        - name: NODE_NETBIOS_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: NODENAME
-          value: $(NODE_NETBIOS_NAME).couch-service # FQDN in vm.args
-        - name: COUCHDB_USER
-          value: admin
-        - name: COUCHDB_PASSWORD
-          value: password
-        - name: COUCHDB_SECRET
-          value: monster
-        - name: ERL_FLAGS
-          value: "-name couchdb@$(NODENAME)"
-        - name: ERL_FLAGS
-          value: "-setcookie monster" #   the “password” used when nodes connect to each other.
+spec:
+  selector:
+  serviceName: -=app_name=-
+  template:
+    env:
+      selector:
+      - name: NODE_NETBIOS_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: NODENAME
+        value: $(NODE_NETBIOS_NAME).couch-service # FQDN in vm.args
+      - name: COUCHDB_USER
+        value: admin
+      - name: COUCHDB_PASSWORD
+        value: password
+      - name: COUCHDB_SECRET
+        value: monster
+      - name: ERL_FLAGS
+        value: "-name couchdb@$(NODENAME)"
+      - name: ERL_FLAGS
+        value: "-setcookie monster" #   the “password” used when nodes connect to each other.
