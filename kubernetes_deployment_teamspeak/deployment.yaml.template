@@ -65,7 +65,7 @@ spec:
     - name: porttwo
       port: -=port_two=-
       targetPort: -=port_two=-
-     - name: portthree
+    - name: portthree
       port: -=port_three=-
       targetPort: -=port_three=-
   
