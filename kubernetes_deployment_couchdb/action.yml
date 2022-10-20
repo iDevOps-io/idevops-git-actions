@@ -45,15 +45,15 @@ inputs:
     required: false   
   nfs_mount_path_one:
     description: The persistent nfs volume mount path for first pod.
-    default: "nfs_share/couchdb-0"
+    default: "nfs_shared/couchdb-0"
     required: false
   nfs_mount_path_two:
     description: The persistent nfs volume mount path for second pod.
-    default: "nfs_share/couchdb-1"
+    default: "nfs_shared/couchdb-1"
     required: false 
   nfs_mount_path_three:
     description: The persistent nfs volume mount path for third pod.
-    default: "nfs_share/couchdb-2"
+    default: "nfs_shared/couchdb-2"
     required: false 
   disk_size:
     description: The size of the persistent volume you wish to provision.
