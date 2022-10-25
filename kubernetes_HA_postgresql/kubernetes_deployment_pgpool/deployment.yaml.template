@@ -113,9 +113,9 @@ spec:
             exec:
               command:
                 - /opt/bitnami/scripts/pgpool/healthcheck.sh
-            initialDelaySeconds: 
+            initialDelaySeconds: 240
             periodSeconds: 120
-            timeoutSeconds: 5
+            timeoutSeconds: 35
             successThreshold: 1
             failureThreshold: 10
           readinessProbe:
@@ -124,8 +124,17 @@ spec:
                 - bash
                 - -ec
                 - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-            initialDelaySeconds: 120
-            periodSeconds: 45
-            timeoutSeconds: 5
+            initialDelaySeconds: 240
+            periodSeconds: 120
+            timeoutSeconds: 35
             successThreshold: 1
             failureThreshold: 10
+          startupProbe: 
+            exec:
+              command:
+                - /opt/bitnami/scripts/pgpool/healthcheck.sh
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6            
