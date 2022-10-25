@@ -129,3 +129,12 @@ spec:
             timeoutSeconds: 35
             successThreshold: 1
             failureThreshold: 10
+          startupProbe: 
+            exec:
+              command:
+                - /opt/bitnami/scripts/pgpool/healthcheck.sh
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6            

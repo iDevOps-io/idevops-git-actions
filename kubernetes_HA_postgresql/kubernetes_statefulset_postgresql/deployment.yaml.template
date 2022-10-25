@@ -220,6 +220,17 @@ spec:
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 10
+          startupProbe: 
+            exec:
+              command:
+                - bash
+                - -ec
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
