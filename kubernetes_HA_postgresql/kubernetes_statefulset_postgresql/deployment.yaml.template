@@ -170,9 +170,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: -=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: $(MY_POD_NAME)-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,$(MY_POD_NAME)-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,$(MY_POD_NAME)-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
-              value: "-=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "$(MY_POD_NAME)-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME
@@ -205,17 +205,17 @@ spec:
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 5
             timeoutSeconds: 5
             successThreshold: 1
-            failureThreshold: 10
+            failureThreshold: 6
           readinessProbe:
             exec:
               command:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
@@ -226,11 +226,11 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
-            failureThreshold: 6
+            failureThreshold: 10
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
