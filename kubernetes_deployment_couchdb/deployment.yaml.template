@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: couchdb
+  name: couch
   namespace: -=kubernetes_namespace=-
   labels:
     app: -=app_name=-
@@ -18,11 +18,11 @@ spec:
         app: -=app_name=-    
     spec:
       volumes:
-      - name: -=app_name=-
+      - name: couch
         persistentVolumeClaim:
           claimName: -=app_name=-
       containers:
-      - name: -=app_name=-
+      - name: couch
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         livenessProbe:
           tcpSocket:
@@ -45,11 +45,11 @@ spec:
         - name: ERL_FLAGS
           value: "-setcookie monster" 
         volumeMounts:
-        - name: -=app_name=-
+        - name: couch
           mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
-      name: -=app_name=-
+      name: couch
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "gp2"
