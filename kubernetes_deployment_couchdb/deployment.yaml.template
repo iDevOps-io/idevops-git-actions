@@ -5,7 +5,6 @@ metadata:
   name: couchdb
   namespace: -=kubernetes_namespace=-
 spec:
-  selector:
   serviceName: "couch-service"
   replicas: 3
   template:
@@ -13,7 +12,6 @@ spec:
       labels:
         app: couch # has to match .spec.selector.matchLabels
     spec:
-      selector:
       containers:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
@@ -46,6 +44,9 @@ spec:
       resources:
         requests:
           storage: 10Gi
+      selector:
+        matchLabels:
+          volume: couch-volume   
 ---
 apiVersion: v1
 kind: Service
