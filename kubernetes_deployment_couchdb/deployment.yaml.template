@@ -1,39 +1,4 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-  labels:
-    app: -=app_name=-
-spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
-  selector:
-    matchLabels:
-      app: -=app_name=-
-  template:
-    metadata:
-      labels:
-        app: -=app_name=-     
-    spec:
-      imagePullSecrets:
-      - name: -=docker_pull_secret=-
-      containers:
-      - name:  -=app_name=-
-        image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        livenessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: 20
-          periodSeconds: 3
-        ports:
-        - containerPort: -=port=-
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -53,73 +18,11 @@ spec:
       port: -=port_three=-
       targetPort: -=port_three=-
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: couch-vol-0
-  labels:
-    volume: couch-volume
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: x.x.x.x
-    path: -=nfs_mount_path_one=-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: couch-vol-1
-  labels:
-    volume: couch-volume
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: x.x.x.x
-    path: -=nfs_mount_path_two=-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: couch-vol-2
-  labels:
-    volume: couch-volume
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: x.x.x.x
-    path: -=nfs_mount_path_three=-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: -=app_name=-
-  labels:
-    app: -=app_name=-
-spec:
-  ports:
-  - port: -=port=-
-    name: couchdb
-  - port: -=port_two=-
-    name: epmd
-  - port: -=port_three=-
-    name: epmd2    
-  clusterIP:
-  selector:
-    app: -=app_name=-
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
 spec:
   selector:
     matchLabels:
@@ -150,11 +53,6 @@ spec:
           value: "-name couchdb@$(NODENAME)"
         - name: ERL_FLAGS
           value: "-setcookie monster" 
-    spec:
-      terminationGracePeriodSeconds: 10
-      containers:
-      - name: -=app_name=-
-        image: -=docker_org_name=-/-=image=-:-=image_tag=-
         volumeMounts:
         - name: -=app_name=-
           mountPath: -=mount_path=-
@@ -163,7 +61,7 @@ spec:
       name: -=app_name=-
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "couchdb class"
+      storageClassName: "gp2"
       resources:
         requests:
           storage: 10Gi
