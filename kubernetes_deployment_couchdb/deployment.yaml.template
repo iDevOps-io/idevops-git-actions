@@ -13,6 +13,7 @@ spec:
       labels:
         app: couch # has to match .spec.selector.matchLabels
     spec:
+      selector:
       containers:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
