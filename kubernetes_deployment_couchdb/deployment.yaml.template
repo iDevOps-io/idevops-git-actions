@@ -47,8 +47,6 @@ spec:
         - name: ERL_FLAGS
           value: "-setcookie monster" 
         volumeMounts:
-        - name: couch
-          volumeMounts:
           - name: config-storage
             mountPath: /opt/couchdb/etc/default.d
           - name: database-storage
