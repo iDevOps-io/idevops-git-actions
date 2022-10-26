@@ -7,6 +7,7 @@ metadata:
 spec:
   serviceName: -=app_name=-
   replicas: 3
+  selector:
   template:
     metadata:
       labels:
