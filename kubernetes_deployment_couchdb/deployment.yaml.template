@@ -5,13 +5,15 @@ metadata:
   name: couchdb
   namespace: -=kubernetes_namespace=-
 spec:
+  selector:
+    matchLabels:
+      app: -=app_name=- 
   serviceName: -=app_name=-
   replicas: 3
-  selector:
   template:
     metadata:
       labels:
-        app: couch
+        app: -=app_name=- # has to match .spec.selector.matchLabels
     spec:
       containers:
       - name: -=app_name=-
