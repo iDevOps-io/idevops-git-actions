@@ -93,3 +93,7 @@ spec:
   selector:
     matchLabels:
       app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-    
