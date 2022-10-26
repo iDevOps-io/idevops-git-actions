@@ -75,3 +75,76 @@ spec:
       targetPort: -=port_two=-
       port: -=port_three=-
       targetPort: -=port_three=-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+  labels:
+    app: -=app_name=-
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+      containers:
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: 60
+          periodSeconds: 90
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: couch-vol-0
+  labels:
+    volume: couch-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: couch-vol-1
+  labels:
+    volume: couch-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: couch-vol-2
+  labels:
+    volume: couch-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
