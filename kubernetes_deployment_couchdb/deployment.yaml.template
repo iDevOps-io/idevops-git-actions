@@ -8,11 +8,7 @@ metadata:
     app: -=app_name=-
 spec:
   replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
+  serviceName: "couchdb"
   selector:
     matchLabels:
       app: -=app_name=-
