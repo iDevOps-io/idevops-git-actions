@@ -6,8 +6,6 @@ metadata:
   namespace: -=kubernetes_namespace=-
 spec:
   selector:
-    matchLabels:
-      app: couch
   serviceName: "couch-service"
   replicas: 3
   template:
