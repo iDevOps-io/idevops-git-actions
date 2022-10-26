@@ -27,6 +27,8 @@ spec:
         livenessProbe:
           tcpSocket:
             port: -=port=-
+          initialDelaySeconds: 90
+          periodSeconds: 90  
         env:
         - name: NODE_NETBIOS_NAME
           valueFrom:
@@ -102,16 +104,9 @@ spec:
       - name: -=app_name=-
         persistentVolumeClaim:
           claimName: -=app_name=-
-      imagePullSecrets:
-      - name: -=docker_pull_secret=-
       containers:
       - name:  -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        livenessProbe:
-          tcpSocket:
-            port: -=port=-
-          initialDelaySeconds: 60
-          periodSeconds: 90
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

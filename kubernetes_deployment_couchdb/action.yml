@@ -43,18 +43,6 @@ inputs:
     description: persistent volume mount path
     default: "/opt/couchdb/data"
     required: false   
-  nfs_mount_path_one:
-    description: The persistent nfs volume mount path for first pod.
-    default: "/nfs_shared/couchdb-0"
-    required: false
-  nfs_mount_path_two:
-    description: The persistent nfs volume mount path for second pod.
-    default: "/nfs_shared/couchdb-1"
-    required: false 
-  nfs_mount_path_three:
-    description: The persistent nfs volume mount path for third pod.
-    default: "/nfs_shared/couchdb-2"
-    required: false 
   disk_size:
     description: The size of the persistent volume you wish to provision.
     default: "10Gi"
@@ -138,9 +126,6 @@ runs:
         echo "port_two=${{ inputs.port_two }}" >> ${GITHUB_ENV}
         echo "port_three=${{ inputs.port_three }}" >> ${GITHUB_ENV}
         echo "mount_path=${{ inputs.mount_path }}" >> ${GITHUB_ENV}
-        echo "nfs_mount_path_one=${{ inputs.nfs_mount_path_one }}" >> ${GITHUB_ENV}
-        echo "nfs_mount_path_two=${{ inputs.nfs_mount_path_two }}" >> ${GITHUB_ENV}
-        echo "nfs_mount_path_three=${{ inputs.nfs_mount_path_three }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
         echo "hostname=${{ inputs.hostname }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
