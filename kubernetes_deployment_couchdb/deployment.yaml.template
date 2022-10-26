@@ -1,37 +1,16 @@
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  type: LoadBalancer
-  selector:
-    app: -=app_name=-
-  ports:
-    - name: couchdb
-      port: -=port=-
-      targetPort: -=port=-
-    - name: epmd
-      port: -=port_two=-
-      targetPort: -=port_two=-
-      port: -=port_three=-
-      targetPort: -=port_three=-
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: -=app_name=-
+  name: couchdb
   namespace: -=kubernetes_namespace=-
 spec:
-  selector:
-    matchLabels:
-      app: -=app_name=- # has to match .spec.template.metadata.labels
   serviceName: -=app_name=-
+  replicas: 3
   template:
     metadata:
       labels:
-        app: -=app_name=- # has to match .spec.selector.matchLabels
+        app: couch
     spec:
       containers:
       - name: -=app_name=-
@@ -65,4 +44,22 @@ spec:
       resources:
         requests:
           storage: 10Gi
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: LoadBalancer
+  selector:
+    app: -=app_name=-
+  ports:
+    - name: couchdb
+      port: -=port=-
+      targetPort: -=port=-
+    - name: epmd
+      port: -=port_two=-
+      targetPort: -=port_two=-
+      port: -=port_three=-
+      targetPort: -=port_three=-
