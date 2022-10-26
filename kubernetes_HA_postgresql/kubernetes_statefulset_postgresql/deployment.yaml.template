@@ -170,7 +170,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: postgres-sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,$(MY_POD_NAME)-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: postgres-sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
               value: "postgres-sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
@@ -204,7 +204,7 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 5
+            initialDelaySeconds: 15
             periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
