@@ -48,7 +48,11 @@ spec:
           value: "-setcookie monster" 
         volumeMounts:
         - name: couch
-          mountPath: -=mount_path=-
+          volumeMounts:
+          - name: config-storage
+            mountPath: /opt/couchdb/etc/default.d
+          - name: database-storage
+            mountPath: /opt/couchdb/data
   volumeClaimTemplates:
   - metadata:
       name: -=app_name=-
