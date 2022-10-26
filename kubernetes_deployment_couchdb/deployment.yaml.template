@@ -119,6 +119,7 @@ metadata:
   labels:
     app: -=app_name=-
   name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
 spec:
   accessModes:
     - ReadWriteOnce
