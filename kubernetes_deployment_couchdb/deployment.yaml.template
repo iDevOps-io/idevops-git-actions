@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: couch
+  name: -=app_name=-
   namespace: -=kubernetes_namespace=-
   labels:
     app: -=app_name=-
@@ -18,11 +18,11 @@ spec:
         app: -=app_name=-    
     spec:
       volumes:
-      - name: couch
+      - name: -=app_name=-
         persistentVolumeClaim:
           claimName: -=app_name=-
       containers:
-      - name: couch
+      - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         livenessProbe:
           tcpSocket:
@@ -49,7 +49,7 @@ spec:
           mountPath: -=mount_path=-
   volumeClaimTemplates:
   - metadata:
-      name: couch
+      name: -=app_name=-
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "gp2"
