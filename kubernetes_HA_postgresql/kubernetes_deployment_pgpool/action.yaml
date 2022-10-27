@@ -30,6 +30,9 @@ inputs:
   port:
     description: The port the container and service will be running on.
     required: true
+  port_name:
+    description: The name of the port the container and service will be running on.
+    required: true
   node_port:
     description: The node port the container and service will be open on.
     required: true    
@@ -129,11 +132,13 @@ runs:
         echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
+        echo "port_name=${{ inputs.port_name }}" >> ${GITHUB_ENV}
         echo "node_port=${{ inputs.node_port }}" >> ${GITHUB_ENV}
         echo "initial_delay=${{ inputs.initial_delay }}" >> ${GITHUB_ENV}
         echo "period_time=${{ inputs.period_time }}" >> ${GITHUB_ENV}
         echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
         echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
+        echo "timeout_period=${{ inputs.timeout_period }}" >> ${GITHUB_ENV}
         echo "admin_password=${{ inputs.admin_password }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
@@ -158,9 +163,9 @@ runs:
         namespace: "${{ inputs.kubernetes_namespace }}"
         kube_config_location: "${{ inputs.kubernetes_config }}"
 
-#    - name: "K8S:CHECK:ROLLOUT:STATUS"
-#      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
-#      with:
-#        app_name: "${{ inputs.app_name }}"
-#        namespace: "${{ inputs.kubernetes_namespace }}"
-#        kube_config_location: "${{ inputs.kubernetes_config }}"
+    - name: "K8S:CHECK:ROLLOUT:STATUS"
+      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_deployment_rollout@main
+      with:
+        app_name: "${{ inputs.app_name }}"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"
