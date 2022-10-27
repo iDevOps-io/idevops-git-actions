@@ -112,13 +112,15 @@ spec:
       securityContext:
         fsGroup: 1001
       containers:
-        - name: postgresql
+        - name: -=app_name=-
           lifecycle:
             preStop:
               exec:
                 command:
                   - /pre-stop.sh
-          image: docker.io/bitnami/postgresql-repmgr:14.5.0-debian-11-r21
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
@@ -170,9 +172,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: postgres-sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,postgres-sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: -=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
-              value: "postgres-sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "-=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME
@@ -239,4 +241,4 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: "1Gi"
+            storage: "2Gi"
