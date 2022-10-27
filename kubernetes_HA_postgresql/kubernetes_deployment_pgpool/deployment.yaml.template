@@ -17,7 +17,7 @@ spec:
   type: ClusterIP
   sessionAffinity: None
   ports:
-    - name: -=port_name=-
+    - name: postgresql
       port: -=port=-
       targetPort: -=port=-
       protocol: TCP
@@ -35,7 +35,7 @@ spec:
   type: NodePort
   sessionAffinity: None
   ports:
-    - name: -=port_name=-
+    - name: postgresql
       port: -=port=-
       nodePort: -=node_port=-
       targetPort: -=port=-
@@ -111,7 +111,7 @@ spec:
             - name: PGPOOL_ENABLE_TLS
               value: "no"
           ports:
-            - name: -=port_name=-
+            - name: postgresql
               containerPort: -=port=-
               protocol: TCP
           livenessProbe:

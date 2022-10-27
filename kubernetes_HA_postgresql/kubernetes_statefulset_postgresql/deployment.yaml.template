@@ -75,9 +75,9 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - name: -=port_name=-
+  - name: postgresql
     port: -=port=-
-    targetPort: -=port_name=-
+    targetPort: postgresql
     protocol: TCP 
   selector:
     app: -=app_name=-
@@ -197,7 +197,7 @@ spec:
             - name: REPMGR_DATABASE
               value: "repmgr"
           ports:
-            - name: -=port_name=-
+            - name: postgresql
               containerPort: -=port=-
               protocol: TCP
           livenessProbe:
