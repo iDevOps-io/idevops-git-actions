@@ -1,0 +1,35 @@
+name: "Kubernetes Deploy Helm Chart"
+author: Stephen Card <scard@idevops.io>
+description: Deploys a Helm Chart into a Kubernetes Cluster
+inputs:
+  chart_name:
+    description: Name of the helm chart you are deploying.
+    required: true
+  repo_url:
+    description: URL for the helm chart
+    required: true
+  release_name:
+    description: Release Name for Helm Chart Deployment
+    required: true
+  namespace:
+    description: Kubernetes namespace you wish to use
+    required: true
+  kube_config_location:
+    description: Location of the kubeconfig you want to use.
+    default: "/home/runner/.kube/config"
+    required: false
+runs:
+  using: "composite"
+  steps:
+  - run: |
+      #!/usr/bin/env bash
+      echo "Installing Helm"
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      chmod 700 get_helm.sh
+      ./get_helm.sh
+      echo "Add Helm Repo"
+      helm repo add ${{ inputs.chart_name }} ${{ inputs.repo_url }}
+      helm repo update
+      echo "Installing Helm Chart!"
+      helm install ${{ inputs.release_name }} ${{ inputs.chart_name }}
+    shell: bash
