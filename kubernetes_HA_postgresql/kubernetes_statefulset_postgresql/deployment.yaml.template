@@ -118,8 +118,6 @@ spec:
               exec:
                 command:
                   - /pre-stop.sh
-      imagePullSecrets:
-      - name: -=docker_pull_secret=-
         image: bitnami/postgresql-repmgr:14.5.0-debian-11-r21
           imagePullPolicy: "IfNotPresent"
           securityContext:
