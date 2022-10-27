@@ -62,8 +62,8 @@ spec:
       securityContext:
         fsGroup: 1001
       containers:
-      - name:  -=app_name=-
-        image: bitnami/pgpool:4.3.3-debian-11-r14
+        - name: -=app_name=-
+          image: bitnami/pgpool:4.3.3-debian-11-r14
           securityContext:
             runAsUser: 1001
           env:
