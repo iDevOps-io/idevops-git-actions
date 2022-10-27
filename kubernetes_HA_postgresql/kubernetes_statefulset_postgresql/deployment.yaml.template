@@ -88,9 +88,13 @@ kind: Secret
 metadata:
   name: -=app_name=--secrets
   namespace: -=kubernetes_namespace=-
-data:
-  postgresql-password: "V2JyVHBOM2c3cQ=="
-  repmgr-password: "c1ZwYm90R2d4Nw=="
+stringData:
+  postgres-password: -=postgres_password=-
+  repmgr-password: -=repmgr_password=-
+  postgres-user: -=postgres_user=-
+  postgres-db: -=postgres_db=-
+  repmgr-user: -=repmgr_user=-
+  repmgr-db: -=repmgr_db=-
   
 ---
 apiVersion: apps/v1
@@ -134,14 +138,20 @@ spec:
             - name: PGDATA
               value: "/bitnami/postgresql/data"
             - name: POSTGRES_USER
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: -=app_name=--secrets
+                  key: postgres-user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: -=app_name=--secrets
-                  key: postgresql-password
+                  key: postgres-password
             - name: POSTGRES_DB
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: -=app_name=--secrets
+                  key: postgres-db
             - name: POSTGRESQL_LOG_HOSTNAME
               value: "true"
             - name: POSTGRESQL_LOG_CONNECTIONS
@@ -188,14 +198,19 @@ spec:
             - name: REPMGR_RECONNECT_INTERVAL
               value: "5"
             - name: REPMGR_USERNAME
-              value: "repmgr"
+                secretKeyRef:
+                  name: -=app_name=--secrets
+                  key: repmgr-user
             - name: REPMGR_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: -=app_name=--secrets
                   key: repmgr-password
             - name: REPMGR_DATABASE
-              value: "repmgr"
+              valueFrom:
+                secretKeyRef:
+                  name: -=app_name=--secrets
+                  key: repmgr-db
           ports:
             - name: postgresql
               containerPort: -=port=-
@@ -205,7 +220,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U ${POSTGRES_USER} -d ${POSTGRES_DB} $  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
@@ -216,7 +231,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U ${POSTGRES_USER} -d ${POSTGRES_DB}  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
