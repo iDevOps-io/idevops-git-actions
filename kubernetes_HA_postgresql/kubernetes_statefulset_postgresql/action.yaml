@@ -27,6 +27,30 @@ inputs:
   image_tag:
     description: The image tag you wish to tag the docker image as.
     required: true
+  postgres_password:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "postgres123"
+    required: true
+  repmgr_password:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "repmgr123"
+    required: true
+  postgres_user:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "user123"
+    required: true
+  postgres_db:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "data123"
+    required: true
+  repmgr_user:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "repmgruser123"
+    required: true
+  repmgr_db:
+    description: Number of seconds after the container has started before liveness or readiness probes are initiated.
+    default: "repmgrdb123"
+    required: true
   port:
     description: The port the container and service will be running on.
     required: true 
@@ -58,14 +82,6 @@ inputs:
     description: The size of the persistent volume you wish to provision.
     default: "5Gi"
     required: false
-  database_password:
-    description: The root password for the database.
-    default: "changeme123"
-    required: true
-  repmgr_password:
-    description: The password for the replication manager of the database.
-    default: "postgres123"
-    required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
     required: true
@@ -144,8 +160,12 @@ runs:
         echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
         echo "timeout_period=${{ inputs.timeout_period }}" >> ${GITHUB_ENV}
         echo "disk_size=${{ inputs.disk_size }}" >> ${GITHUB_ENV}
-        echo "database_password=${{ inputs.database_password }}" >> ${GITHUB_ENV}
+        echo "postgres_password=${{ inputs.postgres_password }}" >> ${GITHUB_ENV}
+        echo "postgres_user=${{ inputs.postgres_user }}" >> ${GITHUB_ENV} 
+        echo "postgres_db=${{ inputs.postgres_db }}" >> ${GITHUB_ENV} 
         echo "repmgr_password=${{ inputs.repmgr_password }}" >> ${GITHUB_ENV} 
+        echo "repmgr_user=${{ inputs.repmgr_user }}" >> ${GITHUB_ENV} 
+        echo "repmgr_db=${{ inputs.repmgr_db }}" >> ${GITHUB_ENV} 
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}

@@ -15,6 +15,14 @@ inputs:
   kubernetes_namespace:
     description: The namespace in kubernetes you want to deploy to.
     required: true
+  admin_user:
+    description: The name of the database.
+    default: "admin"
+    required: true
+  admin_password:
+    description: The root password for the database.
+    default: "admin123"
+    required: true    
   docker_pull_secret:
     description: The name of the docker pull secret you wish to use to pull your image.
     required: true
@@ -128,6 +136,8 @@ runs:
         echo "docker_org_name=${{ inputs.docker_org_name }}" >> ${GITHUB_ENV}
         echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
+        echo "admin_user=${{ inputs.admin_user }}" >> ${GITHUB_ENV}
+        echo "admin_password=${{ inputs.admin_password }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
         echo "port_name=${{ inputs.port_name }}" >> ${GITHUB_ENV}
         echo "node_port=${{ inputs.node_port }}" >> ${GITHUB_ENV}

@@ -5,7 +5,8 @@ metadata:
   name: -=app_name=--secrets
   namespace: -=kubernetes_namespace=-
 data:
-  admin-password: "SFRzaVZxYjdSZQ=="
+  admin-password: -=admin_password=-
+  admin-user: -=admin_user=-
   
 ---
 apiVersion: v1
@@ -74,29 +75,40 @@ spec:
             - name: PGPOOL_BACKEND_NODES
               value: 0:postgres-0.postgres-headless-svc:-=port=-,1:postgres-1.postgres-headless-svc:-=port=-,2:postgres-2.postgres-headless-svc:-=port=-
             - name: PGPOOL_SR_CHECK_USER
-              value: "repmgr"
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: repmgr-user
             - name: PGPOOL_SR_CHECK_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: repmgr-password
             - name: PGPOOL_SR_CHECK_DATABASE
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: postgres-db
             - name: PGPOOL_ENABLE_LDAP
               value: "no"
             - name: PGPOOL_POSTGRES_USERNAME
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: postgres-user
             - name: PGPOOL_POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: postgresql-password
             - name: PGPOOL_ADMIN_USERNAME
-              value: "admin"
+              valueFrom:
+                secretKeyRef:
+                  name: -=app_name=--secrets
+                  key: admin-user
             - name: PGPOOL_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: pgpool-secrets
+                  name: -=app_name=--secrets
                   key: admin-password
             - name: PGPOOL_ENABLE_LOAD_BALANCING
               value: "yes"
@@ -128,7 +140,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
+                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U ${PGPOOL_POSTGRES_USERNAME} -d ${PGPOOL_SR_CHECK_DATABASE} -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
