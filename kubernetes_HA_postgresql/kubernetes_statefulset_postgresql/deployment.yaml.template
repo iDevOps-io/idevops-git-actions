@@ -96,7 +96,7 @@ data:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: -=app_name=--sts
+  name: -=app_name=-
   namespace: -=kubernetes_namespace=-
 spec:
   serviceName: -=app_name=--headless-svc
