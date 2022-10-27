@@ -61,10 +61,6 @@ inputs:
     description: Number of seconds after which the probe times out.
     default: "5"
     required: false    
-  admin_password:
-    description: The password to access the the database through the nodeport service.
-    default: "admin123"
-    required: true
   docker_username:
     description: The docker username to use for dockerhub authentication.
     required: true
@@ -146,7 +142,6 @@ runs:
         echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
         echo "failure_threshold=${{ inputs.failure_threshold }}" >> ${GITHUB_ENV}
         echo "timeout_period=${{ inputs.timeout_period }}" >> ${GITHUB_ENV}
-        echo "admin_password=${{ inputs.admin_password }}" >> ${GITHUB_ENV}
         echo "docker_username=${{ inputs.docker_username }}" >> ${GITHUB_ENV}
         echo "docker_password=${{ inputs.docker_password }}" >> ${GITHUB_ENV}
         echo "docker_file_location=${{ inputs.docker_file_location }}" >> ${GITHUB_ENV}
