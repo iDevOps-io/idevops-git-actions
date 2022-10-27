@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: pgpool-secrets
+  name: -=app_name=--secrets
+  namespace: -=kubernetes_namespace=-
 data:
   admin-password: "SFRzaVZxYjdSZQ=="
   
@@ -10,7 +11,8 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pgpool-svc
+  name: -=app_name=--svc
+  namespace: -=kubernetes_namespace=-
 spec:
   type: ClusterIP
   sessionAffinity: None
@@ -21,13 +23,14 @@ spec:
       protocol: TCP
       nodePort: null
   selector:
-    app: pgpool
+    app: -=app_name=-
     
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pgpool-svc-nodeport
+  name: -=app_name=--svc-nodeport
+  namespace: -=kubernetes_namespace=-
 spec:
   type: NodePort
   sessionAffinity: None
@@ -38,29 +41,31 @@ spec:
       targetPort: 5432
       protocol: TCP
   selector:
-    app: pgpool
+    app: -=app_name=-
     
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgpool-deployment
+  name: -=app_name=--deployment
+  namespace: -=kubernetes_namespace=-
 spec:
   replicas: 1
   selector:
     matchLabels: 
-      app: pgpool
+      app: -=app_name=-
   template:
     metadata:
       labels: 
-        app: pgpool
+        app: -=app_name=-
     spec:          
       securityContext:
         fsGroup: 1001
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
       containers:
-        - name: pgpool
-          image: docker.io/bitnami/pgpool:4.3.3-debian-11-r14
-          imagePullPolicy: "IfNotPresent"
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
           securityContext:
             runAsUser: 1001
           env:
@@ -128,4 +133,4 @@ spec:
             periodSeconds: 45
             timeoutSeconds: 35
             successThreshold: 1
-            failureThreshold: 10         
+            failureThreshold: 10
