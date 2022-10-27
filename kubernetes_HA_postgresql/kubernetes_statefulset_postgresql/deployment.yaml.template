@@ -111,6 +111,8 @@ spec:
     spec:
       securityContext:
         fsGroup: 1001
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-        
       containers:
         - name: -=app_name=-
           lifecycle:
@@ -118,7 +120,7 @@ spec:
               exec:
                 command:
                   - /pre-stop.sh
-          image: bitnami/postgresql-repmgr:14.5.0-debian-11-r21
+          image: -=docker_org_name=-/-=image=-:-=image_tag=-
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
@@ -204,22 +206,22 @@ spec:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 10
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
           readinessProbe:
             exec:
               command:
                 - bash
                 - -ec
                 - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "postgres" -d "postgres"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 10
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql

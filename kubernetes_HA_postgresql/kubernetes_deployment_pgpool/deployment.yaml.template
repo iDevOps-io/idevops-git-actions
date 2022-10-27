@@ -61,9 +61,11 @@ spec:
     spec:          
       securityContext:
         fsGroup: 1001
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-        
       containers:
         - name: -=app_name=-
-          image: bitnami/pgpool:4.3.3-debian-11-r14
+          image: -=docker_org_name=-/-=image=-:-=image_tag=-
           securityContext:
             runAsUser: 1001
           env:
@@ -116,19 +118,19 @@ spec:
             exec:
               command:
                 - /opt/bitnami/scripts/pgpool/healthcheck.sh
-            initialDelaySeconds: 300
-            periodSeconds: 45
-            timeoutSeconds: 35
-            successThreshold: 1
-            failureThreshold: 10
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
           readinessProbe:
             exec:
               command:
                 - bash
                 - -ec
                 - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "postgres" -d "postgres" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
-            initialDelaySeconds: 300
-            periodSeconds: 45
-            timeoutSeconds: 35
-            successThreshold: 1
-            failureThreshold: 10
+            initialDelaySeconds: -=initial_delay=-
+            periodSeconds: -=period_time=-
+            timeoutSeconds: -=timeout_period=-
+            successThreshold: -=success_threshold=-
+            failureThreshold: -=failure_threshold=-
