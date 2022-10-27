@@ -170,7 +170,8 @@ runs:
         kube_config_location: "${{ inputs.kubernetes_config }}"
 
     - name: "K8S:CHECK:ROLLOUT:STATUS"
-      run: |
-        #!/usr/bin/env bash
-        kubectl rollout status statefulset/postgres-sts --namespace ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }}
-      shell: bash 
+      uses: iDevOps-io/idevops-git-actions/kubernetes_validate_statefulset_rollout@main
+      with:
+        app_name: "${{ inputs.app_name }}"
+        namespace: "${{ inputs.kubernetes_namespace }}"
+        kube_config_location: "${{ inputs.kubernetes_config }}"
