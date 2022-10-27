@@ -172,9 +172,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
-              value: -=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--sts-2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
+              value: -=app_name=--0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--1.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local,-=app_name=--2.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local
             - name: REPMGR_PRIMARY_HOST
-              value: "-=app_name=--sts-0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
+              value: "-=app_name=--0.-=app_name=--headless-svc.$(REPMGR_NAMESPACE).svc.cluster.local"
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME

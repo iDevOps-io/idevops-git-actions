@@ -72,7 +72,7 @@ spec:
             - name: BITNAMI_DEBUG
               value: "true"
             - name: PGPOOL_BACKEND_NODES
-              value: 0:postgres-sts-0.postgres-headless-svc:-=port=-,1:postgres-sts-1.postgres-headless-svc:-=port=-,2:postgres-sts-2.postgres-headless-svc:-=port=-
+              value: 0:postgres-0.postgres-headless-svc:-=port=-,1:postgres-1.postgres-headless-svc:-=port=-,2:postgres-2.postgres-headless-svc:-=port=-
             - name: PGPOOL_SR_CHECK_USER
               value: "repmgr"
             - name: PGPOOL_SR_CHECK_PASSWORD
