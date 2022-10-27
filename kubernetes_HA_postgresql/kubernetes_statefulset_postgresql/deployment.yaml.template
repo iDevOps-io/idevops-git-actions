@@ -75,9 +75,9 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - name: postgresql
-    port: 5432
-    targetPort: postgresql
+  - name: -=port_name=-
+    port: -=port=-
+    targetPort: -=port_name=-
     protocol: TCP 
   selector:
     app: -=app_name=-
@@ -112,7 +112,7 @@ spec:
       securityContext:
         fsGroup: 1001
       imagePullSecrets:
-      - name: -=docker_pull_secret=-        
+      - name: -=docker_pull_secret=-
       containers:
         - name: -=app_name=-
           lifecycle:
@@ -197,8 +197,8 @@ spec:
             - name: REPMGR_DATABASE
               value: "repmgr"
           ports:
-            - name: postgresql
-              containerPort: 5432
+            - name: -=port_name=-
+              containerPort: -=port=-
               protocol: TCP
           livenessProbe:
             exec:
@@ -224,7 +224,7 @@ spec:
             failureThreshold: -=failure_threshold=-
           volumeMounts:
             - name: data
-              mountPath: /bitnami/postgresql
+              mountPath: -=mount_path=-
             - name: hooks-scripts
               mountPath: /pre-stop.sh
               subPath: pre-stop.sh
@@ -241,4 +241,4 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: "2Gi"
+            storage: -=disk_size=-

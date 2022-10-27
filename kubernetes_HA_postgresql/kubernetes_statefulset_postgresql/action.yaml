@@ -30,6 +30,9 @@ inputs:
   port:
     description: The port the container and service will be running on.
     required: true
+  port_name:
+    description: The port name the container and service will be running on.
+    required: true  
   initial_delay:
     description: Number of seconds after the container has started before liveness or readiness probes are initiated.
     default: "30"
@@ -50,26 +53,14 @@ inputs:
     description: Number of seconds after which the probe times out.
     default: "5"
     required: false    
-#  mount_path:
-#    description: The persistent volume mount path.
-#   default: "/var/lib/postgresql/data"
-#    required: false
-#  sub_path:
-#    description: The persistent volume sub mount.
-#    default: "pgdata"
-#    required: false
+  mount_path:
+    description: The persistent volume mount path.
+    default: "/bitnami/postgresql"
+    required: false
   disk_size:
     description: The size of the persistent volume you wish to provision.
     default: "5Gi"
     required: false
-#  storage_class:
-#    description: The default storage class for the postgresql deployment.
-#    default: "gp2"
-#    required: false
-#  database_name:
-#    description: The name of the database.
-#    default: "testdb"
-#    required: true
   database_password:
     description: The root password for the database.
     default: "changeme123"
@@ -125,11 +116,11 @@ runs:
         docker_tag: "${{ inputs.image_tag }}"
         docker_file_location: "${{ inputs.docker_file_location }}"
 
-#    - name: "DOCKER:IMAGE:SCAN:ANCHORE"
-#      uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
-#      with:
-#        docker_image_name: "${{ inputs.docker_org_name }}/${{ inputs.image }}:${{ inputs.image_tag }}"
-#        fail_pipeline_on_fail: "false"
+    - name: "DOCKER:IMAGE:SCAN:ANCHORE"
+      uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
+      with:
+        docker_image_name: "${{ inputs.docker_org_name }}/${{ inputs.image }}:${{ inputs.image_tag }}"
+        fail_pipeline_on_fail: "false"
 
     - name: "K8S:CREATE:NAMESPACE:AND:DOCKER:SECRET"
       uses: iDevOps-io/idevops-git-actions/kubernetes_create_docker_pull_secret_and_namespace@main

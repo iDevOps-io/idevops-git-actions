@@ -17,9 +17,9 @@ spec:
   type: ClusterIP
   sessionAffinity: None
   ports:
-    - name: postgresql
-      port: 5432
-      targetPort: 5432
+    - name: -=port_name=-
+      port: -=port=-
+      targetPort: -=port=-
       protocol: TCP
       nodePort: null
   selector:
@@ -35,10 +35,10 @@ spec:
   type: NodePort
   sessionAffinity: None
   ports:
-    - name: postgresql
-      port: 5432
-      nodePort: 32000
-      targetPort: 5432
+    - name: -=port_name=-
+      port: -=port=-
+      nodePort: -=node_port=-
+      targetPort: -=port=-
       protocol: TCP
   selector:
     app: -=app_name=-
@@ -47,7 +47,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: -=app_name=--deployment
+  name: -=app_name=-
   namespace: -=kubernetes_namespace=-
 spec:
   replicas: 1
@@ -72,7 +72,7 @@ spec:
             - name: BITNAMI_DEBUG
               value: "true"
             - name: PGPOOL_BACKEND_NODES
-              value: 0:postgres-sts-0.postgres-headless-svc:5432,1:postgres-sts-1.postgres-headless-svc:5432,2:postgres-sts-2.postgres-headless-svc:5432
+              value: 0:postgres-sts-0.postgres-headless-svc:-=port=-,1:postgres-sts-1.postgres-headless-svc:-=port=-,2:postgres-sts-2.postgres-headless-svc:-=port=-
             - name: PGPOOL_SR_CHECK_USER
               value: "repmgr"
             - name: PGPOOL_SR_CHECK_PASSWORD
@@ -111,8 +111,8 @@ spec:
             - name: PGPOOL_ENABLE_TLS
               value: "no"
           ports:
-            - name: postgresql
-              containerPort: 5432
+            - name: -=port_name=-
+              containerPort: -=port=-
               protocol: TCP
           livenessProbe:
             exec:
