@@ -140,7 +140,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U $(PGPOOL_POSTGRES_USERNAME) -d $(PGPOOL_SR_CHECK_DATABASE) -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
+                - PGPASSWORD=${PGPOOL_POSTGRES_PASSWORD} psql -U "$(PGPOOL_POSTGRES_USERNAME)" -d "$(PGPOOL_SR_CHECK_DATABASE)" -h /opt/bitnami/pgpool/tmp -tA -c "SELECT 1" >/dev/null
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
