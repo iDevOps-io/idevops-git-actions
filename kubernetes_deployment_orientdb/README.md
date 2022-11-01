@@ -9,8 +9,7 @@ on:
         default: idevops-vaas-cluster
         docker_tag:
         description: docker tag
-        default: 1
-            
+        default: 1      
 jobs:
   build_deploy_orientdb:
     name: "AWS:EKS:DEPLOY:ORIENTDB"
