@@ -1,3 +1,7 @@
 FROM orientdb:latest
-EXPOSE 2424 2480
-CMD ["server.sh"]
+
+COPY ./directories.sh /usr/local/bin
+RUN ["./directories.sh"]
+
+EXPOSE 2434 2435 2436 
+

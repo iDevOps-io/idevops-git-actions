@@ -40,11 +40,6 @@ spec:
           periodSeconds: -=period_time=-
           successThreshold: -=success_threshold=-
           failureThreshold: -=failure_threshold=-
-
-
-        ports:
-        - name: portone
-          containerPort: -=port=-
         
         volumeMounts:
         - mountPath: "-=mount_path=-"
@@ -91,8 +86,12 @@ spec:
     - name: portone
       port: -=port=-
       targetPort: -=port=-
-  
-      
+    -name: porttwo
+      port -=port_two=-
+      targetPort: -=port_two=-
+    - name: portthree
+      port: -=port_three=-
+      targetPort: -=port_three=-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -107,36 +106,3 @@ spec:
   resources:
     requests:
       storage: -=disk_size=-
-  storageClassName: gp2
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: -=app_name=-
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: -=disk_size=-
-  storageClassName: gp2
-  
----
-  apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: -=app_name=-
-  name: -=app_name=-
-  namespace: -=kubernetes_namespace=-
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: -=disk_size=-
-  storageClassName: gp2
