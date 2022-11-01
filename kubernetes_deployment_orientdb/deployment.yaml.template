@@ -40,7 +40,7 @@ spec:
           periodSeconds: -=period_time=-
           successThreshold: -=success_threshold=-
           failureThreshold: -=failure_threshold=-
-        
+
         volumeMounts:
         - mountPath: "-=mount_path=-"
           name: -=app_name=-
@@ -92,6 +92,7 @@ spec:
     - name: portthree
       port: -=port_three=-
       targetPort: -=port_three=-
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
