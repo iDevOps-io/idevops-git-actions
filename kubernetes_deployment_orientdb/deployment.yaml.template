@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: PersistentVolumeClaim
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
