@@ -100,7 +100,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
-                  key: postgresql-password
+                  key: postgres-password
             - name: PGPOOL_ADMIN_USERNAME
               valueFrom:
                 secretKeyRef:
