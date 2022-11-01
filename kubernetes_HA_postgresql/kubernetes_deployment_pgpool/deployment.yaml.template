@@ -4,10 +4,10 @@ kind: Secret
 metadata:
   name: -=app_name=--secrets
   namespace: -=kubernetes_namespace=-
-data:
+stringData:
   admin-password: -=admin_password=-
   admin-user: -=admin_user=-
-  
+
 ---
 apiVersion: v1
 kind: Service
