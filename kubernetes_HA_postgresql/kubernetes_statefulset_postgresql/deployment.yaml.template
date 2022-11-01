@@ -198,6 +198,7 @@ spec:
             - name: REPMGR_RECONNECT_INTERVAL
               value: "5"
             - name: REPMGR_USERNAME
+              valueFrom:  
                 secretKeyRef:
                   name: -=app_name=--secrets
                   key: repmgr-user
@@ -220,7 +221,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U$POSTGRES_USER -d$POSTGRES_DB -h 127.0.0.1 -p 5432 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U $POSTGRES_USER -d $POSTGRES_DB -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
@@ -231,7 +232,7 @@ spec:
               command:
                 - bash
                 - -ec
-                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U "$(POSTGRES_USER)" -d "$(POSTGRES_DB)"  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
+                - 'PGPASSWORD=$POSTGRES_PASSWORD psql -w -U$POSTGRES_USER -d $POSTGRES_DB  -h 127.0.0.1 -p 5432 -c "SELECT 1"'
             initialDelaySeconds: -=initial_delay=-
             periodSeconds: -=period_time=-
             timeoutSeconds: -=timeout_period=-
