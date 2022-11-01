@@ -75,6 +75,7 @@ spec:
             - name: PGPOOL_BACKEND_NODES
               value: 0:postgres-0.postgres-headless-svc:-=port=-,1:postgres-1.postgres-headless-svc:-=port=-,2:postgres-2.postgres-headless-svc:-=port=-
             - name: PGPOOL_SR_CHECK_USER
+              valueFrom:  
                 secretKeyRef:
                   name: postgres-secrets
                   key: repmgr-user
