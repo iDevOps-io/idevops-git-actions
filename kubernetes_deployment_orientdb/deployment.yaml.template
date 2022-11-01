@@ -1,18 +1,14 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: -=app_name=-
   namespace: -=kubernetes_namespace=-
   labels:
     app: -=app_name=-
 spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
+  replicas: 3
+  serviceName: "orientdb"
   selector:
     matchLabels:
       app: -=app_name=-
@@ -113,3 +109,34 @@ spec:
       storage: -=disk_size=-
   storageClassName: gp2
 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
+  storageClassName: gp2
+  
+---
+  apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
+  storageClassName: gp2
