@@ -7,6 +7,9 @@ on:
       kubernetes_cluster_name:
         description: Name of kubernetes cluster
         default: idevops-vaas-cluster
+        docker_tag:
+        description: docker tag
+        default: 1
             
 jobs:
   build_deploy_orientdb:
@@ -37,7 +40,9 @@ jobs:
           docker_org_name: "idevopsiointernal"
           image: "orientdb"
           image_tag: "latest"
-          port: "2480"
+          port: "2434"
+          port_two: "2435"
+          port_three: "2436"
           mount_path: "/var/application-data/orientdb"
           disk_size: "20Gi"
           hostname: "orientdb-hub.idevops.io"
@@ -58,7 +63,9 @@ jobs:
 | docker_org_name | idevopsiointernal | The org you will be pushing to and pulling from. | 
 | image | orientdb | The image name you want to build and push the docker image for orientDB to. |
 | image_tag | latest |The image tag you wish to tag the docker image as. | 
-| port | 2480 | The port the container and service will be running on. | 
+| port | 2434 | The port the container and service will be running on. | 
+| port_two | 2435 | The second port the container and service will be running on. | 
+| port_three | 2436 | The third port the container and service will be running on. |  
 | initial_delay | 60 | Number of seconds after the container has started before liveness or readiness probes are initiated. | 
 | period_time | 90 | How often (in seconds) to perform the probe. | 
 | success_threshold | 1 | Minimum consecutive success for the probe to be considered successful after having failed. | 

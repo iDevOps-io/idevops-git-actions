@@ -29,7 +29,16 @@ inputs:
     required: true
   port:
     description: The port the container and service will be running on.
+    default: "2434"
     required: true
+  port_two:
+    description: The port second port the container and service will be running on.
+    default: "2435"
+    required: true
+  port_three:
+    description: The port third port the container and service will be running on.
+    default: "2436"
+    required: true    
   initial_delay:
     description: Number of seconds after the container has started before liveness or readiness probes are initiated.
     default: "60"
@@ -131,6 +140,8 @@ runs:
         echo "image=${{ inputs.image }}" >> ${GITHUB_ENV}
         echo "image_tag=${{ inputs.image_tag }}" >> ${GITHUB_ENV}
         echo "port=${{ inputs.port }}" >> ${GITHUB_ENV}
+        echo "port_two=${{ inputs.port_two }}" >> ${GITHUB_ENV}
+        echo "port_three=${{ inputs.port_three }}" >> ${GITHUB_ENV}
         echo "initial_delay=${{ inputs.initial_delay }}" >> ${GITHUB_ENV}
         echo "period_time=${{ inputs.period_time }}" >> ${GITHUB_ENV}
         echo "success_threshold=${{ inputs.success_threshold }}" >> ${GITHUB_ENV}
