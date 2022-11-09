@@ -112,6 +112,23 @@ spec:
         - 0.0.0.0 
         - "--replSet" 
         - rs0
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+        readinessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+        ports:
+        - name: -=port_name=-
+          containerPort: -=port=-
         env:
           - name: MONGO_USERNAME
             valueFrom:
