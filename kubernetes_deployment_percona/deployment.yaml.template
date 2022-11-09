@@ -1,0 +1,91 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+  labels:
+    app: -=app_name=-
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+      containers:
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: 90
+          periodSeconds: 90
+        env:
+          - name: PERCONA_USER
+            value: "admin"
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=-
+                key: MYSQL_ROOT_PASSWORD
+        ports:
+        - name: portone
+          containerPort: -=port=-
+        volumeMounts:
+        - mountPath: "/var/application-data/mariadb"
+          name: -=app_name=-
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+stringData:
+  MYSQL_ROOT_PASSWORD: -=MYSQL_ROOT_PASSWORD=-
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: LoadBalancer
+  selector:
+    app: -=app_name=-
+  ports:
+    - name: portone
+      port: -=port=-
+      targetPort: -=port=-
+   
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
+  storageClassName: gp2

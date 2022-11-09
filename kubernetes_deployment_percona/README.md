@@ -1,5 +1,5 @@
 ```yaml
-name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+name: "AWS:EKS:DEPLOY:PERCONA"
 
 on:
   workflow_dispatch:
@@ -9,8 +9,8 @@ on:
         default: idevops-vaas-cluster
         
 jobs:
-  build_deploy_jupyterhub:
-    name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+  build_deploy_percona:
+    name: "AWS:EKS:DEPLOY:PERCONA"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,19 +28,19 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_jupyterhub@main
+      - name: "KUBERNETES:DEPLOY:PERCONA"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_percona@main
         with:
-          app_name: "jupyterhub"
-          kubernetes_namespace: "jupyterhub"
-          docker_pull_secret: "jupyterhub"
+          app_name: "percona"
+          kubernetes_namespace: "percona"
+          docker_pull_secret: "percona"
           docker_org_name: "idevopsiointernal"
-          image: "jupyterhub"
+          image: "percona"
           image_tag: "latest"
           port: "8000"
-          mount_path: "/var/application-data/jupyterhub"
+          mount_path: "/var/application-data/percona"
           disk_size: "20Gi"
-          hostname: "jupyter-hub.idevops.io"
+          hostname: "percona.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"

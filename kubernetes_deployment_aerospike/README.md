@@ -1,5 +1,5 @@
 ```yaml
-name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+name: "AWS:EKS:DEPLOY:AEROSPIKE"
 
 on:
   workflow_dispatch:
@@ -9,8 +9,8 @@ on:
         default: idevops-vaas-cluster
         
 jobs:
-  build_deploy_jupyterhub:
-    name: "AWS:EKS:DEPLOY:JUYPTERHUB"
+  build_deploy_aerospike:
+    name: "AWS:EKS:DEPLOY:AEROSPIKE"
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -28,19 +28,21 @@ jobs:
           AWS_DEFAULT_REGION: "${{ secrets.AWS_DEFAULT_REGION }}"
           kubernetes_cluster_name: "{{ github.event.inputs.kubernetes_cluster_name }}"
           
-      - name: "KUBERNETES:DEPLOY:JUPYTERHUB"
-        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_jupyterhub@main
+      - name: "KUBERNETES:DEPLOY:aerospike"
+        uses: iDevOps-io/idevops-git-actions/kubernetes_deployment_aerospike@main
         with:
-          app_name: "jupyterhub"
-          kubernetes_namespace: "jupyterhub"
-          docker_pull_secret: "jupyterhub"
+          app_name: "aerospike"
+          kubernetes_namespace: "aerospike"
+          docker_pull_secret: "aerospike"
           docker_org_name: "idevopsiointernal"
-          image: "jupyterhub"
+          image: "aerospike"
           image_tag: "latest"
-          port: "8000"
-          mount_path: "/var/application-data/jupyterhub"
+          port: "3000"
+          port_two: "3001"
+          port_three: "3002"
+          mount_path: "/var/application-data/aerospike"
           disk_size: "20Gi"
-          hostname: "jupyter-hub.idevops.io"
+          hostname: "aerospike.idevops.io"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           docker_server_url: "https://index.docker.io/v1/"

@@ -1,0 +1,109 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+  labels:
+    app: -=app_name=-
+spec:
+  replicas: 3
+  serviceName: "orientdb"
+  selector:
+    matchLabels:
+      app: -=app_name=-
+  template:
+    metadata:
+      labels:
+        app: -=app_name=-
+    spec:
+      volumes:
+      - name: -=app_name=-
+        persistentVolumeClaim:
+          claimName: -=app_name=-
+      imagePullSecrets:
+      - name: -=docker_pull_secret=-
+      containers:
+      - name:  -=app_name=-
+        image: -=docker_org_name=-/-=image=-:-=image_tag=-
+        readinessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+        livenessProbe:
+          tcpSocket:
+            port: -=port=-
+          initialDelaySeconds: -=initial_delay=-
+          periodSeconds: -=period_time=-
+          successThreshold: -=success_threshold=-
+          failureThreshold: -=failure_threshold=-
+
+        volumeMounts:
+        - mountPath: "-=mount_path=-"
+          name: -=app_name=-
+          subPath: "-=sub_path=-"
+
+        env:
+          - name: ORIENTDB_USER
+            value: -=admin=-
+          - name: ORIENTDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: ORIENTDB_ROOT_PASSWORD
+
+          - name: ORIENTDB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: -=app_name=--secret
+                key: ORIENTDB_USERNAME
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: -=app_name=--secret
+  namespace: -=kubernetes_namespace=-
+stringData:
+  ORIENTDB_ROOT_PASSWORD: -=ORIENTDB_ROOT_PASSWORD=-
+  ORIENTDB_USERNAME: -=ORIENTDB_USERNAME=-
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  type: LoadBalancer
+  selector:
+    app: -=app_name=-
+  ports:
+    - name: portone
+      port: -=port=-
+      targetPort: -=port=-
+    -name: porttwo
+      port -=port_two=-
+      targetPort: -=port_two=-
+    - name: portthree
+      port: -=port_three=-
+      targetPort: -=port_three=-
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: -=app_name=-
+  name: -=app_name=-
+  namespace: -=kubernetes_namespace=-
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: -=disk_size=-
