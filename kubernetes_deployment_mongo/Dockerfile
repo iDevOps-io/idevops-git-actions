@@ -1,5 +1,6 @@
 FROM mongo:4.4.12-rc1
-RUN ./mongo-replica-start.sh
+COPY mongo-replica-start.sh ./
+RUN bash /mongo-replica-start.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 27017
 CMD ["mongod"]
