@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mongod
 sleep '5m' && \
 mongo --eval 'rs.initiate(
    {
@@ -11,4 +12,4 @@ mongo --eval 'rs.initiate(
          { _id: 2, host : "mongo-2.mongo.mongo.svc.cluster.local:27017" }
       ]
    }
-)'
+)' 
