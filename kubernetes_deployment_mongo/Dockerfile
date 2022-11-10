@@ -1,6 +1,5 @@
 FROM mongo:5
 COPY ./mongo-replica-start.sh /usr/local/bin
-RUN ["docker-entrypoint.sh"]
-ENTRYPOINT ["/usr/local/bin/mongo-replica-start.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 27017
-CMD ["mongod"]
+CMD ["/usr/local/bin/mongo-replica-start.sh"]
