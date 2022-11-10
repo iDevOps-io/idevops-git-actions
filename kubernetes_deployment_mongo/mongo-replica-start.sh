@@ -1,6 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-RS_MONGO_INITIATE=$(mongo --eval "rs.initiate(
+sleep '5m' && \
+mongo --eval 'rs.initiate(
    {
       _id: "rs0",
       version: 1,
@@ -10,7 +11,4 @@ RS_MONGO_INITIATE=$(mongo --eval "rs.initiate(
          { _id: 2, host : "mongo-2.mongo.mongo.svc.cluster.local:27017" }
       ]
    }
-)"
-
-
-sleep '5m' && echo $RS_MONGO_INITIATE
+)'
