@@ -1,6 +1,5 @@
 #!/bin/bash
 
-mongod
 sleep '5m' && \
 mongo --eval 'rs.initiate(
    {
