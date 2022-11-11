@@ -2,6 +2,7 @@
 
 HOSTNAME=$(cat /etc/hostname)
 
+mongod --replSet rs0 --bind_ip 0.0.0.0
 if [ $HOSTNAME == mongo-2 ]
 then
   mongo --eval 'rs.initiate(
