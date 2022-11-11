@@ -45,11 +45,9 @@ spec:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
-        - mongod
-        - "--bind_ip"
-        - 0.0.0.0
-        - "--replSet"
-        - rs0
+        - /bin/bash
+        - -c
+        - "/usr/local/bin/mongo-replica-start.sh"
         livenessProbe:
           tcpSocket:
             port: -=port=-
