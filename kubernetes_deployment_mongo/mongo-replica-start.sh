@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mongod --bind_ip 0.0.0.0 --replSet rs0 && \
 sleep '5m' && \
 mongo --eval 'rs.initiate(
    {
