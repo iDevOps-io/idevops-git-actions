@@ -1,7 +1,10 @@
 #!/bin/bash
 
-mongod --bind_ip 0.0.0.0 --replSet rs0 && \
-sleep '5m' && \
+touch "/etc/testing_script_text.txt"
+echo "this is test text" >> "/etc/testing_script_text.txt"
+mongod --bind_ip 0.0.0.0 --replSet rs0
+sleep '4m' && echo "this is text inserted 4 minutes later" >> "/etc/testing_script_text.txt"
+sleep '5m'
 mongo --eval 'rs.initiate(
    {
       _id: "rs0",

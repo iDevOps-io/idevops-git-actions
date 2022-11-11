@@ -47,7 +47,7 @@ spec:
         command:
         - "/bin/bash"
         - "-c"
-        - "/etc/mongo-replica-start.sh"
+        - "/usr/local/bin/mongo-replica-start.sh"
         livenessProbe:
           tcpSocket:
             port: -=port=-
