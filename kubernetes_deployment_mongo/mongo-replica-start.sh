@@ -1,9 +1,14 @@
 #!/bin/bash
 
+HOSTNAME=$(cat /etc/hostname)
+STARTMONGODB=$(mongod --replSet rs0 --bind_ip 0.0.0.0)
+SLEEPSHORT=$(sleep '2m')
 
-if [ $HOSTNAME == 'mongo-2' ]
+echo $STARTMONGODB
+
+if [ $HOSTNAME == mongo-2 ]
 then
-  sleep '2m' && mongo --eval 'rs.initiate(
+  echo $SLEEPSHORT && mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
@@ -14,9 +19,9 @@ then
         ]
      }
   )'
-elif [ $HOSTNAME == 'mongo-0' ]
+elif [ $HOSTNAME == mongo-0 ]
 then
-  touch "/etc/test.txt" && echo "pod one is running the script" >> "/etc/test.txt"
+  touch /etc/test.txt && echo "pod one is running the script" >> /etc/test.txt
 else
   echo "starting next pod"
 fi
