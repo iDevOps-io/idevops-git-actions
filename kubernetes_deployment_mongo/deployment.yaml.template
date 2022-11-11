@@ -45,8 +45,8 @@ spec:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
-        - /bin/bash
-        - -c
+        - "/bin/bash"
+        - "-c"
         - "/usr/local/bin/mongo-replica-start.sh"
         livenessProbe:
           tcpSocket:
