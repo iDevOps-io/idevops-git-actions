@@ -1,14 +1,10 @@
 #!/bin/bash
 
 HOSTNAME=$(cat /etc/hostname)
-STARTMONGODB=$(mongod --replSet rs0 --bind_ip 0.0.0.0)
-SLEEPSHORT=$(sleep '2m')
-
-echo $STARTMONGODB
 
 if [ $HOSTNAME == mongo-2 ]
 then
-  echo $SLEEPSHORT && mongo --eval 'rs.initiate(
+  mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
