@@ -44,10 +44,8 @@ spec:
       containers:
       - name: -=app_name=-
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
-        command:
-        - "/bin/bash"
-        - "-c"
-        - "/usr/local/bin/mongo-replica-start.sh"
+        command: ["/bin/bash"]
+        args: ["-c", "mongod --replSet rs0 && sleep '5m' && /usr/local/bin/mongo-replica-start.sh"]
         livenessProbe:
           tcpSocket:
             port: -=port=-

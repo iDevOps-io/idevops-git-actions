@@ -1,12 +1,5 @@
 #!/bin/bash
 
-
-touch "/etc/testing_script_text.txt" &&
-echo "this is test text" >> "/etc/testing_script_text.txt" &&
-sleep '1m' &&
-echo "this is text inserted 1 minute later" >> "/etc/testing_script_text.txt" &&
-mongod --replSet rs0 &&
-sleep '5m' &&
 mongo --eval 'rs.initiate(
    {
       _id: "rs0",
