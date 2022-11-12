@@ -5,7 +5,7 @@ HOSTNAME=$(cat /etc/hostname)
 
 if [ $HOSTNAME == mongo-0 ]
 then
-  mongod --replSet rs0 --bind_ip 0.0.0.0 || sleep '5m' || mongo --eval 'rs.initiate(
+  sleep '5m' && mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
@@ -18,7 +18,7 @@ then
   )'
 elif [ $HOSTNAME == mongo-1 ]
 then
-  mongod --replSet rs0 --bind_ip 0.0.0.0
+  sleep '10' && echo "mongo-1 sleep 15 &&" >> /etc/test.txt
 else
-  mongod --replSet rs0 --bind_ip 0.0.0.0
+  sleep '10' && echo "mongo-2 sleep 15 &&" >> /etc/test.txt
 fi
