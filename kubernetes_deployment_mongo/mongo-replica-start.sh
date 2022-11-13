@@ -3,9 +3,9 @@
 HOSTNAME=$(cat /etc/hostname)
 
 
-if [ $HOSTNAME == mongo-2 ]
+if [ $HOSTNAME == mongo-0 ]
 then
-  if [ $HOSTNAME == mongo-0 ]
+  if [ $HOSTNAME == mongo-2 ]
   then
     mongo --eval 'rs.initiate(
        {
