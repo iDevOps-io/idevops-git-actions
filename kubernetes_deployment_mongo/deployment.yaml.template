@@ -46,7 +46,7 @@ spec:
         image: -=docker_org_name=-/-=image=-:-=image_tag=-
         command:
         - mongod
-        - "-replSet"
+        - "--replSet"
         - "rs0"
         livenessProbe:
           tcpSocket:
