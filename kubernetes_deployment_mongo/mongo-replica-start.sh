@@ -2,9 +2,9 @@
 
 HOSTNAME=$(cat /etc/hostname)
 
-if [ $HOSTNAME == mongo-2 ]
+if [ $HOSTNAME == mongo-0 ]
 then
-  sleep '1m' && mongo --eval 'rs.initiate(
+  sleep '5m' && mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
