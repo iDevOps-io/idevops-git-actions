@@ -15,4 +15,6 @@ then
         ]
      }
   )'
+else
+  echo "the script is running" >> /etc/test.txt
 fi
