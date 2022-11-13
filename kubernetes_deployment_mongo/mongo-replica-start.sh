@@ -6,7 +6,7 @@ CLUSTER_SERVICE_ADDRESS=$(cat /etc/hosts | grep $HOSTNAME | awk '{print $2}' | c
 
 if [ $HOSTNAME == $HOSTNAME_NO_NUMBER-2 ]
 then
-  echo $HOSTNAME || sleep '5m' && mongo --eval 'rs.initiate(
+  sleep '5m' && mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
