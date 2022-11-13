@@ -4,9 +4,9 @@ HOSTNAME=$(cat /etc/hostname)
 HOSTNAME_NO_NUMBER=$(cat /etc/hostname | awk -F"[-]+" '/-/{print $1}')
 CLUSTER_SERVICE_ADDRESS=$(cat /etc/hosts | grep $HOSTNAME | awk '{print $2}' | cut -f2- -d.)
 
-if [ $HOSTNAME == $HOSTNAME_NO_NUMBER-0 ]
+if [ $HOSTNAME == $HOSTNAME_NO_NUMBER-2 ]
 then
-  echo $HOSTNAME || sleep '5m' && mongo --eval 'rs.initiate(
+  sleep '5m' && mongo --eval 'rs.initiate(
      {
         _id: "rs0",
         version: 1,
@@ -17,7 +17,7 @@ then
         ]
      }
   )'
-elif [ $HOSTNAME == $HOSTNAME_NO_NUMBER-1 ]
+elif [ $HOSTNAME == $HOSTNAME_NO_NUMBER-0 ]
 then
   echo "the script is running" >> /etc/test.txt
 else
