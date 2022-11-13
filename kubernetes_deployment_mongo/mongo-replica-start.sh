@@ -15,6 +15,9 @@ then
         ]
      }
   )'
+elif [ $HOSTNAME == mongo-1 ]
+then
+  echo "the script is running" >> /etc/test.txt
 else
   echo "the script is running" >> /etc/test.txt
 fi
