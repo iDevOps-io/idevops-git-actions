@@ -47,7 +47,9 @@ spec:
         command:
         - mongod
         - "--replSet"
-        - "rs0"
+        - rs0
+        - "--bind_ip"
+        - 0.0.0.0
         livenessProbe:
           tcpSocket:
             port: -=port=-
