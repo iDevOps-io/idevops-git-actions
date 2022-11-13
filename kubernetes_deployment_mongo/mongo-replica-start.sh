@@ -2,7 +2,7 @@
 
 HOSTNAME=$(cat /etc/hostname)
 
-
+mongod --replSet rs0 
 if [ $HOSTNAME == mongo-2 ]
 then
   mongo --eval 'rs.initiate(
@@ -16,9 +16,6 @@ then
         ]
      }
   )'
-elif [ $HOSTNAME == mongo-0 ]
-then
-  mongod --replSet rs0
 else
-  mongod --replSet rs0
+  echo "The if statement is working." >> /etc/statement_working.txt
 fi
