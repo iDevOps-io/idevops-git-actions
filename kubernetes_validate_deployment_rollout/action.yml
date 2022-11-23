@@ -15,10 +15,25 @@ inputs:
     description: Location of the kubeconfig you want to use.
     default: "/home/runner/.kube/config"
     required: false
+  aws_access_key_id:
+    description: aws access key id
+    default: ""
+    required: false
+  aws_access_secret_key:
+    description: aws access secret key
+    default: ""
+    required: false
+  aws_region:
+    description: aws region you want to use
+    default: "us-west-2"
+    required: false
 runs:
   using: "composite"
   steps:
   - run: |
       #!/usr/bin/env bash
+      export AWS_ACCESS_KEY_ID=${{ inputs.aws_access_key_id }}
+      export AWS_SECRET_ACCESS_KEY=${{ inputs.aws_access_secret_key }}
+      export AWS_DEFAULT_REGION=${{ inputs.aws_region }}
       kubectl rollout status deployment/${{ inputs.app_name }} --namespace ${{ inputs.namespace }} --kubeconfig=${{ inputs.kube_config_location }}
     shell: bash
