@@ -14,5 +14,20 @@ runs:
   steps:
     - run: |
         #!/usr/bin/env bash
-        docker run -t owasp/zap2docker-stable zap-full-scan.py -t ${{ inputs.web_url }}
+        owasp_report=$(docker run -t owasp/zap2docker-stable zap-full-scan.py -I -t ${{ inputs.web_url }}  | grep FAIL-NEW)
+        echo "========"
+        echo "OWASP REPORT"
+        echo ${owasp_report}
+        echo "========"
+        owasp_fail_new=$(echo ${owasp_report} | cut -d ':' -f 2 | cut -d 'F' -f 1 | awk '{print $1}' | tr -d '\n')
+        owasp_fail_inprog=$(echo ${owasp_report} | cut -d ':' -f 3 | cut -d 'F' -f 1 | awk '{print $1}' | tr -d '\n')
+        if [ "${owasp_fail_new}" -ne 0 ]; then
+            echo "OWASP ZAPROXY SCAN FAIL: REPORT FAIL NEW"
+            exit 1
+        fi
+        if [ "${owasp_fail_inprog}" -ne 0 ]; then
+            echo "OWASP ZAPROXY SCAN FAIL: REPORT FAIL NEW"
+            exit 1
+        fi
       shell: bash
+
