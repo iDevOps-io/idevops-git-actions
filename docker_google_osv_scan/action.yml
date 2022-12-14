@@ -1,0 +1,23 @@
+name: "Docker Google OSV Scan"
+author: Stephen Card <scard@idevops.io>
+description: Scans a docker image with Google's Open Source Vulnerability Scanner
+inputs:
+  docker_org:
+    description: The Docker Org your repo is in.
+    required: true
+  docker_image:
+    description: The Docker image name.
+    required: true
+  docker_tag:
+    description: The tag of the docker file you wish to set.
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - run: |
+      #!/usr/bin/env bash
+      wget -q https://github.com/google/osv-scanner/releases/download/v1.0.0/osv-scanner_1.0.0_linux_amd64
+      chmod +x osv-scanner_1.0.0_linux_amd64
+      ./osv-scanner_1.0.0_linux_amd64 --docker ${{ inputs.docker_org }}/${{ inputs.docker_image }}:${{ inputs.docker_tag }}
+
+    shell: bash
