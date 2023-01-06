@@ -16,9 +16,9 @@ runs:
   steps:
   - run: |
       #!/usr/bin/env bash
-      wget -q https://github.com/google/osv-scanner/releases/download/v1.0.0/osv-scanner_1.0.0_linux_amd64
-      chmod +x osv-scanner_1.0.0_linux_amd64
+      wget -q https://github.com/google/osv-scanner/releases/download/v1.0.2/osv-scanner_1.0.2_linux_amd64 -O osv-scanner
+      chmod +x osv-scanner
       echo "Inputs: ${{ inputs.docker_org }}/${{ inputs.docker_image }}:${{ inputs.docker_tag }}"
-      ./osv-scanner_1.0.0_linux_amd64 --docker ${{ inputs.docker_org }}/${{ inputs.docker_image }}:${{ inputs.docker_tag }}
+      ./osv-scanner --docker ${{ inputs.docker_org }}/${{ inputs.docker_image }}:${{ inputs.docker_tag }}
 
     shell: bash
