@@ -16,8 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: "DOCKER:IMAGE:SCAN:Grype"
-        uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
+      - name: "DOCKER:IMAGE:SCAN:GRYPE"
+        uses: iDevOps-io/idevops-git-actions/execute_docker_scan_grype@main
         with:
           docker_image_name: "${{ inputs.docker_org }}/${{ inputs.image }}:${{ inputs.image_tag }}"
 ```
