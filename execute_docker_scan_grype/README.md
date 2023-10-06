@@ -1,3 +1,4 @@
+```yaml
 name: "Apply Anchore"
 
 on:
@@ -19,3 +20,4 @@ jobs:
         uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
         with:
           docker_image_name: "${{ inputs.docker_org }}/${{ inputs.image }}:${{ inputs.image_tag }}"
+```
