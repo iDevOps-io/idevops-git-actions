@@ -1,0 +1,32 @@
+name: "Grype Docker Image Scan"
+author: Jason Valest
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Grype Docker Image Scan"
+inputs:
+  docker_image_name:
+    description: Docker image to scan.
+    required: true
+  fail_pipeline_on_fail:
+    description: Fail the pipeline on scan failure.
+    default: "true"
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: "Grype Docker Image Scan"
+    run: |
+        #!/usr/bin/env bash
+        echo ${{ inputs.docker_image_name }}
+        curl -sfL https://get.grype.io | sh -s -- -b /usr/local/bin
+        grype_output=$(grype ${{ inputs.docker_image_name }})
+        if echo "$grype_output" | grep -q "Vulnerability found"; then
+          echo "Grype scan found vulnerabilities."
+          if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
+            exit 1
+          fi
+        else
+          echo "Grype scan passed with no vulnerabilities."
+        fi
+    shell: bash
