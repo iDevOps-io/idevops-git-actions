@@ -21,6 +21,9 @@ runs:
         echo ${{ inputs.docker_image_name }}
         curl -sfL https://get.grype.io | sh -s -- -b /usr/local/bin
         grype_output=$(grype ${{ inputs.docker_image_name }})
+        echo "Grype scan result:"
+        echo "$grype_output"
+        grype_output=$(grype ${{ inputs.docker_image_name }})
         if echo "$grype_output" | grep -q "Vulnerability found"; then
           echo "Grype scan found vulnerabilities."
           if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
