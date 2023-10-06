@@ -19,8 +19,8 @@ runs:
     run: |
         #!/usr/bin/env bash
         echo ${{ inputs.docker_image_name }}
-        curl -sfL https://get.grype.io | sh -s -- -b /usr/local/bin
-        grype_output=$(grype ${{ inputs.docker_image_name }} 2>&1)
+        curl -sfL https://get.grype.io | bash -s -- -f -p ${{ inputs.docker_image_name }}
+        grype_output=$(grype ${{ inputs.docker_image_name }})
         echo "Grype scan result:"
         echo "$grype_output"
         grype_output=$(grype ${{ inputs.docker_image_name }})
