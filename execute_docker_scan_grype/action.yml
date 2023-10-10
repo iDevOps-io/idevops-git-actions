@@ -1,20 +1,32 @@
-name: "Anchore Docker Image Scan with Grype"
+name: "Anchore Docker Image Scan with Grype and Syft"
 author: Jason Valest
 branding:
   icon: cloud
   color: gray-dark
-description: "Anchore Docker Image Scan with Grype"
+description: "Anchore Docker Image Scan with Grype and Syft"
 inputs:
   docker_image_name:
     description: File you want to scan.
     required: true
   fail_pipeline_on_fail:
-    description: fail pipeline on scan.
+    description: Fail pipeline on scan.
     default: "true"
     required: true
 runs:
   using: "composite"
   steps:
+  - name: "Install Syft"
+    run: |
+        #!/usr/bin/env bash
+        echo "Installing Syft..."
+        echo ${{ inputs.docker_image_name }}
+        if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
+           sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -f -b ${{ inputs.docker_image_name }}
+        else
+          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b ${{ inputs.docker_image_name }}
+        fi
+    shell: bash
+
   - name: "Anchore Docker Image Scan"
     run: |
         #!/usr/bin/env bash
@@ -24,5 +36,5 @@ runs:
         else
           sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -b ${{ inputs.docker_image_name }}
         fi
-    shell: bash   
+    shell: bash
 timeout-minutes: 10
