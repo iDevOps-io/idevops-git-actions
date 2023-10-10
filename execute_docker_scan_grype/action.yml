@@ -19,7 +19,7 @@ runs:
     run: |
         #!/usr/bin/env bash
         echo "Installing Syft..."
-        sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sudo sh -s -- -b /usr/local/bin
+        sudo rm -rf /usr/local/bin
     shell: bash
 
   - name: "Anchore Docker Image Scan"
@@ -31,5 +31,8 @@ runs:
         else
           sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sudo sh -s -- -b ${{ inputs.docker_image_name }}
         fi
+
+        # Remove the directory with sudo
+        sudo rm -rf /usr/local/bin
     shell: bash
 timeout-minutes: 10
