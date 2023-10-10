@@ -1,30 +1,23 @@
 ```yaml
-name: "Anchore Docker Image Scan"
-author: Jason Valest
-branding:
-  icon: cloud
-  color: gray-dark
-description: "Anchore Docker Image Scan"
-inputs:
-  docker_image_name:
-    description: File you want to scan.
-    required: true
-  fail_pipeline_on_fail:
-    description: fail pipeline on scan.
-    default: "true"
-    required: true
-runs:
-  using: "composite"
-  steps:
-  - name: "Anchore Docker Image Scan"
-    run: |
-        #!/usr/bin/env bash
-        echo ${{ inputs.docker_image_name }}
-        if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-          curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -p ${{ inputs.docker_image_name }}
-        else
-          curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p ${{ inputs.docker_image_name }}
-        fi
-    shell: bash
-    timtout: 10m
+name: "Apply Anchore"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  anchore_grype_scan:
+    name: "Anchore Grype Scan"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "DOCKER:IMAGE:SCAN:ANCHORE"
+        uses: iDevOps-io/idevops-git-actions/execute_docker_image_scan_anchore@main
+        with:
+          docker_image_name: "${{ inputs.docker_org }}/${{ inputs.image }}:${{ inputs.image_tag }}"
 ```
