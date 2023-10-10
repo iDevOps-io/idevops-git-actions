@@ -1,31 +1,28 @@
-#!/bin/bash
-
-# Anchore Grype installation function
-install_grype() {
-    echo "Installing Anchore Grype..."
-    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b ${{ inputs.docker_image_name }}
-}
-
-# Check if Grype is installed, and install it if not
-if ! command -v grype &> /dev/null; then
-    install_grype
-fi
-
-# Use variables from your previous script
-ONLY_HIGH="${1:-'yes'}"
-echo "ONLY_HIGH: $ONLY_HIGH"
-GRYPE_ARGS="${2:-'--only-fixed'}"
-echo "GRYPE_ARGS: $GRYPE_ARGS"
-
-DOCKER_IMAGES=$(docker ps --format '${{ inputs.docker_image_name }}')
-
-for IMAGE in $DOCKER_IMAGES
-do
-    echo "Scanning Docker image: $IMAGE"
-    if [[ "$ONLY_HIGH" == "yes" ]]; then
-        grype "$IMAGE" $GRYPE_ARGS | grep -i -E '(High|Medium|Critical)'
-    else
-        grype "$IMAGE" $GRYPE_ARGS
-    fi
-    echo "================================"
-done
+name: "Anchore Docker Image Scan with Grype"
+author: Jason Valest
+branding:
+  icon: cloud
+  color: gray-dark
+description: "Anchore Docker Image Scan with Grype"
+inputs:
+  docker_image_name:
+    description: File you want to scan.
+    required: true
+  fail_pipeline_on_fail:
+    description: fail pipeline on scan.
+    default: "true"
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: "Anchore Docker Image Scan"
+    run: |
+        #!/usr/bin/env bash
+        echo ${{ inputs.docker_image_name }}
+        if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -f -b ${{ inputs.docker_image_name }}
+        else
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -b ${{ inputs.docker_image_name }}
+        fi
+    shell: bash   
+timeout-minutes: 10
