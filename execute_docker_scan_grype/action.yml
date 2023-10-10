@@ -25,4 +25,4 @@ runs:
           curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p ${{ inputs.docker_image_name }}
         fi
     shell: bash
-    timeout: 10m
+timeout-minutes: 10
