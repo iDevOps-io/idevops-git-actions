@@ -24,4 +24,5 @@ runs:
         else
           curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -f -p ${{ inputs.docker_image_name }}
         fi
+    shell: bash   
 timeout-minutes: 10
