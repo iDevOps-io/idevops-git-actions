@@ -1,9 +1,9 @@
-name: "Anchore Docker Image Scan"
+name: "Anchore Docker Image Scan with Grype"
 author: Jason Valest
 branding:
   icon: cloud
   color: gray-dark
-description: "Anchore Docker Image Scan"
+description: "Anchore Docker Image Scan with Grype"
 inputs:
   docker_image_name:
     description: File you want to scan.
@@ -19,10 +19,6 @@ runs:
     run: |
         #!/usr/bin/env bash
         echo ${{ inputs.docker_image_name }}
-        if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-          curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -p ${{ inputs.docker_image_name }}
-        else
-          curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p ${{ inputs.docker_image_name }}
-        fi
+        grype -o json ${{ inputs.docker_image_name }}
     shell: bash
 timeout-minutes: 10
