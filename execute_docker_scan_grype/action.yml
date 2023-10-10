@@ -19,6 +19,9 @@ runs:
     run: |
         #!/usr/bin/env bash
         echo ${{ inputs.docker_image_name }}
-        grype -o json ${{ inputs.docker_image_name }}
-    shell: bash
+        if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -f -p ${{ inputs.docker_image_name }}
+        else
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -f -p ${{ inputs.docker_image_name }}
+        fi
 timeout-minutes: 10
