@@ -21,9 +21,9 @@ runs:
         echo "Installing Syft..."
         echo ${{ inputs.docker_image_name }}
         if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-           sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -f -b ${{ inputs.docker_image_name }}
+           sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | bash -s -- -f -b ${{ inputs.docker_image_name }}
         else
-          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b ${{ inputs.docker_image_name }}
+          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | bash -s -- -b ${{ inputs.docker_image_name }}
         fi
     shell: bash
 
@@ -32,8 +32,8 @@ runs:
         #!/usr/bin/env bash
         echo ${{ inputs.docker_image_name }}
         if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-           sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -f -t 1200 -b ${{ inputs.docker_image_name }}
+           sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -f -t 1200 -b ${{ inputs.docker_image_name }}
         else
-          sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b ${{ inputs.docker_image_name }}
+          sudo curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | bash -s -- -b ${{ inputs.docker_image_name }}
         fi
     shell: bash
