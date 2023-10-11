@@ -21,10 +21,11 @@ runs:
         echo "Installing Syft..."
         echo ${{ inputs.docker_image_name }}
         if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-           sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | bash -s -- -f -b ${{ inputs.docker_image_name }}
+          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sudo sh -s -- -f -b ${{ inputs.docker_image_name }}
         else
-          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | bash -s -- -b ${{ inputs.docker_image_name }}
+          sudo curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sudo sh -s - -b ${{ inputs.docker_image_name }}
         fi
+
     shell: bash
 
   - name: "Anchore Docker Image Scan"
