@@ -20,8 +20,8 @@ runs:
         #!/usr/bin/env bash
         echo ${{ inputs.docker_image_name }}
         if [ "${{ inputs.fail_pipeline_on_fail }}" == "true" ]; then
-           sudo curl -sSfL https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -t 2400 ${{ inputs.docker_image_name }}
+           sudo curl -sSfL https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -t 2400 -p ${{ inputs.docker_image_name }}
         else
-          sudo curl -sSfL https://ci-tools.anchore.io/inline_scan-latest | bash -s -- ${{ inputs.docker_image_name }}
+          sudo curl -sSfL https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p ${{ inputs.docker_image_name }}
         fi
     shell: bash
